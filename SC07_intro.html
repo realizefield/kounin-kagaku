@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC07 プラスチックの種類と性質</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#ea580c;--pl:#fed7aa;--pd:#c2410c;--bg:#fff7ed;--card:#fff;--text:#1c1917;--sub:#78716c;--border:#e7e5e4;--ok:#16a34a;--ng:#dc2626;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'BIZ UDPGothic',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  header{background:var(--primary);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px;}
+  header .back{color:#fff;text-decoration:none;font-size:20px;}
+  header h1{font-size:17px;font-weight:700;line-height:1.3;}
+  header .badge{margin-left:auto;background:rgba(255,255,255,.25);border-radius:20px;padding:3px 10px;font-size:12px;}
+  .container{max-width:680px;margin:0 auto;padding:20px 16px 40px;}
+  .sec-title{font-size:18px;font-weight:700;color:var(--primary);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 16px;}
+  .card{background:var(--card);border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);border:1px solid var(--border);}
+  .card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:10px;}
+  .card p{font-size:14px;line-height:1.8;}
+  .memo{background:#fff3ea;border-left:4px solid var(--primary);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:10px;font-size:13px;line-height:1.8;}
+  .kw{font-weight:700;color:var(--primary);}
+  /* 分類グリッド */
+  .cls-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;}
+  .cls-card{border-radius:10px;padding:14px;border:2px solid var(--primary);}
+  .cls-label{font-size:11px;font-weight:700;color:var(--primary);margin-bottom:4px;}
+  .cls-name{font-size:17px;font-weight:700;margin-bottom:6px;}
+  .cls-desc{font-size:12px;color:var(--sub);line-height:1.6;}
+  .cls-ex{font-size:12px;margin-top:6px;color:#44403c;}
+  /* 重合SVG */
+  .polybox{background:#fff3ea;border-radius:10px;padding:12px;margin-top:10px;text-align:center;}
+  /* テーブル */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
+  .tbl th{background:var(--primary);color:#fff;padding:7px 10px;text-align:center;}
+  .tbl td{padding:7px 10px;border-bottom:1px solid var(--border);text-align:center;line-height:1.5;}
+  .tbl tr:nth-child(even) td{background:var(--bg);}
+  /* ミニテスト */
+  .mq{background:#fff3ea;border:2px solid var(--primary);border-radius:12px;padding:16px;margin-top:16px;}
+  .mq h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px;}
+  .mq .qt{font-size:14px;margin-bottom:10px;line-height:1.8;}
+  .choices{display:flex;flex-direction:column;gap:8px;}
+  .cbtn{background:#fff;border:2px solid var(--border);border-radius:8px;padding:10px 14px;text-align:left;font-size:13px;cursor:pointer;font-family:inherit;line-height:1.5;transition:.15s;}
+  .cbtn:hover:not(:disabled){border-color:var(--primary);}
+  .cbtn.correct{border-color:var(--ok);background:#f0fdf4;color:var(--ok);font-weight:700;}
+  .cbtn.wrong{border-color:var(--ng);background:#fef2f2;color:var(--ng);}
+  .fb{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.7;}
+  .fb.show{display:block;}
+  .fb.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+  .fb.ng{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;}
+  /* 語群タップ */
+  .kw-blank{display:inline-block;background:var(--pl);border:2px solid var(--primary);border-radius:6px;padding:1px 8px;color:var(--pd);font-weight:700;font-size:14px;}
+  .blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--primary);padding:0 6px;color:var(--primary);font-weight:700;text-align:center;font-size:14px;cursor:pointer;}
+  .wpool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .wchip{background:#fff;border:2px solid var(--primary);border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer;transition:.15s;font-family:inherit;}
+  .wchip:hover{background:var(--primary);color:#fff;}
+  .wchip.used{opacity:.35;pointer-events:none;}
+  .wbtn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .wchallenge{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .wsubmit{background:#059669;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:none;}
+  .wanswer{background:#fff;color:var(--primary);border:2px solid var(--primary);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:none;}
+  /* ナビ */
+  .nav-row{display:flex;gap:10px;margin-top:32px;}
+  .nav-btn{flex:1;display:block;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;}
+  .nav-sub{flex:1;display:block;background:var(--pl);color:var(--pd);border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;}
+  .confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;animation:fall 2.5s ease-out forwards;}
+  @keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+</style>
+</head>
+<body>
+<header>
+  <a href="../gamba_kounin.html" class="back">←</a>
+  <h1>SC07 プラスチックの<br>種類と性質</h1>
+  <span class="badge">intro</span>
+</header>
+<div class="container">
+
+  <div class="sec-title">1. プラスチックとは</div>
+  <div class="card">
+    <h3>プラスチックの特徴</h3>
+    <p>プラスチックは<span class="kw">石油</span>を原料につくられる<span class="kw">合成樹脂</span>（高分子化合物）です。<br>木の枝のようにつながる構造をもち、主にC・H・Oからなります（窒素Nは含まない）。</p>
+    <div class="memo">
+      <b>プラスチックの特徴</b>：軽くて強い・電気を通しにくい・さびない・成形しやすい・薬品に強い
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>2種類の分類</h3>
+    <div class="cls-grid">
+      <div class="cls-card" style="background:#fff7ed;">
+        <div class="cls-label">加熱すると…</div>
+        <div class="cls-name">熱可塑性樹脂</div>
+        <div class="cls-desc"><b>綿状構造</b><br>加熱→やわらかくなる<br>冷却→元の形に戻る</div>
+        <div class="cls-ex">
+          ポリエチレン（レジ袋）<br>
+          ポリスチレン（発泡スチロール）<br>
+          ポリ塩化ビニル（ホース）<br>
+          PET（ペットボトル）
+        </div>
+      </div>
+      <div class="cls-card" style="background:#fef2f2;">
+        <div class="cls-label">加熱すると…</div>
+        <div class="cls-name">熱硬化性樹脂</div>
+        <div class="cls-desc"><b>網目状構造</b><br>加熱→かたくなる<br>冷却→元の形に戻らない</div>
+        <div class="cls-ex">
+          尿素樹脂（コンセント）<br>
+          フェノール樹脂（なべの取っ手）<br>
+          メラミン樹脂（給食の食器）
+        </div>
+      </div>
+    </div>
+    <div class="memo">
+      <b>覚え方</b>：「<span class="kw">熱可塑性</span>＝可能＝やわらかくなれる」「<span class="kw">熱硬化性</span>＝硬化＝かたくなる」<br>
+      「塑」は土をこねるという意味 → 形を変えられる
+    </div>
+  </div>
+
+  <!-- ミニテスト1 -->
+  <div class="mq">
+    <h4>✏️ ミニテスト①</h4>
+    <div class="qt">加熱するとやわらかくなり、冷やすと元の形に戻るプラスチックはどれか。</div>
+    <div class="choices" id="q1">
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">① 熱硬化性樹脂</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',true)">② 熱可塑性樹脂</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">③ 生分解性プラスチック</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">④ 導電性プラスチック</button>
+    </div>
+    <div class="fb" id="q1-fb">
+      <b>正解②</b>　熱可塑性樹脂は綿状構造をもち、加熱→やわらかい、冷却→元の形。熱硬化性樹脂は網目状構造で加熱→かたくなる（元に戻らない）。
+    </div>
+  </div>
+
+  <div class="sec-title">2. プラスチックの構造（重合）</div>
+  <div class="card">
+    <h3>単量体・重合体・重合</h3>
+    <p>プラスチックは多数の小さな分子が結合してできた<span class="kw">高分子化合物</span>です。</p>
+    <table class="tbl" style="margin-top:12px;">
+      <tr><th>用語</th><th>読み方</th><th>意味</th></tr>
+      <tr><td><b>単量体</b></td><td>モノマー</td><td>高分子を構成する小さな分子</td></tr>
+      <tr><td><b>重合体</b></td><td>ポリマー</td><td>単量体が多数結合してできた高分子化合物</td></tr>
+      <tr><td><b>重合</b></td><td>じゅうごう</td><td>単量体→重合体になる反応</td></tr>
+    </table>
+    <div class="memo">
+      <b>2種類の重合</b><br>
+      <span class="kw">付加重合</span>：単量体どうしがそのままくっつく（例：エチレン→ポリエチレン）<br>
+      <span class="kw">縮合重合</span>：単量体どうしが結びつくとき水（H₂O）などがとれてつながる（例：PETの合成）
+    </div>
+
+    <!-- ===== 付加重合 ===== -->
+    <div style="background:#fff7ed;border-radius:12px;padding:14px 12px;margin-top:14px;">
+      <div style="font-size:13px;font-weight:700;color:#ea580c;margin-bottom:10px;">【付加重合】何も出ずにそのままくっつく</div>
+
+      <!-- 子どもが手をつなぐイメージSVG -->
+      <svg viewBox="0 0 320 72" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:360px;display:block;margin:0 auto 10px">
+        <!-- 子ども1 -->
+        <circle cx="24" cy="18" r="9" fill="#fb923c"/>
+        <text x="24" y="22" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="15" y1="30" x2="6"  y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="33" y1="30" x2="42" y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="18" y1="27" x2="6"  y2="30" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="30" y1="27" x2="42" y2="30" stroke="#fed7aa" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,2"/>
+        <text x="24" y="62" text-anchor="middle" font-size="9" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">エチレン</text>
+
+        <!-- 子ども2 -->
+        <circle cx="80" cy="18" r="9" fill="#fb923c"/>
+        <text x="80" y="22" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="71" y1="30" x2="62"  y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="89" y1="30" x2="98" y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="74" y1="27" x2="62" y2="30" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="86" y1="27" x2="98" y2="30" stroke="#fed7aa" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,2"/>
+        <text x="80" y="62" text-anchor="middle" font-size="9" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">エチレン</text>
+
+        <!-- 子ども3 -->
+        <circle cx="136" cy="18" r="9" fill="#fb923c"/>
+        <text x="136" y="22" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="127" y1="30" x2="118" y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="145" y1="30" x2="154" y2="42" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="130" y1="27" x2="118" y2="30" stroke="#fb923c" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="142" y1="27" x2="154" y2="30" stroke="#fed7aa" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,2"/>
+        <text x="136" y="62" text-anchor="middle" font-size="9" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">エチレン</text>
+
+        <!-- +記号 -->
+        <text x="55" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#ea580c">+</text>
+        <text x="111" y="24" text-anchor="middle" font-size="14" font-weight="bold" fill="#ea580c">+</text>
+        <text x="160" y="24" font-size="14" font-weight="bold" fill="#ea580c">+…</text>
+
+        <!-- 矢印 -->
+        <text x="185" y="24" font-size="18" fill="#ea580c">→</text>
+
+        <!-- 手をつないだ子どもたち（ポリエチレン） -->
+        <circle cx="222" cy="18" r="9" fill="#ea580c"/>
+        <text x="222" y="22" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="213" y1="30" x2="204" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="231" y1="30" x2="240" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="231" y1="22" x2="243" y2="22" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round"/>
+
+        <circle cx="255" cy="18" r="9" fill="#ea580c"/>
+        <text x="255" y="22" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="246" y1="30" x2="237" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="264" y1="30" x2="273" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="264" y1="22" x2="276" y2="22" stroke="#ea580c" stroke-width="2.5" stroke-linecap="round"/>
+
+        <circle cx="288" cy="18" r="9" fill="#ea580c"/>
+        <text x="288" y="22" text-anchor="middle" font-size="8" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">C</text>
+        <line x1="279" y1="30" x2="270" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <line x1="297" y1="30" x2="306" y2="42" stroke="#ea580c" stroke-width="2" stroke-linecap="round"/>
+        <text x="307" y="22" font-size="12" fill="#ea580c">…</text>
+
+        <text x="248" y="62" text-anchor="middle" font-size="9" font-weight="bold" fill="#ea580c" font-family="BIZ UDPGothic,sans-serif">ポリエチレン</text>
+        <text x="248" y="72" text-anchor="middle" font-size="8" fill="#78716c" font-family="BIZ UDPGothic,sans-serif">（レジ袋・コンビニ袋）</text>
+      </svg>
+      <div style="font-size:12px;color:#78716c;text-align:center;">点線（---）の結合の手がほかの分子とつながる → 何も出ずにそのままくっつく</div>
+    </div>
+
+    <!-- ===== 縮合重合 ===== -->
+    <div style="background:#fff7ed;border-radius:12px;padding:14px 12px;margin-top:10px;">
+      <div style="font-size:13px;font-weight:700;color:#ea580c;margin-bottom:10px;">【縮合重合】H₂Oが出ながらつながる</div>
+      <svg viewBox="0 0 340 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:380px;display:block;margin:0 auto 8px">
+        <!-- テレフタル酸 -->
+        <rect x="0" y="10" width="68" height="32" rx="8" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+        <text x="34" y="24" text-anchor="middle" font-size="10" font-weight="bold" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">テレフタル酸</text>
+        <text x="34" y="36" text-anchor="middle" font-size="9" fill="#78716c" font-family="BIZ UDPGothic,sans-serif">HO-C(=O)…</text>
+        <!-- 右の手 -->
+        <circle cx="68" cy="26" r="6" fill="#fbbf24" stroke="#ea580c" stroke-width="1.5"/>
+        <text x="68" y="30" text-anchor="middle" font-size="7" font-weight="bold" fill="#fff" font-family="monospace">OH</text>
+
+        <text x="82" y="30" text-anchor="middle" font-size="18" fill="#ea580c">+</text>
+
+        <!-- エチレングリコール -->
+        <rect x="96" y="10" width="80" height="32" rx="8" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+        <text x="136" y="24" text-anchor="middle" font-size="10" font-weight="bold" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">エチレン</text>
+        <text x="136" y="36" text-anchor="middle" font-size="10" font-weight="bold" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">グリコール</text>
+        <!-- 左の手 -->
+        <circle cx="96" cy="26" r="6" fill="#fbbf24" stroke="#ea580c" stroke-width="1.5"/>
+        <text x="96" y="30" text-anchor="middle" font-size="7" font-weight="bold" fill="#fff" font-family="monospace">HO</text>
+
+        <!-- 矢印 -->
+        <text x="184" y="30" font-size="18" fill="#ea580c">→</text>
+
+        <!-- PET -->
+        <rect x="204" y="10" width="44" height="32" rx="8" fill="#ea580c"/>
+        <text x="226" y="26" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff" font-family="BIZ UDPGothic,sans-serif">PET</text>
+        <text x="226" y="38" text-anchor="middle" font-size="8" fill="#fed7aa" font-family="BIZ UDPGothic,sans-serif">重合体</text>
+
+        <!-- ＋H₂O -->
+        <text x="256" y="22" font-size="12" fill="#78716c" font-family="BIZ UDPGothic,sans-serif">+</text>
+        <!-- H2O水滴 -->
+        <ellipse cx="286" cy="22" rx="16" ry="14" fill="#bfdbfe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="286" y="27" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e40af" font-family="monospace">H₂O</text>
+        <text x="286" y="46" text-anchor="middle" font-size="9" fill="#3b82f6" font-family="BIZ UDPGothic,sans-serif">飛び出す！</text>
+
+        <!-- OH+HO → H2O の説明矢印 -->
+        <text x="34" y="58" text-anchor="middle" font-size="9" fill="#ea580c" font-family="BIZ UDPGothic,sans-serif">-OH</text>
+        <text x="96" y="58" text-anchor="middle" font-size="9" fill="#ea580c" font-family="BIZ UDPGothic,sans-serif">HO-</text>
+        <path d="M 50 56 Q 72 70 82 56" stroke="#ea580c" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <text x="72" y="76" text-anchor="middle" font-size="9" fill="#ea580c" font-family="BIZ UDPGothic,sans-serif">くっつくとH₂Oが出る</text>
+
+        <!-- ペットボトルアイコン -->
+        <rect x="252" y="60" width="18" height="30" rx="4" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+        <rect x="255" y="56" width="12" height="7" rx="3" fill="#059669"/>
+        <text x="261" y="98" text-anchor="middle" font-size="8" fill="#059669" font-family="BIZ UDPGothic,sans-serif">PET</text>
+        <text x="295" y="78" text-anchor="middle" font-size="8" fill="#059669" font-family="BIZ UDPGothic,sans-serif">ボトル</text>
+
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#ea580c"/>
+          </marker>
+        </defs>
+      </svg>
+      <div style="font-size:12px;color:#78716c;text-align:center;">-OH と HO- がくっつくとき H₂O が外れてつながっていく</div>
+    </div>
+  </div>
+
+  <!-- ミニテスト2 -->
+  <div class="mq">
+    <h4>✏️ ミニテスト②</h4>
+    <div class="qt">縮合重合の説明として正しいものはどれか。</div>
+    <div class="choices" id="q2">
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">① 単量体どうしがそのままくっついて高分子化合物になる反応</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">② 高分子化合物が熱で分解する反応</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',true)">③ 単量体どうしが結びつくとき水などがとれてつながる反応</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">④ 金属がイオンになる反応</button>
+    </div>
+    <div class="fb" id="q2-fb">
+      <b>正解③</b>　縮合重合はH₂Oなどがとれながらつながる重合。付加重合は何も出ずにそのままくっつく（エチレン→ポリエチレン）。
+    </div>
+  </div>
+
+  <div class="sec-title">3. 主なプラスチックの一覧</div>
+  <div class="card">
+    <table class="tbl">
+      <tr><th>名称</th><th>略称</th><th>種類</th><th>用途例</th></tr>
+      <tr><td>ポリエチレン</td><td>PE</td><td>熱可塑性</td><td>レジ袋・コンビニ袋</td></tr>
+      <tr><td>ポリスチレン</td><td>PS</td><td>熱可塑性</td><td>発泡スチロール・定規</td></tr>
+      <tr><td>ポリ塩化ビニル</td><td>PVC</td><td>熱可塑性</td><td>ホース・水道管・消しゴム</td></tr>
+      <tr><td>ポリエチレンテレフタラート</td><td>PET</td><td>熱可塑性</td><td>ペットボトル</td></tr>
+      <tr><td>尿素樹脂</td><td>—</td><td>熱硬化性</td><td>コンセント・プラグ</td></tr>
+      <tr><td>フェノール樹脂</td><td>—</td><td>熱硬化性</td><td>なべの取っ手</td></tr>
+      <tr><td>メラミン樹脂</td><td>—</td><td>熱硬化性</td><td>給食の食器</td></tr>
+    </table>
+    <div class="memo">
+      <b>ポリ塩化ビニル（PVC）の見分け方</b>：銅線を熱してPVCに触れさせ炎に近づけると<span class="kw">青緑色</span>の炎 → 塩素（Cl）を含む証拠
+    </div>
+  </div>
+
+  <!-- ミニテスト3: 語群タップ -->
+  <div class="mq">
+    <h4>✏️ ミニテスト③　語群タップ</h4>
+    <div class="qt">
+      熱可塑性樹脂は<span class="kw-blank" id="b1">綿状</span>構造をもち、加熱すると
+      <span class="kw-blank" id="b2">やわらかく</span>なる。
+      熱硬化性樹脂は<span class="kw-blank" id="b3">網目状</span>構造をもち、加熱すると
+      <span class="kw-blank" id="b4">かたく</span>なる。
+      単量体が合体してできた高分子化合物を
+      <span class="kw-blank" id="b5">重合体</span>という。
+    </div>
+    <div class="wpool" id="word-pool3" style="display:none">
+      <span class="wchip" data-word="綿状" onclick="wtChip(this)">綿状</span>
+      <span class="wchip" data-word="やわらかく" onclick="wtChip(this)">やわらかく</span>
+      <span class="wchip" data-word="網目状" onclick="wtChip(this)">網目状</span>
+      <span class="wchip" data-word="かたく" onclick="wtChip(this)">かたく</span>
+      <span class="wchip" data-word="重合体" onclick="wtChip(this)">重合体</span>
+      <span class="wchip" data-word="単量体" onclick="wtChip(this)">単量体</span>
+    </div>
+    <div class="wbtn-row">
+      <button class="wchallenge" id="wc3-btn" onclick="startChallenge3()">チャレンジ</button>
+      <button class="wsubmit" id="ws3" onclick="checkWord3()">判定する</button>
+      <button class="wanswer" id="wa3" onclick="showAnswer3()">お手本</button>
+    </div>
+    <div class="fb" id="w3-fb" style="display:none"></div>
+  </div>
+
+  <div class="nav-row">
+    <a href="SC07_drill.html" class="nav-sub">練習問題へ →</a>
+    <a href="SC07_check.html" class="nav-btn">まとめチェックへ →</a>
+  </div>
+</div>
+
+<script>
+function checkChoice(btn, qid, correct) {
+  var group = document.getElementById(qid);
+  var btns = group.querySelectorAll('.cbtn');
+  btns.forEach(function(b){ b.disabled=true; });
+  if(correct){ btn.classList.add('correct'); }
+  else { btn.classList.add('wrong'); btns.forEach(function(b){ if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes('true')) b.classList.add('correct'); }); }
+  var fb=document.getElementById(qid+'-fb'); fb.classList.add('show'); fb.classList.add(correct?'ok':'ng');
+  if(correct) confetti();
+}
+
+var WT_ANS = {b1:'綿状', b2:'やわらかく', b3:'網目状', b4:'かたく', b5:'重合体'};
+var WT_STATE = {};
+var WT_SEL_CHIP = null;
+var WT_SEL_BLANK = null;
+var WT_RUNNING = false;
+
+function startChallenge3() {
+  WT_RUNNING=true; WT_SEL_CHIP=null; WT_SEL_BLANK=null;
+  for(var k in WT_ANS){ WT_STATE[k]=null; }
+  var blankIds=['b1','b2','b3','b4','b5'];
+  blankIds.forEach(function(bid){
+    var el=document.getElementById(bid);
+    el.textContent=''; el.style.background=''; el.className='blank';
+    if(el._h) el.removeEventListener('click',el._h);
+    el._h=(function(id){ return function(){ wtBlank(id); }; })(bid);
+    el.addEventListener('click',el._h);
+  });
+  document.querySelectorAll('#word-pool3 .wchip').forEach(function(c){ c.classList.remove('used'); c.style.outline=''; c.style.background=''; c.style.color=''; });
+  document.getElementById('word-pool3').style.display='flex';
+  document.getElementById('wc3-btn').style.display='none';
+  document.getElementById('ws3').style.display='inline-block';
+  document.getElementById('wa3').style.display='inline-block';
+  document.getElementById('w3-fb').style.display='none';
+}
+function wtChip(chip){
+  if(!WT_RUNNING) return;
+  if(WT_SEL_CHIP===chip){ wtClearChip(); return; }
+  if(WT_SEL_BLANK){ wtPlace(chip,WT_SEL_BLANK); wtClearBlank(); return; }
+  wtClearChip();
+  WT_SEL_CHIP=chip; chip.style.outline='3px solid #ea580c'; chip.style.background='#ea580c'; chip.style.color='#fff';
+}
+function wtBlank(bid){
+  if(!WT_RUNNING) return;
+  if(WT_SEL_CHIP){ wtPlace(WT_SEL_CHIP,bid); wtClearChip(); return; }
+  if(WT_STATE[bid]) wtReturn(bid);
+  wtClearBlank(); WT_SEL_BLANK=bid;
+  document.getElementById(bid).style.background='#fff7ed';
+}
+function wtPlace(chip,bid){
+  for(var k in WT_STATE){ if(WT_STATE[k]===chip){ WT_STATE[k]=null; document.getElementById(k).textContent=''; document.getElementById(k).style.background=''; } }
+  if(WT_STATE[bid]) wtReturn(bid);
+  WT_STATE[bid]=chip; document.getElementById(bid).textContent=chip.dataset.word; document.getElementById(bid).style.background='';
+  chip.classList.add('used');
+}
+function wtReturn(bid){
+  var chip=WT_STATE[bid];
+  if(chip){ chip.classList.remove('used'); chip.style.outline=''; chip.style.background=''; chip.style.color=''; }
+  WT_STATE[bid]=null; document.getElementById(bid).textContent=''; document.getElementById(bid).style.background='';
+}
+function wtClearChip(){ if(WT_SEL_CHIP){ WT_SEL_CHIP.style.outline=''; WT_SEL_CHIP.style.background=''; WT_SEL_CHIP.style.color=''; WT_SEL_CHIP=null; } }
+function wtClearBlank(){ if(WT_SEL_BLANK){ document.getElementById(WT_SEL_BLANK).style.background=''; WT_SEL_BLANK=null; } }
+function checkWord3(){
+  wtClearChip(); wtClearBlank();
+  var allOk=true;
+  for(var k in WT_ANS){ if(!WT_STATE[k]||WT_STATE[k].dataset.word!==WT_ANS[k]){ allOk=false; break; } }
+  var fb=document.getElementById('w3-fb'); fb.style.display='block';
+  if(allOk){ fb.className='fb show ok'; fb.innerHTML='<b>正解！</b>　熱可塑性＝綿状＝やわらかくなる、熱硬化性＝網目状＝かたくなる。単量体→重合体（ポリマー）。'; confetti(); }
+  else{ fb.className='fb show ng'; fb.innerHTML='<b>もう一度！</b>　間違った語句を語群に戻しました。'; for(var k in WT_ANS){ if(!WT_STATE[k]||WT_STATE[k].dataset.word!==WT_ANS[k]) wtReturn(k); } }
+}
+function showAnswer3(){
+  for(var k in WT_ANS){ var el=document.getElementById(k); el.textContent=WT_ANS[k]; el.className='kw-blank'; if(el._h){el.removeEventListener('click',el._h);el._h=null;} el.style.background=''; }
+  document.getElementById('word-pool3').style.display='none';
+  document.getElementById('ws3').style.display='none'; document.getElementById('wa3').style.display='none';
+  var btn=document.getElementById('wc3-btn'); btn.textContent='もう一度チャレンジ'; btn.style.display='inline-block';
+  WT_RUNNING=false; wtClearChip(); wtClearBlank();
+}
+function confetti(){
+  var cols=['#ea580c','#fb923c','#fcd34d','#4ade80','#60a5fa','#c084fc'];
+  for(var i=0;i<40;i++){ var el=document.createElement('div'); el.className='confetti-piece'; el.style.cssText='left:'+Math.random()*100+'vw;top:-10px;background:'+cols[i%cols.length]+';animation-delay:'+Math.random()*.8+'s;animation-duration:'+(1.5+Math.random()*1.5)+'s'; document.body.appendChild(el); setTimeout(function(e){ return function(){ e.remove(); }; }(el),3500); }
+}
+</script>
+</body>
+</html>

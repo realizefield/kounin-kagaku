@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC08 リサイクル（3R）</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#ea580c;--pl:#fed7aa;--pd:#c2410c;--bg:#fff7ed;--card:#fff;--text:#1c1917;--sub:#78716c;--border:#e7e5e4;--ok:#16a34a;--ng:#dc2626;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'BIZ UDPGothic',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+  header{background:var(--primary);color:#fff;padding:16px 20px;display:flex;align-items:center;gap:12px;}
+  header .back{color:#fff;text-decoration:none;font-size:20px;}
+  header h1{font-size:17px;font-weight:700;line-height:1.3;}
+  header .badge{margin-left:auto;background:rgba(255,255,255,.25);border-radius:20px;padding:3px 10px;font-size:12px;}
+  .container{max-width:680px;margin:0 auto;padding:20px 16px 40px;}
+  .sec-title{font-size:18px;font-weight:700;color:var(--primary);border-left:4px solid var(--primary);padding-left:12px;margin:28px 0 16px;}
+  .card{background:var(--card);border-radius:12px;padding:18px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.07);border:1px solid var(--border);}
+  .card h3{font-size:15px;font-weight:700;color:var(--primary);margin-bottom:10px;}
+  .card p{font-size:14px;line-height:1.8;}
+  .memo{background:#fff3ea;border-left:4px solid var(--primary);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:10px;font-size:13px;line-height:1.8;}
+  .kw{font-weight:700;color:var(--primary);}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px;}
+  .tbl th{background:var(--primary);color:#fff;padding:8px 10px;text-align:center;}
+  .tbl td{padding:8px 10px;border-bottom:1px solid var(--border);line-height:1.6;}
+  .tbl tr:nth-child(even) td{background:var(--bg);}
+  /* 3Rカード */
+  .r3-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;}
+  .r3-card{border-radius:12px;padding:14px 10px;text-align:center;border:2px solid;}
+  .r3-icon{font-size:28px;margin-bottom:6px;}
+  .r3-en{font-size:13px;font-weight:700;margin-bottom:2px;}
+  .r3-ja{font-size:16px;font-weight:700;margin-bottom:6px;}
+  .r3-desc{font-size:11px;line-height:1.5;}
+  /* ミニテスト */
+  .mq{background:#fff3ea;border:2px solid var(--primary);border-radius:12px;padding:16px;margin-top:16px;}
+  .mq h4{font-size:14px;font-weight:700;color:var(--primary);margin-bottom:12px;}
+  .mq .qt{font-size:14px;margin-bottom:10px;line-height:1.8;}
+  .choices{display:flex;flex-direction:column;gap:8px;}
+  .cbtn{background:#fff;border:2px solid var(--border);border-radius:8px;padding:10px 14px;text-align:left;font-size:13px;cursor:pointer;font-family:inherit;line-height:1.5;transition:.15s;}
+  .cbtn:hover:not(:disabled){border-color:var(--primary);}
+  .cbtn.correct{border-color:var(--ok);background:#f0fdf4;color:var(--ok);font-weight:700;}
+  .cbtn.wrong{border-color:var(--ng);background:#fef2f2;color:var(--ng);}
+  .fb{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.7;}
+  .fb.show{display:block;}
+  .fb.ok{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;}
+  .fb.ng{background:#fef2f2;color:#991b1b;border:1px solid #fecaca;}
+  /* 語群タップ */
+  .kw-blank{display:inline-block;background:var(--pl);border:2px solid var(--primary);border-radius:6px;padding:1px 8px;color:var(--pd);font-weight:700;font-size:14px;}
+  .blank{display:inline-block;min-width:72px;border-bottom:2px solid var(--primary);padding:0 6px;color:var(--primary);font-weight:700;text-align:center;font-size:14px;cursor:pointer;}
+  .wpool{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+  .wchip{background:#fff;border:2px solid var(--primary);border-radius:20px;padding:5px 14px;font-size:13px;cursor:pointer;transition:.15s;font-family:inherit;}
+  .wchip:hover{background:var(--primary);color:#fff;}
+  .wchip.used{opacity:.35;pointer-events:none;}
+  .wbtn-row{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+  .wchallenge{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;}
+  .wsubmit{background:#059669;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:none;}
+  .wanswer{background:#fff;color:var(--primary);border:2px solid var(--primary);border-radius:8px;padding:10px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;display:none;}
+  .nav-row{display:flex;gap:10px;margin-top:32px;}
+  .nav-btn{flex:1;display:block;background:var(--primary);color:#fff;border:none;border-radius:12px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;}
+  .nav-sub{flex:1;display:block;background:var(--pl);color:var(--pd);border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-align:center;text-decoration:none;}
+  .confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;pointer-events:none;animation:fall 2.5s ease-out forwards;}
+  @keyframes fall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+</style>
+</head>
+<body>
+<header>
+  <a href="../gamba_kounin.html" class="back">←</a>
+  <h1>SC08 リサイクル（3R）</h1>
+  <span class="badge">intro</span>
+</header>
+<div class="container">
+
+  <!-- セクション1: 3R -->
+  <div class="sec-title">1. 3R とは</div>
+  <div class="card">
+    <h3>資源の有効利用キャンペーン</h3>
+    <p><span class="kw">3R</span>は資源の再利用についての世界的なキャンペーンです。廃棄物を減らして環境を守るための3つの行動方針です。</p>
+    <div class="r3-grid">
+      <div class="r3-card" style="border-color:#16a34a;background:#f0fdf4;">
+        <div class="r3-icon">♻️</div>
+        <div class="r3-en" style="color:#16a34a;">Reduce</div>
+        <div class="r3-ja" style="color:#16a34a;">リデュース</div>
+        <div class="r3-desc">廃棄物を<b>減らす</b><br>そもそもゴミを出さない<br>（例：マイバッグ持参）</div>
+      </div>
+      <div class="r3-card" style="border-color:#2563eb;background:#eff6ff;">
+        <div class="r3-icon">🔄</div>
+        <div class="r3-en" style="color:#2563eb;">Reuse</div>
+        <div class="r3-ja" style="color:#2563eb;">リユース</div>
+        <div class="r3-desc">もう一度<b>使う</b><br>そのままの形で再使用<br>（例：ビール瓶の回収）</div>
+      </div>
+      <div class="r3-card" style="border-color:#ea580c;background:#fff7ed;">
+        <div class="r3-icon">🏭</div>
+        <div class="r3-en" style="color:#ea580c;">Recycle</div>
+        <div class="r3-ja" style="color:#ea580c;">リサイクル</div>
+        <div class="r3-desc">もう一度<b>再生して利用</b><br>別の製品の材料に<br>（例：ペットボトル→繊維）</div>
+      </div>
+    </div>
+    <div class="memo">
+      <b>重要な数字</b>：ビール瓶の回収率は<span class="kw">ほぼ100%</span>（リユースの代表例）、アルミ缶の回収率は<span class="kw">約90%</span>
+    </div>
+  </div>
+
+  <!-- ミニテスト1 -->
+  <div class="mq">
+    <h4>✏️ ミニテスト①</h4>
+    <div class="qt">ビール瓶を洗浄・殺菌してそのまま再使用することは3Rのどれにあたるか。</div>
+    <div class="choices" id="q1">
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">① Reduce（リデュース）</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',true)">② Reuse（リユース）</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">③ Recycle（リサイクル）</button>
+      <button class="cbtn" onclick="checkChoice(this,'q1',false)">④ Reduce と Recycle の両方</button>
+    </div>
+    <div class="fb" id="q1-fb">
+      <b>正解②</b>　ビール瓶は洗浄・殺菌後にそのままの形で再使用 → Reuse（リユース）。形を変えて別の製品にするのがRecycle。
+    </div>
+  </div>
+
+  <!-- セクション2: 3種類のリサイクル -->
+  <div class="sec-title">2. 3種類のリサイクル方法</div>
+  <div class="card">
+    <h3>マテリアル・ケミカル・サーマルリサイクル</h3>
+    <p>廃プラスチックの有効利用には主に3つのリサイクル方法があります。</p>
+
+    <!-- 3種リサイクルSVG -->
+    <svg viewBox="0 0 340 130" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:14px auto;">
+      <!-- 廃プラスチック -->
+      <rect x="110" y="0" width="120" height="30" rx="8" fill="#e7e5e4" stroke="#78716c" stroke-width="2"/>
+      <text x="170" y="19" text-anchor="middle" font-size="12" font-weight="bold" fill="#44403c" font-family="BIZ UDPGothic,sans-serif">廃プラスチック</text>
+      <!-- 分岐矢印 -->
+      <line x1="110" y1="45" x2="50"  y2="70" stroke="#78716c" stroke-width="1.5"/>
+      <line x1="170" y1="30" x2="170" y2="70" stroke="#78716c" stroke-width="1.5"/>
+      <line x1="230" y1="45" x2="290" y2="70" stroke="#78716c" stroke-width="1.5"/>
+      <polygon points="170,30 170,30" fill="#78716c"/>
+      <!-- マテリアル -->
+      <rect x="2"   y="70" width="96" height="52" rx="8" fill="#d1fae5" stroke="#16a34a" stroke-width="2"/>
+      <text x="50"  y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d" font-family="BIZ UDPGothic,sans-serif">マテリアル</text>
+      <text x="50"  y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#14532d" font-family="BIZ UDPGothic,sans-serif">リサイクル</text>
+      <text x="50"  y="114" text-anchor="middle" font-size="9" fill="#166534" font-family="BIZ UDPGothic,sans-serif">物→物に再利用</text>
+      <!-- ケミカル -->
+      <rect x="122" y="70" width="96" height="52" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+      <text x="170" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a" font-family="BIZ UDPGothic,sans-serif">ケミカル</text>
+      <text x="170" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e3a8a" font-family="BIZ UDPGothic,sans-serif">リサイクル</text>
+      <text x="170" y="114" text-anchor="middle" font-size="9" fill="#1d4ed8" font-family="BIZ UDPGothic,sans-serif">化学分解→ガス・油</text>
+      <!-- サーマル -->
+      <rect x="242" y="70" width="96" height="52" rx="8" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+      <text x="290" y="88" text-anchor="middle" font-size="10" font-weight="bold" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">サーマル</text>
+      <text x="290" y="100" text-anchor="middle" font-size="10" font-weight="bold" fill="#9a3412" font-family="BIZ UDPGothic,sans-serif">リサイクル</text>
+      <text x="290" y="114" text-anchor="middle" font-size="9" fill="#c2410c" font-family="BIZ UDPGothic,sans-serif">焼却→熱エネルギー</text>
+    </svg>
+
+    <table class="tbl">
+      <tr><th>種類</th><th>方法</th><th>例</th></tr>
+      <tr>
+        <td><b style="color:#16a34a;">マテリアル<br>リサイクル</b></td>
+        <td>物（マテリアル）→物として再利用。加工して新しい製品の材料にする。</td>
+        <td>ペットボトル→粉砕しクリアファイル・ボールペンに</td>
+      </tr>
+      <tr>
+        <td><b style="color:#2563eb;">ケミカル<br>リサイクル</b></td>
+        <td>高温で化学的に分解し、ガスや油など別の物質に変えて利用する。</td>
+        <td>廃プラ→メタノール・アンモニア・水素などに熱分解して利用</td>
+      </tr>
+      <tr>
+        <td><b style="color:#ea580c;">サーマル<br>リサイクル</b></td>
+        <td>マテリアル・ケミカルが不可能な場合、焼却して発生した熱エネルギーを利用する。</td>
+        <td>焼却場の熱エネルギー→温泉施設・温水プールに提供</td>
+      </tr>
+    </table>
+    <div class="memo">
+      <b>優先順位</b>：マテリアル → ケミカル → サーマル（サーマルは最後の手段）
+    </div>
+  </div>
+
+  <!-- ミニテスト2 -->
+  <div class="mq">
+    <h4>✏️ ミニテスト②</h4>
+    <div class="qt">ペットボトルを粉砕してクリアファイルに加工するリサイクルは何か。</div>
+    <div class="choices" id="q2">
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">① サーマルリサイクル</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">② ケミカルリサイクル</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',true)">③ マテリアルリサイクル</button>
+      <button class="cbtn" onclick="checkChoice(this,'q2',false)">④ リユース</button>
+    </div>
+    <div class="fb" id="q2-fb">
+      <b>正解③</b>　物（マテリアル）→物として再加工するのがマテリアルリサイクル。化学的に分解→ケミカル、焼却して熱利用→サーマル。
+    </div>
+  </div>
+
+  <!-- セクション3: アルミニウムのリサイクル -->
+  <div class="sec-title">3. アルミニウムのリサイクル</div>
+  <div class="card">
+    <h3>省エネルギー効果</h3>
+    <p>アルミニウムはリサイクルすることで、原料（ボーキサイト）から製造するのに必要なエネルギーの約<span class="kw">97%</span>を節約できます。</p>
+    <div class="memo">
+      アルミニウムは製錬（融解塩電解）に膨大な電気エネルギーが必要 → リサイクルの省エネ効果が特に大きい<br>
+      「<b>紙・ガラス・鉄・アルミニウム</b>」の中でリサイクルの省エネ効果が<span class="kw">最も大きいのはアルミニウム</span>
+    </div>
+  </div>
+
+  <!-- ミニテスト3: 語群タップ -->
+  <div class="mq">
+    <h4>✏️ ミニテスト③　語群タップ</h4>
+    <div class="qt">
+      3Rのうち、廃棄物を減らすことを
+      <span class="kw-blank" id="b1">リデュース</span>、
+      もう一度そのまま使うことを
+      <span class="kw-blank" id="b2">リユース</span>、
+      もう一度再生して利用することを
+      <span class="kw-blank" id="b3">リサイクル</span>という。<br>
+      廃プラスチックを化学的にガスや液体に分解して利用するのは
+      <span class="kw-blank" id="b4">ケミカル</span>リサイクル、
+      焼却して熱エネルギーを利用するのは
+      <span class="kw-blank" id="b5">サーマル</span>リサイクルである。
+    </div>
+    <div class="wpool" id="word-pool3" style="display:none">
+      <span class="wchip" data-word="リデュース" onclick="wtChip(this)">リデュース</span>
+      <span class="wchip" data-word="リユース" onclick="wtChip(this)">リユース</span>
+      <span class="wchip" data-word="リサイクル" onclick="wtChip(this)">リサイクル</span>
+      <span class="wchip" data-word="ケミカル" onclick="wtChip(this)">ケミカル</span>
+      <span class="wchip" data-word="サーマル" onclick="wtChip(this)">サーマル</span>
+      <span class="wchip" data-word="マテリアル" onclick="wtChip(this)">マテリアル</span>
+    </div>
+    <div class="wbtn-row">
+      <button class="wchallenge" id="wc3-btn" onclick="startChallenge3()">チャレンジ</button>
+      <button class="wsubmit" id="ws3" onclick="checkWord3()">判定する</button>
+      <button class="wanswer" id="wa3" onclick="showAnswer3()">お手本</button>
+    </div>
+    <div class="fb" id="w3-fb" style="display:none"></div>
+  </div>
+
+  <div class="nav-row">
+    <a href="SC08_drill.html" class="nav-sub">練習問題へ →</a>
+    <a href="SC08_check.html" class="nav-btn">まとめチェックへ →</a>
+  </div>
+</div>
+
+<script>
+function checkChoice(btn, qid, correct) {
+  var group=document.getElementById(qid);
+  var btns=group.querySelectorAll('.cbtn');
+  btns.forEach(function(b){ b.disabled=true; });
+  if(correct){ btn.classList.add('correct'); }
+  else{ btn.classList.add('wrong'); btns.forEach(function(b){ if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes('true')) b.classList.add('correct'); }); }
+  var fb=document.getElementById(qid+'-fb'); fb.classList.add('show',correct?'ok':'ng');
+  if(correct) confetti();
+}
+
+var WT_ANS={b1:'リデュース',b2:'リユース',b3:'リサイクル',b4:'ケミカル',b5:'サーマル'};
+var WT_STATE={};
+var WT_SEL_CHIP=null;
+var WT_SEL_BLANK=null;
+var WT_RUNNING=false;
+
+function startChallenge3(){
+  WT_RUNNING=true; WT_SEL_CHIP=null; WT_SEL_BLANK=null;
+  for(var k in WT_ANS){ WT_STATE[k]=null; }
+  var blankIds=['b1','b2','b3','b4','b5'];
+  blankIds.forEach(function(bid){
+    var el=document.getElementById(bid);
+    el.textContent=''; el.style.background=''; el.className='blank';
+    if(el._h) el.removeEventListener('click',el._h);
+    el._h=(function(id){ return function(){ wtBlank(id); }; })(bid);
+    el.addEventListener('click',el._h);
+  });
+  document.querySelectorAll('#word-pool3 .wchip').forEach(function(c){ c.classList.remove('used'); c.style.outline=''; c.style.background=''; c.style.color=''; });
+  document.getElementById('word-pool3').style.display='flex';
+  document.getElementById('wc3-btn').style.display='none';
+  document.getElementById('ws3').style.display='inline-block';
+  document.getElementById('wa3').style.display='inline-block';
+  document.getElementById('w3-fb').style.display='none';
+}
+function wtChip(chip){
+  if(!WT_RUNNING) return;
+  if(WT_SEL_CHIP===chip){ wtClearChip(); return; }
+  if(WT_SEL_BLANK){ wtPlace(chip,WT_SEL_BLANK); wtClearBlank(); return; }
+  wtClearChip();
+  WT_SEL_CHIP=chip; chip.style.outline='3px solid #ea580c'; chip.style.background='#ea580c'; chip.style.color='#fff';
+}
+function wtBlank(bid){
+  if(!WT_RUNNING) return;
+  if(WT_SEL_CHIP){ wtPlace(WT_SEL_CHIP,bid); wtClearChip(); return; }
+  if(WT_STATE[bid]) wtReturn(bid);
+  wtClearBlank(); WT_SEL_BLANK=bid;
+  document.getElementById(bid).style.background='#fff7ed';
+}
+function wtPlace(chip,bid){
+  for(var k in WT_STATE){ if(WT_STATE[k]===chip){ WT_STATE[k]=null; document.getElementById(k).textContent=''; document.getElementById(k).style.background=''; } }
+  if(WT_STATE[bid]) wtReturn(bid);
+  WT_STATE[bid]=chip; document.getElementById(bid).textContent=chip.dataset.word; document.getElementById(bid).style.background='';
+  chip.classList.add('used');
+}
+function wtReturn(bid){
+  var chip=WT_STATE[bid];
+  if(chip){ chip.classList.remove('used'); chip.style.outline=''; chip.style.background=''; chip.style.color=''; }
+  WT_STATE[bid]=null; document.getElementById(bid).textContent=''; document.getElementById(bid).style.background='';
+}
+function wtClearChip(){ if(WT_SEL_CHIP){ WT_SEL_CHIP.style.outline=''; WT_SEL_CHIP.style.background=''; WT_SEL_CHIP.style.color=''; WT_SEL_CHIP=null; } }
+function wtClearBlank(){ if(WT_SEL_BLANK){ document.getElementById(WT_SEL_BLANK).style.background=''; WT_SEL_BLANK=null; } }
+function checkWord3(){
+  wtClearChip(); wtClearBlank();
+  var allOk=true;
+  for(var k in WT_ANS){ if(!WT_STATE[k]||WT_STATE[k].dataset.word!==WT_ANS[k]){ allOk=false; break; } }
+  var fb=document.getElementById('w3-fb'); fb.style.display='block';
+  if(allOk){ fb.className='fb show ok'; fb.innerHTML='<b>正解！</b>　3R：リデュース（減らす）・リユース（そのまま再使用）・リサイクル（再生利用）。マテリアル→ケミカル→サーマルの順が優先順位。'; confetti(); }
+  else{ fb.className='fb show ng'; fb.innerHTML='<b>もう一度！</b>　間違った語句を語群に戻しました。'; for(var k in WT_ANS){ if(!WT_STATE[k]||WT_STATE[k].dataset.word!==WT_ANS[k]) wtReturn(k); } }
+}
+function showAnswer3(){
+  for(var k in WT_ANS){ var el=document.getElementById(k); el.textContent=WT_ANS[k]; el.className='kw-blank'; el.removeEventListener('click',el._h); el.style.background=''; }
+  document.getElementById('word-pool3').style.display='none';
+  document.getElementById('ws3').style.display='none'; document.getElementById('wa3').style.display='none';
+  var btn=document.getElementById('wc3-btn'); btn.textContent='もう一度チャレンジ'; btn.style.display='inline-block';
+  WT_RUNNING=false; wtClearChip(); wtClearBlank();
+}
+function confetti(){
+  var cols=['#ea580c','#fb923c','#fcd34d','#4ade80','#60a5fa','#c084fc'];
+  for(var i=0;i<40;i++){ var el=document.createElement('div'); el.className='confetti-piece'; el.style.cssText='left:'+Math.random()*100+'vw;top:-10px;background:'+cols[i%cols.length]+';animation-delay:'+Math.random()*.8+'s;animation-duration:'+(1.5+Math.random()*1.5)+'s'; document.body.appendChild(el); setTimeout((function(e){ return function(){ e.remove(); }; })(el),3500); }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC01 金属の分類と性質【練習】</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#ea580c;--pl:#fed7aa;--pd:#c2410c;--bg:#fff7ed;--card:#fff;--text:#1c1917;--sub:#78716c;--border:#e7e5e4;--ok:#16a34a;--okbg:#dcfce7;--ng:#dc2626;--ngbg:#fee2e2;--radius:14px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'BIZ UDPGothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;padding-bottom:64px;-webkit-text-size-adjust:100%;}
+  header{background:var(--primary);color:#fff;padding:18px 16px 14px;text-align:center;}
+  header .code{font-size:.78em;letter-spacing:.12em;opacity:.85;}
+  header h1{font-size:clamp(1.15em,4vw,1.5em);margin-top:2px;}
+  .step-nav{display:flex;justify-content:center;gap:6px;background:var(--card);border-bottom:1px solid var(--border);padding:10px;font-size:.84em;flex-wrap:wrap;}
+  .step{color:#a8a29e;padding:3px 10px;border-radius:20px;text-decoration:none;}
+  .step.on{background:var(--pl);color:var(--pd);font-weight:700;}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 14px;}
+  .lead{background:#fffbeb;border:1px solid var(--pl);border-radius:var(--radius);padding:14px 16px;margin-bottom:22px;font-size:.96em;color:#92400e;}
+  .sec-title{font-weight:700;color:var(--pd);font-size:1.02em;border-left:5px solid var(--primary);padding-left:10px;margin:26px 0 14px;}
+  .q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .q-num{display:inline-block;background:var(--primary);color:#fff;font-size:.78em;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px;}
+  .q-text{font-size:1.02em;margin-bottom:12px;}
+  .q-text .hint{color:var(--sub);font-size:.86em;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{font-family:inherit;font-size:1em;text-align:left;background:#fafaf9;border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.15s;color:var(--text);}
+  .opt:not(:disabled):hover{border-color:var(--primary);background:#fff;}
+  .opt:disabled{cursor:default;}
+  .opt.ok{background:var(--okbg);border-color:var(--ok);color:#14532d;font-weight:700;}
+  .opt.ng{background:var(--ngbg);border-color:var(--ng);color:#7f1d1d;}
+  .fb{display:none;margin-top:11px;padding:11px 13px;border-radius:10px;font-size:.92em;}
+  .fb.show{display:block;}
+  .fb.ok{background:var(--okbg);color:#14532d;border-left:4px solid var(--ok);}
+  .fb.ng{background:var(--ngbg);color:#7f1d1d;border-left:4px solid var(--ng);}
+  /* 語群タップ */
+  .wt-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;}
+  .wt-note{font-size:.9em;color:var(--sub);margin-bottom:12px;line-height:1.7;}
+  .wt-sent{font-size:1.04em;line-height:2.5;}
+  .wt-blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--primary);text-align:center;margin:0 2px;padding:1px 6px;color:var(--pd);font-weight:700;cursor:pointer;border-radius:4px 4px 0 0;}
+  .wt-blank.preview{background:var(--pl);}
+  .wt-blank.filled{background:var(--pl);}
+  .wt-blank.ok{background:var(--okbg);border-color:var(--ok);color:#14532d;}
+  .wt-blank.ng{background:var(--ngbg);border-color:var(--ng);color:#7f1d1d;}
+  .wt-pool{display:none;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);}
+  .wchip{font-family:inherit;font-size:.96em;background:#fff;border:2px solid var(--primary);color:var(--pd);border-radius:20px;padding:7px 14px;cursor:pointer;user-select:none;transition:.12s;}
+  .wchip.sel{background:var(--primary);color:#fff;transform:scale(1.05);}
+  .wchip.used{opacity:.25;pointer-events:none;}
+  .wt-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .wt-btns button{font-family:inherit;font-size:.92em;font-weight:700;border:none;border-radius:22px;padding:9px 18px;cursor:pointer;}
+  #wt-start{background:var(--primary);color:#fff;}
+  #wt-check{background:var(--ok);color:#fff;display:none;}
+  #wt-answer{background:#fafaf9;color:var(--sub);border:1px solid var(--border)!important;display:none;}
+  .wt-fb{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.92em;}
+  .wt-fb.ok{background:var(--okbg);color:#14532d;}
+  .wt-fb.ng{background:var(--ngbg);color:#7f1d1d;}
+  .wt-fb.info{background:#fffbeb;color:#92400e;}
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:28px;}
+  .nav a{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:24px;font-size:.95em;}
+  .nav .back{background:#fafaf9;color:var(--sub);border:1px solid var(--border);}
+  .nav .next{background:var(--primary);color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <div class="code">SC01 ／ 物質の科学</div>
+  <h1>金属の分類と性質【練習】</h1>
+</header>
+<nav class="step-nav">
+  <a class="step" href="SC01_intro.html">①解説</a>
+  <span class="step on">②練習</span>
+  <a class="step" href="SC01_check.html">③まとめ</a>
+</nav>
+
+<div class="wrap">
+  <div class="lead">
+    金属の<b>性質</b>と<b>分類</b>を、問題で練習しましょう。間違えても大丈夫です。<br>
+    解答後に表示される<b>解説</b>を読んで、もう一度確認すればOKです。
+  </div>
+
+  <div class="sec-title">① 金属に共通する性質</div>
+
+  <div class="q">
+    <div class="q-num">問1</div>
+    <div class="q-text">金属（鉄や銅など）をみがくと光ります。この「みがくと光る」性質を何といいますか？</div>
+    <div class="opts" id="q1">
+      <button class="opt" data-correct="1" onclick="pick(this,'q1',true)">① 金属光沢</button>
+      <button class="opt" onclick="pick(this,'q1',false)">② 延性</button>
+      <button class="opt" onclick="pick(this,'q1',false)">③ 展性</button>
+      <button class="opt" onclick="pick(this,'q1',false)">④ 磁性</button>
+    </div>
+    <div class="fb" id="q1-fb" data-exp="みがくと輝くこの光り方を「金属光沢」といいます。金属だけがもつ見た目の特徴です。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問2</div>
+    <div class="q-text">電線（電気のコード）の中身に最もよく使われている金属はどれですか？<span class="hint">　ヒント：電気をよく通す金属です</span></div>
+    <div class="opts" id="q2">
+      <button class="opt" data-correct="1" onclick="pick(this,'q2',true)">① 銅</button>
+      <button class="opt" onclick="pick(this,'q2',false)">② ガラス</button>
+      <button class="opt" onclick="pick(this,'q2',false)">③ プラスチック</button>
+      <button class="opt" onclick="pick(this,'q2',false)">④ ゴム</button>
+    </div>
+    <div class="fb" id="q2-fb" data-exp="金属は電気をよく通します。中でも銅は安価でよく通すため、電線に使われます。ガラス・プラスチック・ゴムは電気を通しません。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問3</div>
+    <div class="q-text">金をたたくと、紙のように薄く広がります（これが金箔です）。このように、<b>たたくと薄く広がる</b>性質を何といいますか？</div>
+    <div class="opts" id="q3">
+      <button class="opt" data-correct="1" onclick="pick(this,'q3',true)">① 展性</button>
+      <button class="opt" onclick="pick(this,'q3',false)">② 延性</button>
+      <button class="opt" onclick="pick(this,'q3',false)">③ 弾性</button>
+      <button class="opt" onclick="pick(this,'q3',false)">④ 光沢</button>
+    </div>
+    <div class="fb" id="q3-fb" data-exp="たたくと「広がる」のが展性（てんせい）。「展」は『広げる』の意味です（展開・展示と同じ）。金箔は展性のよい例です。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問4</div>
+    <div class="q-text">針金のように、<b>引っぱると細く長く伸びる</b>性質を何といいますか？</div>
+    <div class="opts" id="q4">
+      <button class="opt" data-correct="1" onclick="pick(this,'q4',true)">① 延性</button>
+      <button class="opt" onclick="pick(this,'q4',false)">② 展性</button>
+      <button class="opt" onclick="pick(this,'q4',false)">③ 伝導性</button>
+      <button class="opt" onclick="pick(this,'q4',false)">④ 金属光沢</button>
+    </div>
+    <div class="fb" id="q4-fb" data-exp="引っぱって「伸びる」のが延性（えんせい）。「延」は『のばす』の意味です（延長と同じ）。たたくと広がる展性とセットで覚えましょう。"></div>
+  </div>
+
+  <div class="sec-title">② 金属の分類</div>
+
+  <div class="q">
+    <div class="q-num">問5</div>
+    <div class="q-text">1円玉や飛行機の機体、飲料缶に使われている、<b>非常に軽い金属</b>の代表はどれですか？</div>
+    <div class="opts" id="q5">
+      <button class="opt" data-correct="1" onclick="pick(this,'q5',true)">① アルミニウム</button>
+      <button class="opt" onclick="pick(this,'q5',false)">② 鉄</button>
+      <button class="opt" onclick="pick(this,'q5',false)">③ 鉛（なまり）</button>
+      <button class="opt" onclick="pick(this,'q5',false)">④ 金</button>
+    </div>
+    <div class="fb" id="q5-fb" data-exp="アルミニウムは軽い金属（軽金属）の代表です。1円玉がちょうど1gと覚えると身近です。鉄・鉛・金は重い金属（重金属）です。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問6</div>
+    <div class="q-text">次のうち、<b>最もさびにくく</b>、指輪やネックレスなどの装飾品に使われる金属はどれですか？</div>
+    <div class="opts" id="q6">
+      <button class="opt" data-correct="1" onclick="pick(this,'q6',true)">① 金</button>
+      <button class="opt" onclick="pick(this,'q6',false)">② 鉄</button>
+      <button class="opt" onclick="pick(this,'q6',false)">③ アルミニウム</button>
+      <button class="opt" onclick="pick(this,'q6',false)">④ 銅</button>
+    </div>
+    <div class="fb" id="q6-fb" data-exp="金・銀・白金（プラチナ）は非常にさびにくく、美しさが長持ちします。こうした金属を「貴金属」といいます。"></div>
+  </div>
+
+  <div class="sec-title">③ 語群タップ：まとめの文を完成させよう</div>
+
+  <div class="wt-card">
+    <p class="wt-note">最初は答えが入った状態です。「チャレンジ」を押すと答えが消え、下に語句のボタンが出ます。語句を選んでから文の空欄をタップして入れてください。間違えた空欄は「判定する」で語群に戻ります。</p>
+    <div class="wt-sent">
+      金属に共通する性質には、みがくと光る<span class="wt-blank preview" id="b1" data-ans="金属光沢">金属光沢</span>、
+      電気をよく<span class="wt-blank preview" id="b2" data-ans="通す">通す</span>、
+      熱をよく<span class="wt-blank preview" id="b3" data-ans="伝える">伝える</span>、
+      たたくと薄く広がる<span class="wt-blank preview" id="b4" data-ans="展性">展性</span>、
+      引っぱると伸びる<span class="wt-blank preview" id="b5" data-ans="延性">延性</span>がある。
+    </div>
+    <div class="wt-pool" id="wt-pool" style="display:none">
+      <span class="wchip" data-word="金属光沢">金属光沢</span>
+      <span class="wchip" data-word="通す">通す</span>
+      <span class="wchip" data-word="伝える">伝える</span>
+      <span class="wchip" data-word="展性">展性</span>
+      <span class="wchip" data-word="延性">延性</span>
+      <span class="wchip" data-word="磁性">磁性</span>
+    </div>
+    <div class="wt-btns">
+      <button id="wt-start">チャレンジ</button>
+      <button id="wt-check" style="display:none;background:var(--ok);color:#fff;font-family:inherit;font-size:.92em;font-weight:700;border:none;border-radius:22px;padding:9px 18px;cursor:pointer;">判定する</button>
+      <button id="wt-answer" style="display:none;background:#fafaf9;color:var(--sub);border:1px solid var(--border);font-family:inherit;font-size:.92em;font-weight:700;border-radius:22px;padding:9px 18px;cursor:pointer;">お手本</button>
+    </div>
+    <div class="wt-fb" id="wt-fb"></div>
+  </div>
+
+  <div class="nav">
+    <a class="back" href="SC01_intro.html">← 解説に戻る</a>
+    <a class="next" href="SC01_check.html">まとめチェックへ →</a>
+  </div>
+</div>
+
+<script>
+/* ===== 花吹雪 ===== */
+function confetti(){
+  var n=70, cols=['#ea580c','#fbbf24','#34d399','#60a5fa','#f472b6'];
+  for(var i=0;i<n;i++){
+    var d=document.createElement('div');
+    d.style.cssText='position:fixed;top:-12px;left:'+(Math.random()*100)+'vw;width:9px;height:9px;background:'+cols[i%cols.length]+';z-index:9999;border-radius:1px;pointer-events:none;';
+    document.body.appendChild(d);
+    var dur=2000+Math.random()*1600;
+    d.animate([{transform:'translateY(0) rotate(0deg)',opacity:1},{transform:'translateY(106vh) rotate('+(360+Math.random()*540)+'deg)',opacity:.85}],{duration:dur,easing:'ease-in'});
+    (function(el){setTimeout(function(){el.remove();},dur);})(d);
+  }
+}
+
+/* ===== 四択 ===== */
+function pick(btn, qid, correct){
+  var g=document.getElementById(qid);
+  var opts=g.querySelectorAll('.opt');
+  opts.forEach(function(o){ o.disabled=true; });
+  var fb=document.getElementById(qid+'-fb');
+  if(correct){
+    btn.classList.add('ok');
+    fb.className='fb show ok';
+    fb.innerHTML='⭕ 正解！　'+(fb.dataset.exp||'');
+  }else{
+    btn.classList.add('ng');
+    opts.forEach(function(o){ if(o.dataset.correct==='1') o.classList.add('ok'); });
+    fb.className='fb show ng';
+    fb.innerHTML='❌ 残念。正しい答えはオレンジ色のボタンです。<br>'+(fb.dataset.exp||'');
+  }
+}
+
+/* ===== 語群タップ（addEventListener＋IIFEクロージャ） ===== */
+(function(){
+  var POOL = document.getElementById('wt-pool');
+  if(!POOL) return;
+  var BLANKS = Array.prototype.slice.call(document.querySelectorAll('.wt-blank'));
+  var CHIPS  = Array.prototype.slice.call(POOL.querySelectorAll('.wchip'));
+  var WT_ANS = {};
+  var WT_FILL = {};
+  var WT_SEL = null;
+  var WT_RUNNING = false;
+  BLANKS.forEach(function(b){ WT_ANS[b.id]=b.dataset.ans; WT_FILL[b.id]=null; });
+
+  function clearSel(){ if(WT_SEL){ WT_SEL.classList.remove('sel'); WT_SEL=null; } }
+
+  function wtChip(chip){
+    if(!WT_RUNNING || chip.classList.contains('used')) return;
+    if(WT_SEL===chip){ clearSel(); return; }
+    clearSel(); WT_SEL=chip; chip.classList.add('sel');
+  }
+
+  function wtBlank(blank){
+    if(!WT_RUNNING) return;
+    if(WT_FILL[blank.id]){
+      WT_FILL[blank.id].classList.remove('used');
+      WT_FILL[blank.id]=null;
+      blank.textContent=''; blank.classList.remove('filled','ok','ng');
+      return;
+    }
+    if(!WT_SEL) return;
+    WT_FILL[blank.id]=WT_SEL;
+    blank.textContent=WT_SEL.dataset.word;
+    blank.classList.add('filled');
+    WT_SEL.classList.add('used');
+    clearSel();
+  }
+
+  CHIPS.forEach(function(c){ c.addEventListener('click', function(){ wtChip(c); }); });
+  BLANKS.forEach(function(b){ b.addEventListener('click', function(){ wtBlank(b); }); });
+
+  document.getElementById('wt-start').addEventListener('click', function(){
+    WT_RUNNING=true;
+    BLANKS.forEach(function(b){ b.textContent=''; b.classList.remove('preview','filled','ok','ng'); WT_FILL[b.id]=null; });
+    CHIPS.forEach(function(c){ c.classList.remove('used','sel'); });
+    clearSel();
+    POOL.style.display='flex';
+    document.getElementById('wt-check').style.display='inline-block';
+    document.getElementById('wt-answer').style.display='inline-block';
+    this.textContent='やり直す';
+    var fb=document.getElementById('wt-fb'); fb.style.display='none';
+  });
+
+  document.getElementById('wt-check').addEventListener('click', function(){
+    if(!WT_RUNNING) return;
+    clearSel();
+    var allOk=true;
+    BLANKS.forEach(function(b){
+      var got = WT_FILL[b.id] ? WT_FILL[b.id].dataset.word : '';
+      if(got===WT_ANS[b.id]){ b.classList.add('ok'); b.classList.remove('ng'); }
+      else{ allOk=false; b.classList.add('ng'); b.classList.remove('ok'); }
+    });
+    var fb=document.getElementById('wt-fb'); fb.style.display='block';
+    if(allOk){
+      fb.className='wt-fb ok'; fb.innerHTML='🎉 <b>全問正解！</b>　金属の5つの性質はばっちりです。';
+      confetti(); WT_RUNNING=false;
+    }else{
+      fb.className='wt-fb ng'; fb.innerHTML='惜しい。赤色の空欄をもう一度。間違えた語句は語群に戻しました。';
+      BLANKS.forEach(function(b){
+        var got = WT_FILL[b.id] ? WT_FILL[b.id].dataset.word : '';
+        if(WT_FILL[b.id] && got!==WT_ANS[b.id]){
+          WT_FILL[b.id].classList.remove('used');
+          WT_FILL[b.id]=null; b.textContent=''; b.classList.remove('filled');
+        }
+      });
+    }
+  });
+
+  document.getElementById('wt-answer').addEventListener('click', function(){
+    BLANKS.forEach(function(b){ b.textContent=WT_ANS[b.id]; b.classList.add('filled','ok'); b.classList.remove('ng'); });
+    CHIPS.forEach(function(c){ c.classList.add('used'); });
+    clearSel(); WT_RUNNING=false;
+    var fb=document.getElementById('wt-fb'); fb.style.display='block';
+    fb.className='wt-fb info'; fb.innerHTML='お手本を表示しました。「やり直す」でもう一度挑戦できます。';
+  });
+})();
+</script>
+</body>
+</html>

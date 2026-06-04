@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC11 界面活性剤｜check</title>
+<script src="../gamba_support.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.progress{height:6px;background:#fde8d8;}
+.progress-bar{height:100%;background:#ea580c;transition:width 0.3s;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.section-label{font-size:12px;font-weight:700;color:#ea580c;margin:16px 0 8px;text-transform:uppercase;letter-spacing:0.05em;}
+.q-card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6;}
+.kakomon-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:4px;font-size:11px;padding:1px 6px;margin-left:6px;vertical-align:middle;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.5;}
+.opt-btn:hover{border-color:#ea580c;background:#fef3e8;}
+.opt-btn.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;}
+.opt-btn.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt-btn.disabled{pointer-events:none;opacity:0.6;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-home{background:#1a1a1a;color:#fff;}
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.cf{position:absolute;opacity:0;animation:hanabira 2.0s ease-in forwards;}
+@keyframes hanabira{0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1);}60%{opacity:0.8;}100%{opacity:0;transform:translateY(100vh) rotate(540deg) scale(0.6);}}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC11</span>
+  <h1>界面活性剤｜check</h1>
+</header>
+<div class="step-nav">
+  <a href="SC11_intro.html">① intro</a>
+  <a href="SC11_drill.html">② drill</a>
+  <a href="SC11_check.html" class="active">③ check</a>
+</div>
+<div class="progress"><div class="progress-bar" id="progBar" style="width:0%"></div></div>
+<div class="container">
+
+<div class="section-label">基礎問題（1〜5問）</div>
+
+<!-- 問1 -->
+<div class="q-card">
+  <div class="q-num">問1 / 9</div>
+  <div class="q-text">界面活性剤の特徴として正しいものはどれか。</div>
+  <div class="opts" id="opts1">
+    <button class="opt-btn" onclick="selOpt(1,this,false)">① 水にも油にも溶けない性質をもつ</button>
+    <button class="opt-btn" onclick="selOpt(1,this,true)">② 親水性部分と親油性部分の両方をもつ</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">③ 酸性の物質で、油とは反応しない</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">④ セルロースを原料とし、アルカリに弱い</button>
+  </div>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- 問2 -->
+<div class="q-card">
+  <div class="q-num">問2 / 9</div>
+  <div class="q-text">セッケンの製法（けん化）として正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 油脂を塩酸で分解する</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">② タンパク質を強アルカリで分解する</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">③ 油脂をNaOH（またはKOH）で分解する</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ セルロースを酢酸と反応させる</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- 問3 -->
+<div class="q-card">
+  <div class="q-num">問3 / 9</div>
+  <div class="q-text">ミセルの説明として正しいものはどれか。</div>
+  <div class="opts" id="opts3">
+    <button class="opt-btn" onclick="selOpt(3,this,false)">① セッケン分子が直線状に整列した構造</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">② 親水性部分が内側、親油性部分が外側を向いた球状構造</button>
+    <button class="opt-btn" onclick="selOpt(3,this,true)">③ 親油性部分が内側（油を囲む）、親水性部分が外側を向いた球状構造</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">④ セッケンが油と化学結合した分子</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- 問4 -->
+<div class="q-card">
+  <div class="q-num">問4 / 9</div>
+  <div class="q-text">セッケンの性質として正しいものはどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① 強酸性で皮膚を傷める</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">② 中性で肌に優しい</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">③ 弱アルカリ性で、硬水中では効果が低下する</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">④ 弱酸性で、硬水中でも効果が高い</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- 問5 -->
+<div class="q-card">
+  <div class="q-num">問5 / 9</div>
+  <div class="q-text">合成洗剤に関する説明として正しいものはどれか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① 油脂を原料とし、生分解されやすい</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">② 硬水中では効果が大幅に低下する</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">③ 石油を原料とし、生分解されにくいものがあり富栄養化の原因となる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ 弱アルカリ性で、セッケンとまったく同じ性質をもつ</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<div class="section-label">過去問類題（6〜9問）</div>
+
+<!-- 問6 -->
+<div class="q-card">
+  <div class="q-num">問6 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">セッケンと合成洗剤の比較について、正しい記述の組合せはどれか。<br>
+  ア．セッケンは生分解されやすく環境への負荷が小さい<br>
+  イ．合成洗剤は硬水中でも洗浄効果が低下しない<br>
+  ウ．セッケンは酸性である</div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,false)">① アのみ</button>
+    <button class="opt-btn" onclick="selOpt(6,this,true)">② アとイ</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ イとウ</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ アとウ</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- 問7 -->
+<div class="q-card">
+  <div class="q-num">問7 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">次のうち、セッケンが硬水中で効果が低下する理由として正しいものはどれか。</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① 硬水の酸性がセッケンを分解するから</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">② 硬水に含まれるカルシウムイオンやマグネシウムイオンがセッケンと結合して不溶性の塩を作るから</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">③ 硬水の温度が高いためセッケンが分解されるから</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ 硬水に含まれる塩素がセッケンを漂白するから</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<!-- 問8 -->
+<div class="q-card">
+  <div class="q-num">問8 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">界面活性剤の洗浄作用の説明として正しいものはどれか。</div>
+  <div class="opts" id="opts8">
+    <button class="opt-btn" onclick="selOpt(8,this,false)">① 高温の水で油を物理的に溶かす</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">② 親水性部分が油汚れを直接分解する</button>
+    <button class="opt-btn" onclick="selOpt(8,this,true)">③ 親油性部分が油汚れを取り囲んでミセルを形成し、親水性部分が水側を向くことで水中に分散させる</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">④ セッケン分子が繊維の油と化学反応して新しい物質を作る</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+</div>
+
+<!-- 問9 -->
+<div class="q-card">
+  <div class="q-num">問9 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">界面活性剤に関する記述として誤っているものはどれか。</div>
+  <div class="opts" id="opts9">
+    <button class="opt-btn" onclick="selOpt(9,this,false)">① セッケンは油脂とNaOHを反応させて作る</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">② 界面活性剤は親水性と親油性の両方の部分をもつ</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">③ 合成洗剤は石油を原料とする</button>
+    <button class="opt-btn" onclick="selOpt(9,this,true)">④ セッケンは硬水中でも洗浄効果が変わらない</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="location.reload()">もう一度</button>
+    <a class="btn-home" href="../gamba_kounin.html">ホームへ</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+var answers = {};
+var total = 9;
+var answered = 0;
+var PASS = 7;
+
+var correctMsgs = {
+  1:'✅ 正解！界面活性剤は親水性部分（水になじむ）と親油性部分（油になじむ）の両方をもつ。',
+  2:'✅ 正解！けん化：油脂をNaOH（またはKOH）で分解するとセッケン（脂肪酸のナトリウム塩）が得られる。',
+  3:'✅ 正解！ミセルは親油性部分が内側（油を囲む）、親水性部分が外側（水側）を向いた球状構造。',
+  4:'✅ 正解！セッケンは弱アルカリ性。硬水中ではCa²⁺やMg²⁺と結合して不溶性塩になり効果が落ちる。',
+  5:'✅ 正解！合成洗剤は石油を原料とし、生分解されにくいものがあって河川・海の富栄養化の原因になる。',
+  6:'✅ 正解！ア（セッケンは生分解されやすい）とイ（合成洗剤は硬水でも効果あり）が正しい。ウは誤り（セッケンは弱アルカリ性）。',
+  7:'✅ 正解！硬水中のCa²⁺・Mg²⁺がセッケンと反応して水に溶けない塩を作り、洗浄効果が低下する。',
+  8:'✅ 正解！親油性部分が油を囲み（ミセル形成）、親水性部分が水側を向いて油汚れを水中に分散させる。',
+  9:'✅ 正解（誤りを選ぶ問題）！セッケンは硬水中でCa²⁺・Mg²⁺と反応して効果が低下する。④が誤り。'
+};
+var wrongMsgs = {
+  1:'❌ 不正解。界面活性剤は親水性と親油性の両方の部分をもつことが最大の特徴。',
+  2:'❌ 不正解。けん化は油脂をNaOH（またはKOH）で分解する反応。塩酸ではなくアルカリを使う。',
+  3:'❌ 不正解。ミセルは親油性部分が内側（油を囲む）、親水性部分が外側を向いた球状構造。',
+  4:'❌ 不正解。セッケンは弱アルカリ性。硬水中では効果が低下する。',
+  5:'❌ 不正解。合成洗剤は石油を原料とし、生分解されにくいものがある。硬水中でも効果は落ちない。',
+  6:'❌ 不正解。ウが誤り（セッケンは弱アルカリ性、酸性ではない）。ア・イはともに正しい。',
+  7:'❌ 不正解。硬水に含まれるCa²⁺・Mg²⁺がセッケンと結合して不溶性の塩を作るため効果が低下する。',
+  8:'❌ 不正解。親油性部分が油を取り囲んでミセルを形成し、親水性部分が外側を向いて水中に分散させる。',
+  9:'❌ 不正解（誤りを選ぶ問題）。①②③はすべて正しい。④「硬水中でも変わらない」が誤り。セッケンは硬水で効果低下。'
+};
+
+function selOpt(qNum, btn, isCorrect) {
+  var opts = document.getElementById('opts'+qNum);
+  var btns = opts.querySelectorAll('.opt-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.add('disabled');
+  var fb = document.getElementById('fb'+qNum);
+  if(isCorrect) {
+    btn.classList.add('ok');
+    fb.className='feedback ok';
+    fb.textContent = correctMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=true;answered++;}
+  } else {
+    btn.classList.add('ng');
+    fb.className='feedback ng';
+    fb.textContent = wrongMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=false;answered++;}
+  }
+  var pct = Math.round(answered/total*100);
+  document.getElementById('progBar').style.width = pct+'%';
+  if(answered >= total) showResult();
+}
+
+function showResult() {
+  var correct = 0;
+  for(var k in answers) if(answers[k]) correct++;
+  var box = document.getElementById('resultBox');
+  box.style.display='block';
+  document.getElementById('scoreDisp').textContent = correct + ' / ' + total;
+  if(correct >= PASS) {
+    document.getElementById('msgDisp').textContent = '合格！よくできました🎉';
+    markPassed('SC11');
+    confetti();
+  } else {
+    document.getElementById('msgDisp').textContent = 'あと少し！introを見直してもう一度挑戦しよう。';
+  }
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+function confetti() {
+  var wrap = document.createElement('div');
+  wrap.className='confetti-wrap';
+  document.body.appendChild(wrap);
+  var colors=['#f9a8d4','#fda4af','#fdba74','#fcd34d','#86efac','#93c5fd','#c4b5fd'];
+  for(var i=0;i<80;i++){
+    var cf=document.createElement('div');
+    cf.className='cf';
+    var size=(Math.random()*12+8)+'px';
+    var w=(Math.random()*10+6)+'px';
+    cf.style.left=Math.random()*100+'%';
+    cf.style.top='-20px';
+    cf.style.width=w;
+    cf.style.height=size;
+    cf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    cf.style.borderRadius='50% 50% 50% 0 / 60% 60% 40% 0';
+    cf.style.animationDelay=Math.random()*1.5+'s';
+    cf.style.animationDuration=(1.5+Math.random()*1.0)+'s';
+    wrap.appendChild(cf);
+  }
+  setTimeout(function(){if(wrap.parentNode)wrap.parentNode.removeChild(wrap);},3500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC10 化学繊維｜drill</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.q-card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6;}
+/* 語群タップ式 */
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:12px;background:#fef3e8;border-radius:8px;}
+.wchip{display:inline-block;padding:6px 14px;background:#fff;border:2px solid #ea580c;border-radius:20px;font-size:14px;font-weight:700;color:#ea580c;cursor:pointer;transition:all 0.15s;}
+.wchip.used{background:#ccc;border-color:#ccc;color:#fff;pointer-events:none;}
+.blank-area{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.blank{display:inline-block;min-width:90px;padding:6px 12px;border-bottom:2px solid #ea580c;font-size:15px;font-weight:700;color:#ea580c;cursor:pointer;text-align:center;background:#fef3e8;border-radius:4px;}
+.blank.empty{color:#ccc;}
+/* 4択式 */
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.5;}
+.opt-btn:hover{border-color:#ea580c;background:#fef3e8;}
+.opt-btn.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;}
+.opt-btn.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt-btn.disabled{pointer-events:none;opacity:0.6;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-next{background:#1a1a1a;color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC10</span>
+  <h1>化学繊維｜drill</h1>
+</header>
+<div class="step-nav">
+  <a href="SC10_intro.html">① intro</a>
+  <a href="SC10_drill.html" class="active">② drill</a>
+  <a href="SC10_check.html">③ check</a>
+</div>
+<div class="container">
+
+<!-- 問1：語群タップ（分類） -->
+<div class="q-card">
+  <div class="q-num">問1 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>化学繊維は、<span id="b1_1" class="blank empty" onclick="fillBlank('b1_1','w1')">　　　</span>・キュプラなどの<span id="b1_2" class="blank empty" onclick="fillBlank('b1_2','w2')">　　　</span>、アセテートなどの<span id="b1_3" class="blank empty" onclick="fillBlank('b1_3','w3')">　　　</span>、ナイロン・ポリエステルなどの<span id="b1_4" class="blank empty" onclick="fillBlank('b1_4','w4')">　　　</span>に分けられる。</div>
+  <div class="word-bank">
+    <span id="w1" class="wchip" onclick="selectChip('w1','b1_1')">レーヨン</span>
+    <span id="w2" class="wchip" onclick="selectChip('w2','b1_2')">再生繊維</span>
+    <span id="w3" class="wchip" onclick="selectChip('w3','b1_3')">半合成繊維</span>
+    <span id="w4" class="wchip" onclick="selectChip('w4','b1_4')">合成繊維</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ1()">確認する</button>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- 問2：4択（再生繊維の原料） -->
+<div class="q-card">
+  <div class="q-num">問2 / 7</div>
+  <div class="q-text">レーヨンとキュプラの原料として正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 石油</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">② 木材パルプ（セルロース）</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">③ 羊毛（ケラチン）</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ 蚕のまゆ（フィブロイン）</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- 問3：語群タップ（合成繊維の用途） -->
+<div class="q-card">
+  <div class="q-num">問3 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br><span id="b3_1" class="blank empty" onclick="fillBlank('b3_1','w3_1')">　　　</span>はストッキングや釣り糸に、<span id="b3_2" class="blank empty" onclick="fillBlank('b3_2','w3_2')">　　　</span>は学生服やシャツに、<span id="b3_3" class="blank empty" onclick="fillBlank('b3_3','w3_3')">　　　</span>はセーターや毛布に使われる。</div>
+  <div class="word-bank">
+    <span id="w3_1" class="wchip" onclick="selectChip('w3_1','b3_1')">ナイロン</span>
+    <span id="w3_2" class="wchip" onclick="selectChip('w3_2','b3_2')">ポリエステル</span>
+    <span id="w3_3" class="wchip" onclick="selectChip('w3_3','b3_3')">アクリル繊維</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ3()">確認する</button>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- 問4：4択（ビニロン） -->
+<div class="q-card">
+  <div class="q-num">問4 / 7</div>
+  <div class="q-text">日本で開発された合成繊維で、魚網やロープに使われるものはどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① アクリル繊維</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">② ポリエステル</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">③ ビニロン</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">④ キュプラ</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- 問5：語群タップ（アセテート） -->
+<div class="q-card">
+  <div class="q-num">問5 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>アセテートは<span id="b5_1" class="blank empty" onclick="fillBlank('b5_1','w5_1')">　　　</span>繊維に分類され、原料は<span id="b5_2" class="blank empty" onclick="fillBlank('b5_2','w5_2')">　　　</span>（セルロース）である。スカートや傘などに使われる。</div>
+  <div class="word-bank">
+    <span id="w5_1" class="wchip" onclick="selectChip('w5_1','b5_1')">半合成</span>
+    <span id="w5_2" class="wchip" onclick="selectChip('w5_2','b5_2')">木材パルプ</span>
+    <span id="w5_3" class="wchip" onclick="selectChip('w5_3','b5_3')">合成</span>
+    <span id="w5_4" class="wchip" onclick="selectChip('w5_4','b5_4')">石油</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ5()">確認する</button>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- 問6：4択（化学繊維の特徴） -->
+<div class="q-card">
+  <div class="q-num">問6 / 7</div>
+  <div class="q-text">合成繊維の一般的な特徴として正しいものはどれか。</div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,false)">① 吸湿性が高く、汗をよく吸う</button>
+    <button class="opt-btn" onclick="selOpt(6,this,true)">② 強度・耐久性が高く、虫害を受けにくい</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ 天然繊維と同じく、すべてセルロースが主成分</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ アルカリに弱く、石けんで洗えない</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- 問7：4択（繊維と分類の組合せ） -->
+<div class="q-card">
+  <div class="q-num">問7 / 7</div>
+  <div class="q-text">繊維とその分類の組合せとして正しいものはどれか。</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① レーヨン―半合成繊維、アセテート―再生繊維</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">② ナイロン―再生繊維、ポリエステル―半合成繊維</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">③ レーヨン―再生繊維、アセテート―半合成繊維</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ キュプラ―合成繊維、ビニロン―再生繊維</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="location.reload()">もう一度</button>
+    <a class="btn-next" href="SC10_check.html">check へ →</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+var answers = {};
+var selectedChip = null;
+var total = 7;
+var answered = 0;
+
+// 語群タップ共通
+function selectChip(chipId, defaultBlank) {
+  if(selectedChip) {
+    document.getElementById(selectedChip).style.outline = '';
+  }
+  selectedChip = chipId;
+  document.getElementById(chipId).style.outline = '2px solid #ea580c';
+}
+
+function fillBlank(blankId, chipId) {
+  if(!selectedChip) return;
+  var chip = document.getElementById(selectedChip);
+  var blank = document.getElementById(blankId);
+  // 既に埋まっているブランクのチップを戻す
+  var prev = blank.getAttribute('data-chip');
+  if(prev) {
+    var prevChip = document.getElementById(prev);
+    prevChip.classList.remove('used');
+    prevChip.style.outline = '';
+  }
+  blank.textContent = chip.textContent;
+  blank.classList.remove('empty');
+  blank.setAttribute('data-chip', selectedChip);
+  chip.classList.add('used');
+  chip.style.outline = '';
+  selectedChip = null;
+}
+
+// 問1確認
+function checkQ1() {
+  var b1 = document.getElementById('b1_1').getAttribute('data-chip');
+  var b2 = document.getElementById('b1_2').getAttribute('data-chip');
+  var b3 = document.getElementById('b1_3').getAttribute('data-chip');
+  var b4 = document.getElementById('b1_4').getAttribute('data-chip');
+  var fb = document.getElementById('fb1');
+  if(b1==='w1' && b2==='w2' && b3==='w3' && b4==='w4') {
+    fb.className='feedback ok'; fb.textContent='✅ 正解！再生繊維→レーヨン・キュプラ、半合成繊維→アセテート、合成繊維→ナイロン・ポリエステルなど。';
+    if(!answers[1]){answers[1]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度確認しよう。化学繊維の3分類：再生繊維・半合成繊維・合成繊維。';
+  }
+}
+
+// 問3確認
+function checkQ3() {
+  var b1 = document.getElementById('b3_1').getAttribute('data-chip');
+  var b2 = document.getElementById('b3_2').getAttribute('data-chip');
+  var b3 = document.getElementById('b3_3').getAttribute('data-chip');
+  var fb = document.getElementById('fb3');
+  if(b1==='w3_1' && b2==='w3_2' && b3==='w3_3') {
+    fb.className='feedback ok'; fb.textContent='✅ 正解！ナイロン→ストッキング・釣り糸、ポリエステル→学生服・シャツ、アクリル→セーター・毛布。';
+    if(!answers[3]){answers[3]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度確認しよう。各繊維の代表的な用途を覚えよう。';
+  }
+}
+
+// 問5確認
+function checkQ5() {
+  var b1 = document.getElementById('b5_1').getAttribute('data-chip');
+  var b2 = document.getElementById('b5_2').getAttribute('data-chip');
+  var fb = document.getElementById('fb5');
+  if(b1==='w5_1' && b2==='w5_2') {
+    fb.className='feedback ok'; fb.textContent='✅ 正解！アセテートは半合成繊維、原料は木材パルプ（セルロース）。';
+    if(!answers[5]){answers[5]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。アセテートは半合成繊維、原料はセルロース系。';
+  }
+}
+
+// 4択共通
+function selOpt(qNum, btn, isCorrect) {
+  var opts = document.getElementById('opts'+qNum);
+  var btns = opts.querySelectorAll('.opt-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.add('disabled');
+  var fb = document.getElementById('fb'+qNum);
+  if(isCorrect) {
+    btn.classList.add('ok');
+    fb.className='feedback ok';
+    var msgs = {
+      2:'✅ 正解！レーヨン・キュプラの原料は木材パルプ（セルロース）。天然の素材を溶かして再生した繊維。',
+      4:'✅ 正解！ビニロンは日本で開発された合成繊維。魚網・ロープなど強度が必要な用途に使われる。',
+      6:'✅ 正解！合成繊維は強度・耐久性が高く、虫害を受けにくい。ただし吸湿性は天然繊維より低い。',
+      7:'✅ 正解！レーヨン・キュプラ→再生繊維、アセテート→半合成繊維、ナイロン・ポリエステル→合成繊維。'
+    };
+    fb.textContent = msgs[qNum];
+    if(!answers[qNum]){answers[qNum]=true;answered++;checkDone();}
+  } else {
+    btn.classList.add('ng');
+    fb.className='feedback ng';
+    var ngs = {
+      2:'❌ 不正解。再生繊維の原料はセルロース（木材パルプや綿）です。石油は合成繊維の原料。',
+      4:'❌ 不正解。日本で開発・魚網やロープに使われる合成繊維はビニロンです。',
+      6:'❌ 不正解。合成繊維は一般に強度・耐久性が高く虫害を受けにくい。吸湿性は低め。',
+      7:'❌ 不正解。分類をもう一度確認しよう。レーヨン→再生、アセテート→半合成。'
+    };
+    fb.textContent = ngs[qNum];
+  }
+}
+
+function checkDone() {
+  if(answered < total) return;
+  var correct = 0;
+  for(var k in answers) if(answers[k]) correct++;
+  var box = document.getElementById('resultBox');
+  box.style.display='block';
+  document.getElementById('scoreDisp').textContent = correct + ' / ' + total;
+  document.getElementById('msgDisp').textContent = correct >= 5 ? '合格ライン突破！checkへ進もう💪' : 'もう少し！introを見直してからもう一度。';
+}
+</script>
+</body>
+</html>

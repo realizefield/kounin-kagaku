@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC11 界面活性剤｜drill</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.q-card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:12px;background:#fef3e8;border-radius:8px;}
+.wchip{display:inline-block;padding:6px 14px;background:#fff;border:2px solid #ea580c;border-radius:20px;font-size:14px;font-weight:700;color:#ea580c;cursor:pointer;transition:all 0.15s;}
+.wchip.used{background:#ccc;border-color:#ccc;color:#fff;pointer-events:none;}
+.blank{display:inline-block;min-width:90px;padding:6px 12px;border-bottom:2px solid #ea580c;font-size:15px;font-weight:700;color:#ea580c;cursor:pointer;text-align:center;background:#fef3e8;border-radius:4px;}
+.blank.empty{color:#ccc;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.5;}
+.opt-btn:hover{border-color:#ea580c;background:#fef3e8;}
+.opt-btn.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;}
+.opt-btn.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt-btn.disabled{pointer-events:none;opacity:0.6;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-next{background:#1a1a1a;color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC11</span>
+  <h1>界面活性剤｜drill</h1>
+</header>
+<div class="step-nav">
+  <a href="SC11_intro.html">① intro</a>
+  <a href="SC11_drill.html" class="active">② drill</a>
+  <a href="SC11_check.html">③ check</a>
+</div>
+<div class="container">
+
+<!-- 問1：語群タップ（分子構造） -->
+<div class="q-card">
+  <div class="q-num">問1 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>セッケン分子は、水になじむ<span id="b1_1" class="blank empty" onclick="fillBlank('b1_1')">　　　</span>部分と、油になじむ<span id="b1_2" class="blank empty" onclick="fillBlank('b1_2')">　　　</span>部分をもつ。</div>
+  <div class="word-bank">
+    <span id="w1_1" class="wchip" onclick="selectChip('w1_1')">親水性</span>
+    <span id="w1_2" class="wchip" onclick="selectChip('w1_2')">親油性</span>
+    <span id="w1_3" class="wchip" onclick="selectChip('w1_3')">疎水性</span>
+    <span id="w1_4" class="wchip" onclick="selectChip('w1_4')">中性</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ1()">確認する</button>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- 問2：4択（セッケンの洗浄） -->
+<div class="q-card">
+  <div class="q-num">問2 / 7</div>
+  <div class="q-text">セッケンによる洗浄のしくみとして正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 親水性部分が油汚れを取り囲み、水中に引き離す</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">② 親油性部分が油汚れを取り囲み（ミセル形成）、水中に引き離す</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">③ セッケンが油と化学反応して分解する</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ 高温の水によって油を溶かす</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- 問3：語群タップ（セッケンvs合成洗剤） -->
+<div class="q-card">
+  <div class="q-num">問3 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>セッケンは<span id="b3_1" class="blank empty" onclick="fillBlank('b3_1')">　　　</span>性で、硬水中では効果が<span id="b3_2" class="blank empty" onclick="fillBlank('b3_2')">　　　</span>。合成洗剤は硬水中でも効果が<span id="b3_3" class="blank empty" onclick="fillBlank('b3_3')">　　　</span>。</div>
+  <div class="word-bank">
+    <span id="w3_1" class="wchip" onclick="selectChip('w3_1')">弱アルカリ</span>
+    <span id="w3_2" class="wchip" onclick="selectChip('w3_2')">落ちる</span>
+    <span id="w3_3" class="wchip" onclick="selectChip('w3_3')">低下する</span>
+    <span id="w3_4" class="wchip" onclick="selectChip('w3_4')">変わらない</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ3()">確認する</button>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- 問4：4択（セッケンの原料） -->
+<div class="q-card">
+  <div class="q-num">問4 / 7</div>
+  <div class="q-text">セッケンの原料の組合せとして正しいものはどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① タンパク質と塩酸</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">② 油脂と強アルカリ（NaOHまたはKOH）</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">③ セルロースと酢酸</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">④ デンプンと水酸化カルシウム</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- 問5：4択（合成洗剤の問題点） -->
+<div class="q-card">
+  <div class="q-num">問5 / 7</div>
+  <div class="q-text">合成洗剤の環境問題として正しいものはどれか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① 硬水中で効果が落ちる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">② 動物性油脂を原料とするため資源不足になる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">③ 生分解されにくく、川や海の富栄養化を引き起こす</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ 弱アルカリ性のため皮膚を傷める</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- 問6：4択（ミセル） -->
+<div class="q-card">
+  <div class="q-num">問6 / 7</div>
+  <div class="q-text">ミセルに関する説明として正しいものはどれか。</div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,false)">① 親水性部分が内側、親油性部分が外側を向いた球状構造</button>
+    <button class="opt-btn" onclick="selOpt(6,this,true)">② 親油性部分が内側（油を囲む）、親水性部分が外側を向いた球状構造</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ セッケン分子が直線状に並んだ構造</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ セッケンと油が化学結合した分子</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- 問7：4択（セッケンと合成洗剤の比較） -->
+<div class="q-card">
+  <div class="q-num">問7 / 7</div>
+  <div class="q-text">セッケンと合成洗剤の比較として正しいものはどれか。</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① セッケンは中性、合成洗剤は弱アルカリ性</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">② セッケンは硬水中でも効果が高い</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">③ セッケンは生分解されやすく、合成洗剤は生分解されにくいものがある</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ 合成洗剤は油脂とアルカリを原料とする</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="location.reload()">もう一度</button>
+    <a class="btn-next" href="SC11_check.html">check へ →</a>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+var answers = {};
+var selectedChip = null;
+var total = 7;
+var answered = 0;
+
+function selectChip(chipId) {
+  if(selectedChip) {
+    document.getElementById(selectedChip).style.outline = '';
+  }
+  selectedChip = chipId;
+  document.getElementById(chipId).style.outline = '2px solid #ea580c';
+}
+
+function fillBlank(blankId) {
+  if(!selectedChip) return;
+  var chip = document.getElementById(selectedChip);
+  var blank = document.getElementById(blankId);
+  var prev = blank.getAttribute('data-chip');
+  if(prev) {
+    var prevChip = document.getElementById(prev);
+    prevChip.classList.remove('used');
+    prevChip.style.outline = '';
+  }
+  blank.textContent = chip.textContent;
+  blank.classList.remove('empty');
+  blank.setAttribute('data-chip', selectedChip);
+  chip.classList.add('used');
+  chip.style.outline = '';
+  selectedChip = null;
+}
+
+function checkQ1() {
+  var b1 = document.getElementById('b1_1').getAttribute('data-chip');
+  var b2 = document.getElementById('b1_2').getAttribute('data-chip');
+  var fb = document.getElementById('fb1');
+  if(b1==='w1_1' && b2==='w1_2') {
+    fb.className='feedback ok'; fb.textContent='✅ 正解！セッケン分子は親水性部分（水になじむ）と親油性部分（油になじむ）をもつ。';
+    if(!answers[1]){answers[1]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。「水になじむ＝親水性」「油になじむ＝親油性」。';
+  }
+}
+
+function checkQ3() {
+  var b1 = document.getElementById('b3_1').getAttribute('data-chip');
+  var b2 = document.getElementById('b3_2').getAttribute('data-chip');
+  var b3 = document.getElementById('b3_3').getAttribute('data-chip');
+  var fb = document.getElementById('fb3');
+  if(b1==='w3_1' && b2==='w3_3' && b3==='w3_2') {
+    fb.className='feedback ok'; fb.textContent='✅ 正解！セッケンは弱アルカリ性。硬水中ではカルシウムイオンと結合して効果が低下する。合成洗剤は硬水でも効果が落ちる。';
+    if(!answers[3]){answers[3]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。セッケン→弱アルカリ性・硬水で効果低下。合成洗剤→硬水でも効果が落ちる。';
+  }
+}
+
+function selOpt(qNum, btn, isCorrect) {
+  var opts = document.getElementById('opts'+qNum);
+  var btns = opts.querySelectorAll('.opt-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.add('disabled');
+  var fb = document.getElementById('fb'+qNum);
+  if(isCorrect) {
+    btn.classList.add('ok');
+    fb.className='feedback ok';
+    var msgs = {
+      2:'✅ 正解！セッケンの親油性部分が油汚れを取り囲み（ミセル形成）、水中に引き離す。これが洗浄のしくみ。',
+      4:'✅ 正解！セッケンは油脂を強アルカリ（NaOHまたはKOH）でけん化して作る。',
+      5:'✅ 正解！合成洗剤の一部は生分解されにくく、川や海に蓄積して富栄養化を引き起こす。',
+      6:'✅ 正解！ミセルは親油性部分が内側（油を囲む）、親水性部分が外側を向いた球状構造。',
+      7:'✅ 正解！セッケンは生分解されやすく環境負荷が低い。合成洗剤は生分解されにくいものがある。'
+    };
+    fb.textContent = msgs[qNum];
+    if(!answers[qNum]){answers[qNum]=true;answered++;checkDone();}
+  } else {
+    btn.classList.add('ng');
+    fb.className='feedback ng';
+    var ngs = {
+      2:'❌ 不正解。親油性部分が油汚れを取り囲み、ミセルを形成して水中に引き離す。',
+      4:'❌ 不正解。セッケンの原料は油脂と強アルカリ（NaOHまたはKOH）。この反応をけん化という。',
+      5:'❌ 不正解。合成洗剤の問題点は生分解されにくく富栄養化を引き起こすこと。',
+      6:'❌ 不正解。ミセルは親油性部分が内側（油側）、親水性部分が外側（水側）を向いた球状構造。',
+      7:'❌ 不正解。セッケンは生分解されやすい。合成洗剤は硬水でも効果があるが生分解されにくいものがある。'
+    };
+    fb.textContent = ngs[qNum];
+  }
+}
+
+function checkDone() {
+  if(answered < total) return;
+  var correct = 0;
+  for(var k in answers) if(answers[k]) correct++;
+  var box = document.getElementById('resultBox');
+  box.style.display='block';
+  document.getElementById('scoreDisp').textContent = correct + ' / ' + total;
+  document.getElementById('msgDisp').textContent = correct >= 5 ? '合格ライン突破！checkへ進もう💪' : 'もう少し！introを見直してからもう一度。';
+}
+</script>
+</body>
+</html>

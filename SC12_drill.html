@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC12 光の反射｜drill</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.q-card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6;}
+.word-bank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:12px;background:#fef3e8;border-radius:8px;}
+.wchip{display:inline-block;padding:6px 14px;background:#fff;border:2px solid #ea580c;border-radius:20px;font-size:14px;font-weight:700;color:#ea580c;cursor:pointer;}
+.wchip.used{background:#ccc;border-color:#ccc;color:#fff;pointer-events:none;}
+.blank{display:inline-block;min-width:80px;padding:5px 10px;border-bottom:2px solid #ea580c;font-size:15px;font-weight:700;color:#ea580c;cursor:pointer;text-align:center;background:#fef3e8;border-radius:4px;margin:0 2px;}
+.blank.empty{color:#ccc;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.5;}
+.opt-btn:hover{border-color:#ea580c;background:#fef3e8;}
+.opt-btn.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;}
+.opt-btn.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt-btn.disabled{pointer-events:none;opacity:0.6;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-next{background:#1a1a1a;color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC12</span>
+  <h1>光の反射｜drill</h1>
+</header>
+<div class="step-nav">
+  <a href="SC12_intro.html">① intro</a>
+  <a href="SC12_drill.html" class="active">② drill</a>
+  <a href="SC12_check.html">③ check</a>
+</div>
+<div class="container">
+
+<!-- 問1：語群タップ -->
+<div class="q-card">
+  <div class="q-num">問1 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>光が鏡に当たって跳ね返ることを光の<span id="b1_1" class="blank empty" onclick="fillBlank('b1_1')">　　</span>という。このとき、<span id="b1_2" class="blank empty" onclick="fillBlank('b1_2')">　　</span>角と<span id="b1_3" class="blank empty" onclick="fillBlank('b1_3')">　　</span>角は等しい。これを反射の<span id="b1_4" class="blank empty" onclick="fillBlank('b1_4')">　　</span>という。</div>
+  <div class="word-bank">
+    <span id="w1_1" class="wchip" onclick="selectChip('w1_1')">反射</span>
+    <span id="w1_2" class="wchip" onclick="selectChip('w1_2')">入射</span>
+    <span id="w1_3" class="wchip" onclick="selectChip('w1_3')">反射</span>
+    <span id="w1_4" class="wchip" onclick="selectChip('w1_4')">法則</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ1()">確認する</button>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- 問2：4択 -->
+<div class="q-card">
+  <div class="q-num">問2 / 7</div>
+  <div class="q-text">光が鏡に入射角45°で当たった。反射角は何度か。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 90°</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">② 22.5°</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">③ 45°</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ 135°</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- 問3：語群タップ（鏡の長さ） -->
+<div class="q-card">
+  <div class="q-num">問3 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>全身を鏡に映すには、身長の<span id="b3_1" class="blank empty" onclick="fillBlank('b3_1')">　　</span>の長さの鏡があれば十分である。身長160cmの人の場合、<span id="b3_2" class="blank empty" onclick="fillBlank('b3_2')">　　</span>cm以上の鏡が必要である。</div>
+  <div class="word-bank">
+    <span id="w3_1" class="wchip" onclick="selectChip('w3_1')">半分（1/2）</span>
+    <span id="w3_2" class="wchip" onclick="selectChip('w3_2')">80</span>
+    <span id="w3_3" class="wchip" onclick="selectChip('w3_3')">2倍</span>
+    <span id="w3_4" class="wchip" onclick="selectChip('w3_4')">160</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ3()">確認する</button>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- 問4：4択 -->
+<div class="q-card">
+  <div class="q-num">問4 / 7</div>
+  <div class="q-text">鏡に映って見える像（虚像）について正しいものはどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① 鏡の表面にある</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">② 鏡の手前、物体との中間点にある</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">③ 鏡の裏側に、鏡から物体と同じ距離の位置にある</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">④ 鏡の裏側に、鏡から物体の2倍の距離の位置にある</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- 問5：4択 -->
+<div class="q-card">
+  <div class="q-num">問5 / 7</div>
+  <div class="q-text">壁や紙などがどの方向からでも見えるのはなぜか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① 壁や紙が自分で光を発しているから</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">② 光が壁や紙を透過するから</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">③ 表面のでこぼこにより光が乱反射し、あらゆる方向に届くから</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ 鏡面反射により一定方向に光が集まるから</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- 問6：語群タップ（法線） -->
+<div class="q-card">
+  <div class="q-num">問6 / 7</div>
+  <div class="q-text">（　）に当てはまる語句をタップして入れよ。<br>入射角・反射角は、鏡の面に対して<span id="b6_1" class="blank empty" onclick="fillBlank('b6_1')">　　</span>な線（<span id="b6_2" class="blank empty" onclick="fillBlank('b6_2')">　　</span>）を基準として測る。</div>
+  <div class="word-bank">
+    <span id="w6_1" class="wchip" onclick="selectChip('w6_1')">垂直</span>
+    <span id="w6_2" class="wchip" onclick="selectChip('w6_2')">法線</span>
+    <span id="w6_3" class="wchip" onclick="selectChip('w6_3')">平行</span>
+    <span id="w6_4" class="wchip" onclick="selectChip('w6_4')">境界線</span>
+  </div>
+  <button class="opt-btn" style="margin-top:4px;" onclick="checkQ6()">確認する</button>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- 問7：4択 -->
+<div class="q-card">
+  <div class="q-num">問7 / 7</div>
+  <div class="q-text">入射角・反射角について正しい説明はどれか。</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① 入射角は鏡の面と入射光のなす角</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">② 入射角は法線と入射光のなす角</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">③ 反射角は鏡の面と反射光のなす角</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ 入射角と反射角の和は常に90°</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="location.reload()">もう一度</button>
+    <a class="btn-next" href="SC12_check.html">check へ →</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+var answers = {};
+var selectedChip = null;
+var total = 7;
+var answered = 0;
+
+function selectChip(chipId) {
+  if(selectedChip) document.getElementById(selectedChip).style.outline='';
+  selectedChip = chipId;
+  document.getElementById(chipId).style.outline='2px solid #ea580c';
+}
+
+function fillBlank(blankId) {
+  if(!selectedChip) return;
+  var chip = document.getElementById(selectedChip);
+  var blank = document.getElementById(blankId);
+  var prev = blank.getAttribute('data-chip');
+  if(prev){ document.getElementById(prev).classList.remove('used'); document.getElementById(prev).style.outline=''; }
+  blank.textContent = chip.textContent;
+  blank.classList.remove('empty');
+  blank.setAttribute('data-chip', selectedChip);
+  chip.classList.add('used');
+  chip.style.outline='';
+  selectedChip = null;
+}
+
+function checkQ1() {
+  var b1=document.getElementById('b1_1').getAttribute('data-chip');
+  var b2=document.getElementById('b1_2').getAttribute('data-chip');
+  var b3=document.getElementById('b1_3').getAttribute('data-chip');
+  var b4=document.getElementById('b1_4').getAttribute('data-chip');
+  var fb=document.getElementById('fb1');
+  if(b1==='w1_1' && b2==='w1_2' && b3==='w1_3' && b4==='w1_4'){
+    fb.className='feedback ok'; fb.textContent='✅ 正解！光の反射、入射角＝反射角、これが反射の法則です。';
+    if(!answers[1]){answers[1]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。「反射・入射・反射・法則」の順に入れましょう。';
+  }
+}
+
+function checkQ3() {
+  var b1=document.getElementById('b3_1').getAttribute('data-chip');
+  var b2=document.getElementById('b3_2').getAttribute('data-chip');
+  var fb=document.getElementById('fb3');
+  if(b1==='w3_1' && b2==='w3_2'){
+    fb.className='feedback ok'; fb.textContent='✅ 正解！全身を映すには身長の半分の鏡で十分。160÷2＝80cm。';
+    if(!answers[3]){answers[3]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。全身を映すには「身長の半分」の鏡が必要です。';
+  }
+}
+
+function checkQ6() {
+  var b1=document.getElementById('b6_1').getAttribute('data-chip');
+  var b2=document.getElementById('b6_2').getAttribute('data-chip');
+  var fb=document.getElementById('fb6');
+  if(b1==='w6_1' && b2==='w6_2'){
+    fb.className='feedback ok'; fb.textContent='✅ 正解！鏡の面に対して垂直な線を法線といい、これを基準に入射角・反射角を測ります。';
+    if(!answers[6]){answers[6]=true;answered++;checkDone();}
+  } else {
+    fb.className='feedback ng'; fb.textContent='❌ もう一度。「垂直」「法線」の組み合わせです。';
+  }
+}
+
+function selOpt(qNum, btn, isCorrect) {
+  var opts=document.getElementById('opts'+qNum);
+  var btns=opts.querySelectorAll('.opt-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.add('disabled');
+  var fb=document.getElementById('fb'+qNum);
+  var okMsgs={
+    2:'✅ 正解！反射の法則：入射角＝反射角。45°で入ったら45°で跳ね返ります。',
+    4:'✅ 正解！虚像は鏡の裏側に、鏡から物体と同じ距離の位置に見えます。',
+    5:'✅ 正解！乱反射により光があらゆる方向に散るため、どこからでも物体が見えます。',
+    7:'✅ 正解！入射角・反射角は「法線（鏡の面に垂直な線）」を基準として測ります。'
+  };
+  var ngMsgs={
+    2:'❌ 不正解。入射角＝反射角なので45°です。法線からの角度で測ります。',
+    4:'❌ 不正解。虚像は鏡の裏側に、鏡から物体と同じ距離の位置に見えます。',
+    5:'❌ 不正解。乱反射のおかげで光があらゆる方向に散り、どこからでも見えます。',
+    7:'❌ 不正解。入射角・反射角は鏡の面ではなく「法線」を基準に測ります。'
+  };
+  if(isCorrect){
+    btn.classList.add('ok'); fb.className='feedback ok'; fb.textContent=okMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=true;answered++;checkDone();}
+  } else {
+    btn.classList.add('ng'); fb.className='feedback ng'; fb.textContent=ngMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=false;answered++;checkDone();}
+  }
+}
+
+function checkDone() {
+  if(answered<total) return;
+  var correct=0;
+  for(var k in answers) if(answers[k]) correct++;
+  var box=document.getElementById('resultBox');
+  box.style.display='block';
+  document.getElementById('scoreDisp').textContent=correct+' / '+total;
+  document.getElementById('msgDisp').textContent=correct>=5?'合格ライン突破！checkへ進もう💪':'もう少し！introを見直してからもう一度。';
+}
+</script>
+</body>
+</html>

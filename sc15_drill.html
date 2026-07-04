@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC15 熱とエネルギー｜drill</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.q-card{background:#fff;border-radius:12px;padding:18px 16px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;font-weight:700;color:#ea580c;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;line-height:1.7;margin-bottom:14px;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt{width:100%;padding:11px 13px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;line-height:1.5;}
+.opt:hover{border-color:#ea580c;background:#fef3e8;}
+.opt.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;pointer-events:none;}
+.opt.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt.disabled{pointer-events:none;opacity:0.55;}
+.fb{font-size:14px;line-height:1.7;margin-top:10px;padding:10px 12px;border-radius:8px;display:none;}
+.fb.ok{background:#dcfce7;color:#15803d;display:block;}
+.fb.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.score-box{background:#fff;border-radius:12px;padding:20px;text-align:center;margin-top:8px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.score-num{font-size:48px;font-weight:700;color:#ea580c;}
+.score-msg{font-size:16px;margin-top:8px;line-height:1.6;}
+.next-btn{display:block;width:100%;padding:14px;background:#ea580c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:10px;cursor:pointer;text-align:center;text-decoration:none;margin-top:24px;font-family:inherit;}
+.hint-box{background:#fffbeb;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 12px;margin:10px 0;font-size:13px;line-height:1.7;color:#78350f;}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC15</span>
+  <h1>熱とエネルギー｜drill</h1>
+</header>
+<div class="step-nav">
+  <a href="SC15_intro.html">① intro</a>
+  <a href="SC15_drill.html" class="active">② drill</a>
+  <a href="SC15_check.html">③ check</a>
+</div>
+<div class="container">
+
+<!-- 問1 -->
+<div class="q-card">
+  <div class="q-num">問1 / 10　熱の伝わり方</div>
+  <div class="q-text">太陽の熱が地球に届くのはどの方法か。</div>
+  <div class="opts" id="q1">
+    <button class="opt" onclick="ans(1,this,false)">① 伝導</button>
+    <button class="opt" onclick="ans(1,this,false)">② 対流</button>
+    <button class="opt" onclick="ans(1,this,true)">③ 放射</button>
+    <button class="opt" onclick="ans(1,this,false)">④ 伝導と対流の両方</button>
+  </div>
+  <div class="fb" id="fb1"></div>
+</div>
+
+<!-- 問2 -->
+<div class="q-card">
+  <div class="q-num">問2 / 10　熱の伝わり方</div>
+  <div class="q-text">お湯を沸かすとき、なべの底から上へ熱い水が移動して全体が温まる。この熱の伝わり方を何というか。</div>
+  <div class="opts" id="q2">
+    <button class="opt" onclick="ans(2,this,false)">① 伝導</button>
+    <button class="opt" onclick="ans(2,this,true)">② 対流</button>
+    <button class="opt" onclick="ans(2,this,false)">③ 放射</button>
+    <button class="opt" onclick="ans(2,this,false)">④ ブラウン運動</button>
+  </div>
+  <div class="fb" id="fb2"></div>
+</div>
+
+<!-- 問3 -->
+<div class="q-card">
+  <div class="q-num">問3 / 10　ブラウン運動</div>
+  <div class="q-text">ブラウン運動について正しいものはどれか。</div>
+  <div class="opts" id="q3">
+    <button class="opt" onclick="ans(3,this,false)">① 固体の中だけで起こる現象である</button>
+    <button class="opt" onclick="ans(3,this,false)">② 粒子が規則正しく一定方向に動く現象である</button>
+    <button class="opt" onclick="ans(3,this,true)">③ 液体や気体の中の小さな粒子が不規則にランダムに動く現象である</button>
+    <button class="opt" onclick="ans(3,this,false)">④ 温度が低いほど激しく起こる現象である</button>
+  </div>
+  <div class="fb" id="fb3"></div>
+</div>
+
+<!-- 問4 -->
+<div class="q-card">
+  <div class="q-num">問4 / 10　絶対温度</div>
+  <div class="q-text">37℃を絶対温度〔K〕で表すといくらか。</div>
+  <div class="opts" id="q4">
+    <button class="opt" onclick="ans(4,this,false)">① 236 K</button>
+    <button class="opt" onclick="ans(4,this,false)">② 273 K</button>
+    <button class="opt" onclick="ans(4,this,true)">③ 310 K</button>
+    <button class="opt" onclick="ans(4,this,false)">④ 373 K</button>
+  </div>
+  <div class="fb" id="fb4"></div>
+</div>
+
+<!-- 問5 -->
+<div class="q-card">
+  <div class="q-num">問5 / 10　熱平衡</div>
+  <div class="q-text">熱平衡の状態として正しいものはどれか。</div>
+  <div class="opts" id="q5">
+    <button class="opt" onclick="ans(5,this,false)">① 2つの物体の熱量が等しくなった状態</button>
+    <button class="opt" onclick="ans(5,this,false)">② 2つの物体の質量が等しくなった状態</button>
+    <button class="opt" onclick="ans(5,this,true)">③ 2つの物体の温度が等しくなり、熱の移動が止まった状態</button>
+    <button class="opt" onclick="ans(5,this,false)">④ 2つの物体の温度差が最大になった状態</button>
+  </div>
+  <div class="fb" id="fb5"></div>
+</div>
+
+<!-- 問6 -->
+<div class="q-card">
+  <div class="q-num">問6 / 10　熱容量の計算</div>
+  <div class="q-text">アルミニウム（比熱0.88 J/g・K）200gの熱容量はいくらか。</div>
+  <div class="hint-box">💡 ヒント：熱容量 C = m × c</div>
+  <div class="opts" id="q6">
+    <button class="opt" onclick="ans(6,this,false)">① 88 J/K</button>
+    <button class="opt" onclick="ans(6,this,true)">② 176 J/K</button>
+    <button class="opt" onclick="ans(6,this,false)">③ 220 J/K</button>
+    <button class="opt" onclick="ans(6,this,false)">④ 440 J/K</button>
+  </div>
+  <div class="fb" id="fb6"></div>
+</div>
+
+<!-- 問7 -->
+<div class="q-card">
+  <div class="q-num">問7 / 10　熱量の計算</div>
+  <div class="q-text">銅（比熱0.39 J/g・K）500gを20℃から50℃に上げるのに必要な熱量はいくらか。</div>
+  <div class="hint-box">💡 ヒント：Q = m × c × ⊿t　　⊿t = 50 − 20 = 30K</div>
+  <div class="opts" id="q7">
+    <button class="opt" onclick="ans(7,this,false)">① 1950 J</button>
+    <button class="opt" onclick="ans(7,this,false)">② 3900 J</button>
+    <button class="opt" onclick="ans(7,this,true)">③ 5850 J</button>
+    <button class="opt" onclick="ans(7,this,false)">④ 7800 J</button>
+  </div>
+  <div class="fb" id="fb7"></div>
+</div>
+
+<!-- 問8 -->
+<div class="q-card">
+  <div class="q-num">問8 / 10　混合温度</div>
+  <div class="q-text">70℃の湯200g（比熱4.2 J/g・K）に、10℃の水200g（比熱4.2 J/g・K）を加えると何℃になるか。（外部に熱は逃げないとする）</div>
+  <div class="hint-box">💡 ヒント：質量が同じときは中間の温度になる</div>
+  <div class="opts" id="q8">
+    <button class="opt" onclick="ans(8,this,false)">① 30℃</button>
+    <button class="opt" onclick="ans(8,this,true)">② 40℃</button>
+    <button class="opt" onclick="ans(8,this,false)">③ 50℃</button>
+    <button class="opt" onclick="ans(8,this,false)">④ 60℃</button>
+  </div>
+  <div class="fb" id="fb8"></div>
+</div>
+
+<!-- 問9 -->
+<div class="q-card">
+  <div class="q-num">問9 / 10　エネルギー変換</div>
+  <div class="q-text">次のエネルギー変換の組み合わせで正しいものはどれか。</div>
+  <div class="opts" id="q9">
+    <button class="opt" onclick="ans(9,this,false)">① 火力発電：電気エネルギー → 熱エネルギー → 力学的エネルギー</button>
+    <button class="opt" onclick="ans(9,this,true)">② 水力発電：位置エネルギー → 運動エネルギー → 電気エネルギー</button>
+    <button class="opt" onclick="ans(9,this,false)">③ 太陽電池：電気エネルギー → 光エネルギー</button>
+    <button class="opt" onclick="ans(9,this,false)">④ 蛍光灯：光エネルギー → 電気エネルギー</button>
+  </div>
+  <div class="fb" id="fb9"></div>
+</div>
+
+<!-- 問10 -->
+<div class="q-card">
+  <div class="q-num">問10 / 10　熱効率</div>
+  <div class="q-text">6000Jの熱を吸収して1800Jの仕事をする熱機関の熱効率はいくらか。</div>
+  <div class="hint-box">💡 ヒント：e = W ÷ Q</div>
+  <div class="opts" id="q10">
+    <button class="opt" onclick="ans(10,this,false)">① 0.10</button>
+    <button class="opt" onclick="ans(10,this,false)">② 0.20</button>
+    <button class="opt" onclick="ans(10,this,true)">③ 0.30</button>
+    <button class="opt" onclick="ans(10,this,false)">④ 0.40</button>
+  </div>
+  <div class="fb" id="fb10"></div>
+</div>
+
+<!-- スコア -->
+<div class="score-box" id="scoreBox" style="display:none;">
+  <div style="font-size:14px;color:#555;margin-bottom:4px;">drill 結果</div>
+  <div class="score-num" id="scoreNum"></div>
+  <div class="score-msg" id="scoreMsg"></div>
+</div>
+
+<a href="SC15_check.html" class="next-btn" id="nextBtn" style="display:none;">check へ進む →</a>
+
+</div>
+
+<script>
+var answered = {};
+var correct = 0;
+var total = 10;
+
+var okMsg = {
+  1: '✅ 正解！太陽から地球へは宇宙（真空）を通って熱が届きます。真空中では伝導・対流は使えず、赤外線による「放射」だけが可能です。',
+  2: '✅ 正解！液体や気体が移動することで熱を運ぶ現象が「対流」です。温められた水は軽くなって上昇し、全体を温めます。',
+  3: '✅ 正解！ブラウン運動は液体・気体の中の小さな粒子が、周りの分子に四方八方からぶつかられて不規則に動く現象です。熱運動の証拠でもあります。',
+  4: '✅ 正解！T = 273 + t = 273 + 37 = 310K です。人間の体温（37℃）は絶対温度で310Kと覚えておくと便利です。',
+  5: '✅ 正解！熱平衡とは、2つの物体の温度が等しくなって熱の移動が止まった状態です。熱量が等しくなるわけではない点に注意。',
+  6: '✅ 正解！C = m × c = 200 × 0.88 = 176 J/K です。',
+  7: '✅ 正解！Q = m × c × ⊿t = 500 × 0.39 × (50−20) = 500 × 0.39 × 30 = 5850J です。',
+  8: '✅ 正解！質量が同じ・比熱が同じなので、混合後の温度は2つの中間になります。(70＋10)÷2 = 40℃ です。式で確認：200×(70−t)=200×(t−10) → 70−t=t−10 → t=40℃',
+  9: '✅ 正解！水力発電は、ダムの水の位置エネルギー → タービンを回す運動エネルギー → 電気エネルギー の順に変換されます。',
+  10:'✅ 正解！e = W ÷ Q = 1800 ÷ 6000 = 0.30（30%）です。'
+};
+var ngMsg = {
+  1: '❌ 不正解。宇宙は真空なので、物質を必要とする伝導・対流は使えません。赤外線で熱が伝わる「放射」が正解です。',
+  2: '❌ 不正解。物質が移動して熱を運ぶのは「対流」です。「伝導」は固体内部を熱が伝わる現象、「放射」は赤外線で離れた場所に届く現象です。',
+  3: '❌ 不正解。ブラウン運動は液体・気体の中の現象です。粒子が周りの分子に不規則にぶつかられて動きます。温度が高いほど激しく起こります。',
+  4: '❌ 不正解。T = 273 + t に代入します。273 + 37 = 310K です。℃に273を足すだけです。',
+  5: '❌ 不正解。熱平衡は「温度が等しくなって熱移動が止まった状態」です。熱量ではなく温度が等しくなることがポイントです。',
+  6: '❌ 不正解。C = m × c = 200 × 0.88 = 176 J/K です。比熱（0.88）に質量（200）をかけます。',
+  7: '❌ 不正解。Q = m × c × ⊿t = 500 × 0.39 × 30 = 5850J です。⊿t = 50−20 = 30K です。',
+  8: '❌ 不正解。200×(70−t)=200×(t−10) → 両辺200で約分 → 70−t=t−10 → 80=2t → t=40℃ です。',
+  9: '❌ 不正解。水力発電は「位置→運動→電気」が正しい順序です。①は火力発電の順序が逆、③④は太陽電池・蛍光灯の変換方向が逆です。',
+  10:'❌ 不正解。e = W ÷ Q = 1800 ÷ 6000 = 0.30 です。吸収した熱量Qで仕事Wを割ります。'
+};
+
+function ans(n, btn, isCorrect){
+  if(answered[n]) return;
+  answered[n] = true;
+  if(isCorrect) correct++;
+
+  var opts = document.getElementById('q'+n).querySelectorAll('.opt');
+  for(var i=0;i<opts.length;i++) opts[i].classList.add('disabled');
+  btn.classList.remove('disabled');
+  btn.classList.add(isCorrect ? 'ok' : 'ng');
+
+  var fb = document.getElementById('fb'+n);
+  fb.className = 'fb ' + (isCorrect ? 'ok' : 'ng');
+  fb.textContent = isCorrect ? okMsg[n] : ngMsg[n];
+
+  if(isCorrect) launchConfetti();
+
+  if(Object.keys(answered).length === total) showScore();
+}
+
+function showScore(){
+  var box = document.getElementById('scoreBox');
+  var num = document.getElementById('scoreNum');
+  var msg = document.getElementById('scoreMsg');
+  box.style.display = 'block';
+  num.textContent = correct + ' / ' + total;
+  if(correct >= 8){
+    msg.innerHTML = '🎉 よくできました！<br>check に挑戦しよう！';
+    launchConfetti();
+  } else if(correct >= 6){
+    msg.innerHTML = 'もう少し！<br>間違えた問題をもう一度確認してから check へ進もう。';
+  } else {
+    msg.innerHTML = 'intro を見直してから<br>もう一度チャレンジしよう！';
+  }
+  document.getElementById('nextBtn').style.display = 'block';
+}
+
+function launchConfetti(){
+  var colors=['#ea580c','#fb923c','#fcd34d','#4ade80','#60a5fa','#c084fc'];
+  for(var i=0;i<40;i++){
+    (function(i){
+      setTimeout(function(){
+        var el=document.createElement('div');
+        el.style.cssText='position:fixed;top:-10px;left:'+Math.random()*100+'vw;width:8px;height:8px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:50%;pointer-events:none;z-index:9999;';
+        document.body.appendChild(el);
+        var startTime=Date.now(),duration=2000+Math.random()*1500,xDrift=(Math.random()-0.5)*200,rotation=Math.random()*720;
+        function animate(){
+          var p=(Date.now()-startTime)/duration;
+          if(p>=1){el.remove();return;}
+          el.style.transform='translateY('+p*110+'vh) translateX('+(xDrift*p)+'px) rotate('+(rotation*p)+'deg)';
+          el.style.opacity=1-p*0.5;
+          requestAnimationFrame(animate);
+        }
+        animate();
+      },i*18);
+    })(i);
+  }
+}
+</script>
+</body>
+</html>

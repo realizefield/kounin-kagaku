@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC13 光の屈折｜check</title>
+<script src="../gamba_support.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;background:#f8f4f0;color:#1a1a1a;min-height:100vh;}
+header{background:#ea580c;color:#fff;padding:14px 16px;}
+header .badge{font-size:11px;background:rgba(255,255,255,0.25);padding:2px 8px;border-radius:10px;margin-right:8px;}
+header h1{font-size:18px;font-weight:700;display:inline;}
+.step-nav{display:flex;gap:6px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;overflow-x:auto;}
+.step-nav a{padding:5px 14px;border-radius:16px;font-size:13px;font-weight:700;text-decoration:none;background:#f3f0ed;color:#666;white-space:nowrap;}
+.step-nav a.active{background:#ea580c;color:#fff;}
+.progress{height:6px;background:#fde8d8;}
+.progress-bar{height:100%;background:#ea580c;transition:width 0.3s;}
+.container{padding:16px;max-width:640px;margin:0 auto;}
+.section-label{font-size:12px;font-weight:700;color:#ea580c;margin:16px 0 8px;letter-spacing:0.05em;}
+.q-card{background:#fff;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;font-weight:700;margin-bottom:14px;line-height:1.6;}
+.kakomon-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:4px;font-size:11px;padding:1px 6px;margin-left:6px;vertical-align:middle;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{width:100%;padding:12px 14px;border:2px solid #e5e7eb;border-radius:8px;background:#fff;font-size:14px;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.15s;line-height:1.5;}
+.opt-btn:hover{border-color:#ea580c;background:#fef3e8;}
+.opt-btn.ok{border-color:#16a34a;background:#dcfce7;color:#15803d;}
+.opt-btn.ng{border-color:#dc2626;background:#fee2e2;color:#b91c1c;pointer-events:none;}
+.opt-btn.disabled{pointer-events:none;opacity:0.6;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-home{background:#1a1a1a;color:#fff;}
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.cf{position:absolute;opacity:0;animation:hanabira 2.0s ease-in forwards;}
+@keyframes hanabira{0%{opacity:1;transform:translateY(0) rotate(0deg) scale(1);}60%{opacity:0.8;}100%{opacity:0;transform:translateY(100vh) rotate(540deg) scale(0.6);}}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC13</span>
+  <h1>光の屈折｜check</h1>
+</header>
+<div class="step-nav">
+  <a href="SC13_intro.html">① intro</a>
+  <a href="SC13_drill.html">② drill</a>
+  <a href="SC13_check.html" class="active">③ check</a>
+</div>
+<div class="progress"><div class="progress-bar" id="progBar" style="width:0%"></div></div>
+<div class="container">
+
+<div class="section-label">基礎問題（1〜5問）</div>
+
+<div class="q-card">
+  <div class="q-num">問1 / 9</div>
+  <div class="q-text">空気中から水中に光が入るとき、入射角と屈折角の関係として正しいものはどれか。</div>
+  <div class="opts" id="opts1">
+    <button class="opt-btn" onclick="selOpt(1,this,false)">① 入射角 ＝ 屈折角</button>
+    <button class="opt-btn" onclick="selOpt(1,this,true)">② 入射角 ＞ 屈折角</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">③ 入射角 ＜ 屈折角</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">④ 入射角＋屈折角＝90°</button>
+  </div>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問2 / 9</div>
+  <div class="q-text">全反射が起こる条件として正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 空気から水へ光が進み、入射角が大きくなったとき</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">② 空気からガラスへ光が進み、入射角が0°のとき</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">③ 水（ガラス）から空気へ光が進み、入射角が臨界角を超えたとき</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ 入射角と反射角が等しくなったとき</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問3 / 9</div>
+  <div class="q-text">光ファイバーで光を伝える際に利用している現象はどれか。</div>
+  <div class="opts" id="opts3">
+    <button class="opt-btn" onclick="selOpt(3,this,false)">① 乱反射</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">② 光の分散</button>
+    <button class="opt-btn" onclick="selOpt(3,this,true)">③ 全反射</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">④ 光の干渉</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問4 / 9</div>
+  <div class="q-text">屈折率の大きさの順として正しいものはどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① 空気 ＞ 水 ＞ ガラス</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">② 水 ＞ ガラス ＞ 空気</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">③ ガラス ＞ 水 ＞ 空気</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">④ ガラス ＞ 空気 ＞ 水</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問5 / 9</div>
+  <div class="q-text">平行板ガラスに斜めに光を入れたとき、出てきた光の説明として正しいものはどれか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① 入射光と同一直線上から出てくる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">② 入射光と平行だが横にずれた位置から出てくる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">③ 入射光と垂直な方向に出てくる</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ 入射光と反対方向に出てくる</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<div class="section-label">過去問類題（6〜9問）</div>
+
+<div class="q-card">
+  <div class="q-num">問6 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">光の屈折について、ガラスの屈折率は空気の屈折率より大きい。位置Pから進んできた光が位置Qで屈折するとき、入射角と屈折角の関係として最も適切なものはどれか。（R6①類題）</div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,false)">① 入射角より屈折角の方が大きくなっている</button>
+    <button class="opt-btn" onclick="selOpt(6,this,true)">② 入射角より屈折角の方が小さくなっている</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ 入射角と屈折角は等しい</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ 入射角と屈折角の和は90°になる</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問7 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">光の屈折について説明した次の文の（ア）（イ）に入る語句の組合せとして最も適切なものはどれか。（R7①類題）<br><br>「光を屈折率の大きい水やガラスから、屈折率の小さい空気へ入射させた場合、入射角より屈折角の方が（ア）なる。したがって、入射角を次第に（イ）すると全反射が起こる。」</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① ア：小さく　イ：小さく</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">② ア：小さく　イ：大きく</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">③ ア：大きく　イ：大きく</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ ア：大きく　イ：小さく</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問8 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">全反射が起きはじめるときの入射角の名称として正しいものはどれか。（R7①類題）</div>
+  <div class="opts" id="opts8">
+    <button class="opt-btn" onclick="selOpt(8,this,false)">① 屈折角</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">② 散乱角</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">③ 反射角</button>
+    <button class="opt-btn" onclick="selOpt(8,this,true)">④ 臨界角</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問9 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">光ファイバーの説明として適切なものはどれか。（R6①・R7②類題）</div>
+  <div class="opts" id="opts9">
+    <button class="opt-btn" onclick="selOpt(9,this,false)">① コアの屈折率はクラッドより小さく、乱反射を繰り返して光が伝わる</button>
+    <button class="opt-btn" onclick="selOpt(9,this,true)">② コアの屈折率はクラッドより大きく、全反射を繰り返して光が伝わる</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">③ コアの屈折率はクラッドと同じで、光の速度差で光が伝わる</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">④ クラッドの屈折率はコアより大きく、屈折を繰り返して光が伝わる</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="location.reload()">もう一度</button>
+    <a class="btn-home" href="../gamba_kounin.html">ホームへ</a>
+  </div>
+</div>
+
+</div>
+
+<script>
+var answers={};
+var total=9;
+var answered=0;
+var PASS=7;
+
+var okMsgs={
+  1:'✅ 正解！空気→水（ガラス）：入射角＞屈折角。光は境界面に近づく方向に曲がります。',
+  2:'✅ 正解！水（ガラス）→空気の方向で、入射角が臨界角を超えたとき全反射が起こります。',
+  3:'✅ 正解！光ファイバーはコアとクラッドの境界での全反射を利用して光を伝えます。',
+  4:'✅ 正解！屈折率：ガラス（約1.5）＞水（約1.33）＞空気（約1.0）の順です。',
+  5:'✅ 正解！平行板ガラスを通ると入射光と平行ですが、横にずれた位置から出てきます。',
+  6:'✅ 正解！空気→ガラス（屈折率大）：入射角＞屈折角。屈折角の方が小さくなります。',
+  7:'✅ 正解！水（ガラス）→空気では入射角＜屈折角（大きくなる）。入射角を大きくすると全反射が起こります。',
+  8:'✅ 正解！全反射が始まる境目の入射角を「臨界角」といいます。',
+  9:'✅ 正解！コア（屈折率大）→クラッド（屈折率小）の境界で全反射を繰り返して光が伝わります。'
+};
+var ngMsgs={
+  1:'❌ 不正解。空気→水（ガラス）のとき、入射角＞屈折角です。光は境界面に近づく方向に曲がります。',
+  2:'❌ 不正解。全反射は「水（ガラス）→空気」の方向で、入射角が臨界角を超えたときです。',
+  3:'❌ 不正解。光ファイバーは全反射を利用しています。乱反射や分散ではありません。',
+  4:'❌ 不正解。屈折率はガラス（約1.5）＞水（約1.33）＞空気（約1.0）の順です。',
+  5:'❌ 不正解。平行板ガラスを通ると、入射光と平行ですが横にずれた位置から出てきます。',
+  6:'❌ 不正解。空気→ガラス（屈折率大）：入射角＞屈折角。屈折角の方が小さくなります。',
+  7:'❌ 不正解。水→空気では入射角＜屈折角（アは大きく）。入射角を大きく（イ）すると全反射になります。',
+  8:'❌ 不正解。全反射が始まる境目の入射角を「臨界角」といいます。',
+  9:'❌ 不正解。コアの屈折率＞クラッドの屈折率で、全反射を繰り返して光が伝わります。'
+};
+
+function selOpt(qNum,btn,isCorrect){
+  var opts=document.getElementById('opts'+qNum);
+  var btns=opts.querySelectorAll('.opt-btn');
+  for(var i=0;i<btns.length;i++) btns[i].classList.add('disabled');
+  var fb=document.getElementById('fb'+qNum);
+  if(isCorrect){
+    btn.classList.add('ok');fb.className='feedback ok';fb.textContent=okMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=true;answered++;}
+  } else {
+    btn.classList.add('ng');fb.className='feedback ng';fb.textContent=ngMsgs[qNum];
+    if(!answers[qNum]){answers[qNum]=false;answered++;}
+  }
+  document.getElementById('progBar').style.width=Math.round(answered/total*100)+'%';
+  if(answered>=total) showResult();
+}
+
+function showResult(){
+  var correct=0;
+  for(var k in answers) if(answers[k]) correct++;
+  var box=document.getElementById('resultBox');
+  box.style.display='block';
+  document.getElementById('scoreDisp').textContent=correct+' / '+total;
+  if(correct>=PASS){
+    document.getElementById('msgDisp').textContent='合格！よくできました🎉';
+    markPassed('SC13');
+    hanafubuki();
+  } else {
+    document.getElementById('msgDisp').textContent='あと少し！introを見直してもう一度挑戦しよう。';
+  }
+  box.scrollIntoView({behavior:'smooth'});
+}
+
+function hanafubuki(){
+  var wrap=document.createElement('div');
+  wrap.className='confetti-wrap';
+  document.body.appendChild(wrap);
+  var colors=['#f9a8d4','#fda4af','#fdba74','#fcd34d','#86efac','#93c5fd','#c4b5fd'];
+  for(var i=0;i<80;i++){
+    var cf=document.createElement('div');
+    cf.className='cf';
+    cf.style.left=Math.random()*100+'%';
+    cf.style.top='-20px';
+    cf.style.width=(Math.random()*10+6)+'px';
+    cf.style.height=(Math.random()*12+8)+'px';
+    cf.style.background=colors[Math.floor(Math.random()*colors.length)];
+    cf.style.borderRadius='50% 50% 50% 0 / 60% 60% 40% 0';
+    cf.style.animationDelay=Math.random()*1.5+'s';
+    cf.style.animationDuration=(1.5+Math.random()*1.0)+'s';
+    wrap.appendChild(cf);
+  }
+  setTimeout(function(){if(wrap.parentNode)wrap.parentNode.removeChild(wrap);},3500);
+}
+</script>
+</body>
+</html>

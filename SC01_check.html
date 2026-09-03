@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC01 金属の分類と性質【まとめチェック】</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#ea580c;--pl:#fed7aa;--pd:#c2410c;--bg:#fff7ed;--card:#fff;--text:#1c1917;--sub:#78716c;--border:#e7e5e4;--ok:#16a34a;--okbg:#dcfce7;--ng:#dc2626;--ngbg:#fee2e2;--radius:14px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'BIZ UDPGothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;padding-bottom:64px;-webkit-text-size-adjust:100%;}
+  header{background:var(--primary);color:#fff;padding:18px 16px 14px;text-align:center;}
+  header .code{font-size:.78em;letter-spacing:.12em;opacity:.85;}
+  header h1{font-size:clamp(1.15em,4vw,1.5em);margin-top:2px;}
+  .step-nav{display:flex;justify-content:center;gap:6px;background:var(--card);border-bottom:1px solid var(--border);padding:10px;font-size:.84em;flex-wrap:wrap;}
+  .step{color:#a8a29e;padding:3px 10px;border-radius:20px;text-decoration:none;}
+  .step.on{background:var(--pl);color:var(--pd);font-weight:700;}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 14px;}
+  .lead{background:#fffbeb;border:1px solid var(--pl);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px;font-size:.96em;color:#92400e;}
+  .bar{position:sticky;top:0;z-index:20;background:var(--card);border:1.5px solid var(--pl);border-radius:24px;padding:9px 16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;font-weight:700;color:var(--pd);box-shadow:0 2px 6px rgba(0,0,0,.06);}
+  .bar .score{font-size:1.05em;}
+  .sec-title{font-weight:700;color:var(--pd);font-size:1.0em;border-left:5px solid var(--primary);padding-left:10px;margin:24px 0 14px;}
+  .sec-title small{color:var(--sub);font-weight:400;font-size:.82em;}
+  .q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .q-num{display:inline-block;background:var(--primary);color:#fff;font-size:.78em;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px;}
+  .q-num.kako{background:var(--pd);}
+  .q-text{font-size:1.02em;margin-bottom:12px;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{font-family:inherit;font-size:1em;text-align:left;background:#fafaf9;border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.15s;color:var(--text);}
+  .opt:not(:disabled):hover{border-color:var(--primary);background:#fff;}
+  .opt:disabled{cursor:default;}
+  .opt.ok{background:var(--okbg);border-color:var(--ok);color:#14532d;font-weight:700;}
+  .opt.ng{background:var(--ngbg);border-color:var(--ng);color:#7f1d1d;}
+  .fb{display:none;margin-top:11px;padding:11px 13px;border-radius:10px;font-size:.92em;}
+  .fb.show{display:block;}
+  .fb.ok{background:var(--okbg);color:#14532d;border-left:4px solid var(--ok);}
+  .fb.ng{background:var(--ngbg);color:#7f1d1d;border-left:4px solid var(--ng);}
+  .result{display:none;text-align:center;background:var(--card);border:2px solid var(--pl);border-radius:var(--radius);padding:24px 18px;margin-top:8px;}
+  .result.show{display:block;}
+  .result .big{font-size:1.5em;font-weight:700;margin-bottom:8px;}
+  .result .sc{font-size:2.2em;font-weight:700;color:var(--primary);margin:6px 0;}
+  .result .msg{color:var(--sub);margin-bottom:16px;}
+  .result button{font-family:inherit;font-size:.95em;font-weight:700;background:var(--primary);color:#fff;border:none;border-radius:24px;padding:11px 26px;cursor:pointer;}
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:24px;}
+  .nav a{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:24px;font-size:.95em;}
+  .nav .back{background:#fafaf9;color:var(--sub);border:1px solid var(--border);}
+  .nav .next{background:var(--primary);color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <div class="code">SC01 ／ 物質の科学</div>
+  <h1>金属の分類と性質【まとめチェック】</h1>
+</header>
+<nav class="step-nav">
+  <a class="step" href="SC01_intro.html">①解説</a>
+  <a class="step" href="SC01_drill.html">②練習</a>
+  <span class="step on">③まとめ</span>
+</nav>
+
+<div class="wrap">
+  <div class="lead">
+    全部で<b>9問</b>です。答えを1つ選ぶと、すぐに解説が表示されます。<br>
+    全問正解で花吹雪が出ます🎉　間違えても、解説を読めば次につながります。
+  </div>
+
+  <div class="bar">
+    <span>得点</span>
+    <span class="score"><span id="sc">0</span> / 9 問</span>
+  </div>
+
+  <div class="sec-title">基礎問題 <small>（5問）</small></div>
+
+  <div class="q">
+    <div class="q-num">問1</div>
+    <div class="q-text">フライパンや鍋に金属が使われるのは、金属が「あるもの」をよく伝えるからです。その性質を何といいますか？</div>
+    <div class="opts" id="q1">
+      <button class="opt" data-correct="1" onclick="pick(this,'q1',true)">① 熱をよく伝える（熱伝導性）</button>
+      <button class="opt" onclick="pick(this,'q1',false)">② 金属光沢</button>
+      <button class="opt" onclick="pick(this,'q1',false)">③ 展性</button>
+      <button class="opt" onclick="pick(this,'q1',false)">④ 延性</button>
+    </div>
+    <div class="fb" id="q1-fb" data-exp="金属は熱をよく伝えます（熱伝導性）。だから調理器具に向いています。電気もよく通すのが金属の特徴です。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問2</div>
+    <div class="q-text">次の金属のうち、密度が小さく「軽金属」に分類されるものはどれですか？</div>
+    <div class="opts" id="q2">
+      <button class="opt" data-correct="1" onclick="pick(this,'q2',true)">① アルミニウム</button>
+      <button class="opt" onclick="pick(this,'q2',false)">② 鉄</button>
+      <button class="opt" onclick="pick(this,'q2',false)">③ 銅</button>
+      <button class="opt" onclick="pick(this,'q2',false)">④ 鉛</button>
+    </div>
+    <div class="fb" id="q2-fb" data-exp="アルミニウムやマグネシウムは軽い金属（軽金属）です。鉄・銅・鉛は重い金属（重金属）になります。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問3</div>
+    <div class="q-text">鉄・銅・鉛のように、密度が大きい（重い）金属をまとめて何といいますか？</div>
+    <div class="opts" id="q3">
+      <button class="opt" data-correct="1" onclick="pick(this,'q3',true)">① 重金属</button>
+      <button class="opt" onclick="pick(this,'q3',false)">② 軽金属</button>
+      <button class="opt" onclick="pick(this,'q3',false)">③ 貴金属</button>
+      <button class="opt" onclick="pick(this,'q3',false)">④ 合金</button>
+    </div>
+    <div class="fb" id="q3-fb" data-exp="重い金属＝重金属、軽い金属＝軽金属。さびにくく価値の高い金・銀・白金は「貴金属」という別の分類です。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問4</div>
+    <div class="q-text">さびにくく、古くから装飾品や貨幣に使われてきた金・銀・白金（プラチナ）をまとめて何といいますか？</div>
+    <div class="opts" id="q4">
+      <button class="opt" data-correct="1" onclick="pick(this,'q4',true)">① 貴金属</button>
+      <button class="opt" onclick="pick(this,'q4',false)">② 卑金属（ひきんぞく）</button>
+      <button class="opt" onclick="pick(this,'q4',false)">③ 軽金属</button>
+      <button class="opt" onclick="pick(this,'q4',false)">④ 重金属</button>
+    </div>
+    <div class="fb" id="q4-fb" data-exp="金・銀・白金などのさびにくい金属を貴金属といいます。逆に、鉄やアルミニウムのようにさびやすい金属は卑金属（ひきんぞく）とよびます。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問5</div>
+    <div class="q-text">金属が陽イオンになりやすい（反応しやすい）順を「イオン化傾向」といいます。イオン化傾向が<b>大きい</b>金属ほど、どうなりますか？</div>
+    <div class="opts" id="q5">
+      <button class="opt" data-correct="1" onclick="pick(this,'q5',true)">① さびやすい（反応しやすい）</button>
+      <button class="opt" onclick="pick(this,'q5',false)">② さびにくい</button>
+      <button class="opt" onclick="pick(this,'q5',false)">③ 重くなる</button>
+      <button class="opt" onclick="pick(this,'q5',false)">④ 光らなくなる</button>
+    </div>
+    <div class="fb" id="q5-fb" data-exp="イオン化傾向が大きい＝反応しやすい＝さびやすい。逆に最も小さい金は、ほとんどさびません。"></div>
+  </div>
+
+  <div class="sec-title">過去問にチャレンジ <small>（高認の出題傾向に合わせた4問）</small></div>
+
+  <div class="q">
+    <div class="q-num kako">問6</div>
+    <div class="q-text">金属に共通する性質として、正しいものはどれですか？</div>
+    <div class="opts" id="q6">
+      <button class="opt" data-correct="1" onclick="pick(this,'q6',true)">① 電気をよく通す</button>
+      <button class="opt" onclick="pick(this,'q6',false)">② 水によくとける</button>
+      <button class="opt" onclick="pick(this,'q6',false)">③ 燃えやすい</button>
+      <button class="opt" onclick="pick(this,'q6',false)">④ すべて磁石につく</button>
+    </div>
+    <div class="fb" id="q6-fb" data-exp="金属は電気・熱をよく通し、金属光沢・展性・延性をもちます。水にとける・燃えるは共通の性質ではなく、磁石につくのは鉄など一部だけです。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num kako">問7</div>
+    <div class="q-text">次の金属のうち、最もさびにくく（イオン化傾向が最も小さく）、装飾品として長く美しさを保つものはどれですか？</div>
+    <div class="opts" id="q7">
+      <button class="opt" data-correct="1" onclick="pick(this,'q7',true)">① 金</button>
+      <button class="opt" onclick="pick(this,'q7',false)">② 鉄</button>
+      <button class="opt" onclick="pick(this,'q7',false)">③ 亜鉛（あえん）</button>
+      <button class="opt" onclick="pick(this,'q7',false)">④ マグネシウム</button>
+    </div>
+    <div class="fb" id="q7-fb" data-exp="金はイオン化傾向が最も小さく、ほとんどさびません。だから何千年も前の金製品も美しいまま残ります。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num kako">問8</div>
+    <div class="q-text">アルミニウムの説明として、正しいものはどれですか？</div>
+    <div class="opts" id="q8">
+      <button class="opt" data-correct="1" onclick="pick(this,'q8',true)">① 軽くて電気をよく通し、1円玉や飲料缶に使われる</button>
+      <button class="opt" onclick="pick(this,'q8',false)">② 鉄より重い金属である</button>
+      <button class="opt" onclick="pick(this,'q8',false)">③ 磁石によくつく</button>
+      <button class="opt" onclick="pick(this,'q8',false)">④ 電気をまったく通さない</button>
+    </div>
+    <div class="fb" id="q8-fb" data-exp="アルミニウムは軽くて電気もよく通す軽金属で、1円玉や飲料缶でおなじみです。磁石にはつきません。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num kako">問9</div>
+    <div class="q-text">金属の性質について、<b>まちがっているもの</b>はどれですか？</div>
+    <div class="opts" id="q9">
+      <button class="opt" data-correct="1" onclick="pick(this,'q9',true)">① 金属はすべて、常温で固体である</button>
+      <button class="opt" onclick="pick(this,'q9',false)">② 金属光沢がある</button>
+      <button class="opt" onclick="pick(this,'q9',false)">③ 電気・熱をよく通す</button>
+      <button class="opt" onclick="pick(this,'q9',false)">④ 展性・延性がある</button>
+    </div>
+    <div class="fb" id="q9-fb" data-exp="①が誤りです。ほとんどの金属は固体ですが、水銀（すいぎん）だけは常温で「液体」です。よく出る注意点です。"></div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="big" id="r-big"></div>
+    <div class="sc"><span id="r-sc">0</span> / 9 問</div>
+    <div class="msg" id="r-msg"></div>
+    <button onclick="location.reload()">もう一度挑戦</button>
+  </div>
+
+  <div class="nav">
+    <a class="back" href="SC01_drill.html">← 練習に戻る</a>
+    <a class="next" href="../gamba_kounin.html">単元一覧へ戻る →</a>
+  </div>
+</div>
+
+<script src="../gamba_support.js"></script>
+<script>
+/* ===== 花吹雪 ===== */
+function confetti(){
+  var n=110, cols=['#ea580c','#fbbf24','#34d399','#60a5fa','#f472b6','#a78bfa'];
+  for(var i=0;i<n;i++){
+    var d=document.createElement('div');
+    d.style.cssText='position:fixed;top:-12px;left:'+(Math.random()*100)+'vw;width:10px;height:10px;background:'+cols[i%cols.length]+';z-index:9999;border-radius:1px;pointer-events:none;';
+    document.body.appendChild(d);
+    var dur=2200+Math.random()*1800;
+    d.animate([{transform:'translateY(0) rotate(0deg)',opacity:1},{transform:'translateY(108vh) rotate('+(360+Math.random()*720)+'deg)',opacity:.85}],{duration:dur,easing:'ease-in'});
+    (function(el){setTimeout(function(){el.remove();},dur);})(d);
+  }
+}
+
+/* ===== 採点 ===== */
+var TOTAL=9, answered=0, score=0;
+
+function pick(btn, qid, correct){
+  var g=document.getElementById(qid);
+  if(g.dataset.done==='1') return;
+  g.dataset.done='1';
+  var opts=g.querySelectorAll('.opt');
+  opts.forEach(function(o){ o.disabled=true; });
+  var fb=document.getElementById(qid+'-fb');
+  if(correct){
+    btn.classList.add('ok');
+    fb.className='fb show ok';
+    fb.innerHTML='⭕ 正解！　'+(fb.dataset.exp||'');
+    score++;
+  }else{
+    btn.classList.add('ng');
+    opts.forEach(function(o){ if(o.dataset.correct==='1') o.classList.add('ok'); });
+    fb.className='fb show ng';
+    fb.innerHTML='❌ 残念。正しい答えはオレンジ色のボタンです。<br>'+(fb.dataset.exp||'');
+  }
+  document.getElementById('sc').textContent=score;
+  answered++;
+  if(answered===TOTAL) finish();
+}
+
+function finish(){
+  var res=document.getElementById('result');
+  document.getElementById('r-sc').textContent=score;
+  var big=document.getElementById('r-big'), msg=document.getElementById('r-msg');
+  if(score===TOTAL){
+    big.textContent='🎉 全問正解！すばらしい！';
+    msg.textContent='金属の性質と分類は、もう自信をもって大丈夫です。';
+    confetti();
+  }else if(score>=6){
+    big.textContent='✅ 合格ライン！よくがんばりました';
+    msg.textContent='間違えた問題の解説をもう一度読めば、さらに安心です。';
+  }else{
+    big.textContent='📖 もう少し！復習しましょう';
+    msg.textContent='解説を読んで、練習に戻ってからもう一度挑戦してみてください。';
+  }
+  res.classList.add('show');
+  res.scrollIntoView({behavior:'smooth',block:'center'});
+  /* 合格ライン（6問以上）で単元クリア記録 */
+  if(score>=6 && typeof markPassed==='function'){ markPassed('SC01'); }
+}
+</script>
+</body>
+</html>

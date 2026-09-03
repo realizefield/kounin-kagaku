@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC02 金属の精錬【練習】</title>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{--primary:#ea580c;--pl:#fed7aa;--pd:#c2410c;--bg:#fff7ed;--card:#fff;--text:#1c1917;--sub:#78716c;--border:#e7e5e4;--ok:#16a34a;--okbg:#dcfce7;--ng:#dc2626;--ngbg:#fee2e2;--radius:14px;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'BIZ UDPGothic',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;padding-bottom:64px;-webkit-text-size-adjust:100%;}
+  header{background:linear-gradient(135deg,#ea580c,#f97316);color:#fff;padding:18px 16px 14px;text-align:center;}
+  header .code{font-size:.78em;letter-spacing:.12em;opacity:.85;}
+  header h1{font-size:clamp(1.15em,4vw,1.5em);margin-top:2px;}
+  .step-nav{display:flex;justify-content:center;gap:6px;background:var(--card);border-bottom:1px solid var(--border);padding:10px;font-size:.84em;flex-wrap:wrap;}
+  .step{color:#a8a29e;padding:3px 10px;border-radius:20px;text-decoration:none;}
+  .step.on{background:var(--pl);color:var(--pd);font-weight:700;}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 14px;}
+  .lead{background:#fffbeb;border:1px solid var(--pl);border-radius:var(--radius);padding:14px 16px;margin-bottom:22px;font-size:.96em;color:#92400e;}
+  .sec-title{font-weight:700;color:var(--pd);font-size:1.02em;border-left:5px solid var(--primary);padding-left:10px;margin:26px 0 14px;}
+  .q{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px 16px 14px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .q-num{display:inline-block;background:var(--primary);color:#fff;font-size:.78em;font-weight:700;padding:2px 10px;border-radius:20px;margin-bottom:8px;}
+  .q-text{font-size:1.02em;margin-bottom:12px;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{font-family:inherit;font-size:1em;text-align:left;background:#fafaf9;border:2px solid var(--border);border-radius:10px;padding:11px 14px;cursor:pointer;transition:.15s;color:var(--text);}
+  .opt:not(:disabled):hover{border-color:var(--primary);background:#fff;}
+  .opt:disabled{cursor:default;}
+  .opt.ok{background:var(--okbg);border-color:var(--ok);color:#14532d;font-weight:700;}
+  .opt.ng{background:var(--ngbg);border-color:var(--ng);color:#7f1d1d;}
+  .fb{display:none;margin-top:11px;padding:11px 13px;border-radius:10px;font-size:.92em;}
+  .fb.show{display:block;}
+  .fb.ok{background:var(--okbg);color:#14532d;border-left:4px solid var(--ok);}
+  .fb.ng{background:var(--ngbg);color:#7f1d1d;border-left:4px solid var(--ng);}
+  /* 語群タップ */
+  .wt-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;}
+  .wt-note{font-size:.9em;color:var(--sub);margin-bottom:12px;line-height:1.7;}
+  .wt-sent{font-size:1.02em;line-height:2.5;}
+  .wt-blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--primary);text-align:center;margin:0 2px;padding:1px 6px;color:var(--pd);font-weight:700;cursor:pointer;border-radius:4px 4px 0 0;}
+  .wt-blank.preview,.wt-blank.filled{background:var(--pl);}
+  .wt-blank.ok{background:var(--okbg);border-color:var(--ok);color:#14532d;}
+  .wt-blank.ng{background:var(--ngbg);border-color:var(--ng);color:#7f1d1d;}
+  .wt-pool{display:none;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);}
+  .wchip{font-family:inherit;font-size:.96em;background:#fff;border:2px solid var(--primary);color:var(--pd);border-radius:20px;padding:7px 14px;cursor:pointer;user-select:none;transition:.12s;}
+  .wchip.sel{background:var(--primary);color:#fff;transform:scale(1.05);}
+  .wchip.used{opacity:.25;pointer-events:none;}
+  .wt-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+  .wt-btns button{font-family:inherit;font-size:.92em;font-weight:700;border:none;border-radius:22px;padding:9px 18px;cursor:pointer;}
+  .wt-fb{display:none;margin-top:12px;padding:11px 13px;border-radius:10px;font-size:.92em;}
+  .wt-fb.ok{background:var(--okbg);color:#14532d;}
+  .wt-fb.ng{background:var(--ngbg);color:#7f1d1d;}
+  .wt-fb.info{background:#fffbeb;color:#92400e;}
+  .nav{display:flex;justify-content:space-between;gap:10px;margin-top:28px;}
+  .nav a{flex:1;text-align:center;text-decoration:none;font-weight:700;padding:13px;border-radius:24px;font-size:.95em;}
+  .nav .back{background:#fafaf9;color:var(--sub);border:1px solid var(--border);}
+  .nav .next{background:var(--primary);color:#fff;}
+</style>
+</head>
+<body>
+<header>
+  <div class="code">SC02 ／ 物質の科学</div>
+  <h1>金属の精錬【練習】</h1>
+</header>
+<nav class="step-nav">
+  <a class="step" href="SC02_intro.html">①解説</a>
+  <span class="step on">②練習</span>
+  <a class="step" href="SC02_check.html">③まとめ</a>
+</nav>
+
+<div class="wrap">
+  <div class="lead">
+    解説で学んだ「還元・精錬・鉄・銅・アルミニウム」の内容を、問題で確認しましょう。間違えても解説を読めば大丈夫です。
+  </div>
+
+  <div class="sec-title">① 還元と精錬</div>
+
+  <div class="q">
+    <div class="q-num">問1</div>
+    <div class="q-text">酸化物から酸素を取りはずす化学変化を何といいますか？</div>
+    <div class="opts" id="q1">
+      <button class="opt" data-correct="1" onclick="pick(this,'q1',true)">① 還元</button>
+      <button class="opt" onclick="pick(this,'q1',false)">② 酸化</button>
+      <button class="opt" onclick="pick(this,'q1',false)">③ 中和</button>
+      <button class="opt" onclick="pick(this,'q1',false)">④ 製錬</button>
+    </div>
+    <div class="fb" id="q1-fb" data-exp="酸素を取りはずすのが還元。逆に酸素と結びつくのが酸化です。「還元＝元に還る」と覚えましょう。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問2</div>
+    <div class="q-text">酸化物や硫化物の鉱石から、純粋な金属を取り出すことを何といいますか？</div>
+    <div class="opts" id="q2">
+      <button class="opt" data-correct="1" onclick="pick(this,'q2',true)">① 製錬（精錬）</button>
+      <button class="opt" onclick="pick(this,'q2',false)">② 蒸留</button>
+      <button class="opt" onclick="pick(this,'q2',false)">③ 電解</button>
+      <button class="opt" onclick="pick(this,'q2',false)">④ 燃焼</button>
+    </div>
+    <div class="fb" id="q2-fb" data-exp="鉱石から金属を取り出すこと全体を製錬（精錬）といいます。還元はその手段のひとつです。"></div>
+  </div>
+
+  <div class="sec-title">② 鉄の精錬</div>
+
+  <div class="q">
+    <div class="q-num">問3</div>
+    <div class="q-text">鉄鉱石を溶鉱炉に入れて還元すると得られる、炭素を多く含み硬くてもろい鉄を何といいますか？</div>
+    <div class="opts" id="q3">
+      <button class="opt" data-correct="1" onclick="pick(this,'q3',true)">① 銑鉄（せんてつ）</button>
+      <button class="opt" onclick="pick(this,'q3',false)">② 鋼（スチール）</button>
+      <button class="opt" onclick="pick(this,'q3',false)">③ 粗銅</button>
+      <button class="opt" onclick="pick(this,'q3',false)">④ アルミナ</button>
+    </div>
+    <div class="fb" id="q3-fb" data-exp="溶鉱炉から出たばかりの鉄が銑鉄。炭素が多くもろいので、このままでは使えません。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問4</div>
+    <div class="q-text">銑鉄を転炉に入れ、酸素を吹き込んで炭素を減らした、丈夫な鉄を何といいますか？</div>
+    <div class="opts" id="q4">
+      <button class="opt" data-correct="1" onclick="pick(this,'q4',true)">① 鋼（スチール）</button>
+      <button class="opt" onclick="pick(this,'q4',false)">② 銑鉄</button>
+      <button class="opt" onclick="pick(this,'q4',false)">③ 純銅</button>
+      <button class="opt" onclick="pick(this,'q4',false)">④ アルミナ</button>
+    </div>
+    <div class="fb" id="q4-fb" data-exp="転炉で炭素を減らして得られる丈夫な鉄が鋼（こう・スチール）。建築材料などに広く使われます。"></div>
+  </div>
+
+  <div class="sec-title">③ 銅とアルミニウムの精錬</div>
+
+  <div class="q">
+    <div class="q-num">問5</div>
+    <div class="q-text">粗銅から純度の高い純銅を得るために用いる方法はどれですか？</div>
+    <div class="opts" id="q5">
+      <button class="opt" data-correct="1" onclick="pick(this,'q5',true)">① 電解精錬（電気分解）</button>
+      <button class="opt" onclick="pick(this,'q5',false)">② 溶鉱炉での還元</button>
+      <button class="opt" onclick="pick(this,'q5',false)">③ 転炉での酸素処理</button>
+      <button class="opt" onclick="pick(this,'q5',false)">④ 融解塩電解</button>
+    </div>
+    <div class="fb" id="q5-fb" data-exp="銅の仕上げは電解精錬（電気分解）です。融解塩電解はアルミニウムの精錬に使います。"></div>
+  </div>
+
+  <div class="q">
+    <div class="q-num">問6</div>
+    <div class="q-text">アルミニウムの原料となる鉱石の名前はどれですか？</div>
+    <div class="opts" id="q6">
+      <button class="opt" data-correct="1" onclick="pick(this,'q6',true)">① ボーキサイト</button>
+      <button class="opt" onclick="pick(this,'q6',false)">② 鉄鉱石</button>
+      <button class="opt" onclick="pick(this,'q6',false)">③ 黄銅鉱</button>
+      <button class="opt" onclick="pick(this,'q6',false)">④ 石灰石</button>
+    </div>
+    <div class="fb" id="q6-fb" data-exp="アルミニウムの原料はボーキサイト。これを精製してアルミナ（Al₂O₃）にしてから融解塩電解で取り出します。"></div>
+  </div>
+
+  <div class="sec-title">④ 語群タップ：精錬の流れをまとめよう</div>
+
+  <div class="wt-card">
+    <p class="wt-note">最初は答えが入っています。「チャレンジ」を押すと答えが消え、語句ボタンが出ます。語句を選んでから空欄をタップして入れてください。</p>
+    <div class="wt-sent">
+      鉄鉱石を<span class="wt-blank preview" id="b1" data-ans="溶鉱炉">溶鉱炉</span>で還元すると<span class="wt-blank preview" id="b2" data-ans="銑鉄">銑鉄</span>ができ、<span class="wt-blank preview" id="b3" data-ans="転炉">転炉</span>で炭素を減らすと<span class="wt-blank preview" id="b4" data-ans="鋼">鋼</span>になる。銅の精錬では最後に<span class="wt-blank preview" id="b5" data-ans="電解精錬">電解精錬</span>で純銅を得る。
+    </div>
+    <div class="wt-pool" id="wt-pool" style="display:none">
+      <span class="wchip" data-word="溶鉱炉">溶鉱炉</span>
+      <span class="wchip" data-word="銑鉄">銑鉄</span>
+      <span class="wchip" data-word="転炉">転炉</span>
+      <span class="wchip" data-word="鋼">鋼</span>
+      <span class="wchip" data-word="電解精錬">電解精錬</span>
+      <span class="wchip" data-word="融解塩電解">融解塩電解</span>
+    </div>
+    <div class="wt-btns">
+      <button id="wt-start" style="background:var(--primary);color:#fff;font-family:inherit;font-size:.92em;font-weight:700;border:none;border-radius:22px;padding:9px 18px;cursor:pointer;">チャレンジ</button>
+      <button id="wt-check" style="display:none;background:var(--ok);color:#fff;font-family:inherit;font-size:.92em;font-weight:700;border:none;border-radius:22px;padding:9px 18px;cursor:pointer;">判定する</button>
+      <button id="wt-answer" style="display:none;background:#fafaf9;color:var(--sub);border:1px solid var(--border);font-family:inherit;font-size:.92em;font-weight:700;border-radius:22px;padding:9px 18px;cursor:pointer;">お手本</button>
+    </div>
+    <div class="wt-fb" id="wt-fb"></div>
+  </div>
+
+  <div class="nav">
+    <a class="back" href="SC02_intro.html">← 解説に戻る</a>
+    <a class="next" href="SC02_check.html">まとめチェックへ →</a>
+  </div>
+</div>
+
+<script>
+function confetti(){
+  var n=70,cols=['#ea580c','#fbbf24','#34d399','#60a5fa','#f472b6'];
+  for(var i=0;i<n;i++){
+    var d=document.createElement('div');
+    d.style.cssText='position:fixed;top:-12px;left:'+(Math.random()*100)+'vw;width:9px;height:9px;background:'+cols[i%cols.length]+';z-index:9999;border-radius:1px;pointer-events:none;';
+    document.body.appendChild(d);
+    var dur=2000+Math.random()*1600;
+    d.animate([{transform:'translateY(0) rotate(0deg)',opacity:1},{transform:'translateY(106vh) rotate('+(360+Math.random()*540)+'deg)',opacity:.85}],{duration:dur,easing:'ease-in'});
+    (function(el){setTimeout(function(){el.remove();},dur);})(d);
+  }
+}
+
+function pick(btn,qid,correct){
+  var g=document.getElementById(qid);
+  var opts=g.querySelectorAll('.opt');
+  opts.forEach(function(o){o.disabled=true;});
+  var fb=document.getElementById(qid+'-fb');
+  if(correct){
+    btn.classList.add('ok');
+    fb.className='fb show ok';
+    fb.innerHTML='⭕ 正解！　'+(fb.dataset.exp||'');
+  }else{
+    btn.classList.add('ng');
+    opts.forEach(function(o){if(o.dataset.correct==='1') o.classList.add('ok');});
+    fb.className='fb show ng';
+    fb.innerHTML='❌ 残念。正しい答えはオレンジ色のボタンです。<br>'+(fb.dataset.exp||'');
+  }
+}
+
+(function(){
+  var POOL=document.getElementById('wt-pool');
+  var BLANKS=Array.prototype.slice.call(document.querySelectorAll('.wt-blank'));
+  var CHIPS=Array.prototype.slice.call(POOL.querySelectorAll('.wchip'));
+  var WT_ANS={};
+  var WT_FILL={};
+  var WT_SEL=null;
+  var WT_RUNNING=false;
+  BLANKS.forEach(function(b){WT_ANS[b.id]=b.dataset.ans;WT_FILL[b.id]=null;});
+
+  function clearSel(){if(WT_SEL){WT_SEL.classList.remove('sel');WT_SEL=null;}}
+  function wtChip(chip){
+    if(!WT_RUNNING||chip.classList.contains('used')) return;
+    if(WT_SEL===chip){clearSel();return;}
+    clearSel();WT_SEL=chip;chip.classList.add('sel');
+  }
+  function wtBlank(blank){
+    if(!WT_RUNNING) return;
+    if(WT_FILL[blank.id]){
+      WT_FILL[blank.id].classList.remove('used');WT_FILL[blank.id]=null;
+      blank.textContent='';blank.classList.remove('filled','ok','ng');return;
+    }
+    if(!WT_SEL) return;
+    WT_FILL[blank.id]=WT_SEL;blank.textContent=WT_SEL.dataset.word;
+    blank.classList.add('filled');WT_SEL.classList.add('used');clearSel();
+  }
+  CHIPS.forEach(function(c){c.addEventListener('click',function(){wtChip(c);});});
+  BLANKS.forEach(function(b){b.addEventListener('click',function(){wtBlank(b);});});
+
+  var fb=document.getElementById('wt-fb');
+  document.getElementById('wt-start').addEventListener('click',function(){
+    WT_RUNNING=true;
+    BLANKS.forEach(function(b){b.textContent='';b.classList.remove('preview','filled','ok','ng');WT_FILL[b.id]=null;});
+    CHIPS.forEach(function(c){c.classList.remove('used','sel');});
+    clearSel();
+    POOL.style.display='flex';
+    document.getElementById('wt-check').style.display='inline-block';
+    document.getElementById('wt-answer').style.display='inline-block';
+    this.textContent='やり直す';
+    fb.style.display='none';
+  });
+  document.getElementById('wt-check').addEventListener('click',function(){
+    if(!WT_RUNNING) return;
+    clearSel();
+    var allOk=true;
+    BLANKS.forEach(function(b){
+      var got=WT_FILL[b.id]?WT_FILL[b.id].dataset.word:'';
+      if(got===WT_ANS[b.id]){b.classList.add('ok');b.classList.remove('ng');}
+      else{allOk=false;b.classList.add('ng');b.classList.remove('ok');}
+    });
+    fb.style.display='block';
+    if(allOk){
+      fb.className='wt-fb ok';fb.innerHTML='🎉 全問正解！　精錬の流れはばっちりです。';
+      confetti();WT_RUNNING=false;
+    }else{
+      fb.className='wt-fb ng';fb.innerHTML='惜しい。赤色の空欄をもう一度。間違えた語句は語群に戻しました。';
+      BLANKS.forEach(function(b){
+        var got=WT_FILL[b.id]?WT_FILL[b.id].dataset.word:'';
+        if(WT_FILL[b.id]&&got!==WT_ANS[b.id]){
+          WT_FILL[b.id].classList.remove('used');WT_FILL[b.id]=null;
+          b.textContent='';b.classList.remove('filled');
+        }
+      });
+    }
+  });
+  document.getElementById('wt-answer').addEventListener('click',function(){
+    BLANKS.forEach(function(b){b.textContent=WT_ANS[b.id];b.classList.add('filled','ok');b.classList.remove('ng');});
+    CHIPS.forEach(function(c){c.classList.add('used');});
+    clearSel();WT_RUNNING=false;
+    fb.style.display='block';fb.className='wt-fb info';
+    fb.innerHTML='お手本を表示しました。「やり直す」でもう一度挑戦できます。';
+  });
+})();
+</script>
+</body>
+</html>

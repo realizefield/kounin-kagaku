@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC09 天然繊維｜check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<script src="../gamba_support.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'BIZ UDPGothic',sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:16px;}
+header{background:#ea580c;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;}
+header .badge{background:rgba(255,255,255,0.25);border-radius:6px;padding:2px 8px;font-size:13px;}
+header h1{font-size:17px;font-weight:700;}
+.step-nav{display:flex;background:#fff;border-bottom:2px solid #ea580c;overflow:hidden;}
+.step-nav a{flex:1;text-align:center;padding:10px 4px;font-size:13px;color:#888;text-decoration:none;border-right:1px solid #eee;}
+.step-nav a:last-child{border-right:none;}
+.step-nav a.active{color:#ea580c;font-weight:700;border-bottom:3px solid #ea580c;margin-bottom:-2px;}
+.container{max-width:680px;margin:0 auto;padding:16px;}
+.section-label{font-size:13px;font-weight:700;color:#888;margin:18px 0 8px;padding-left:4px;border-left:3px solid #ea580c;}
+.q-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;line-height:1.7;margin-bottom:12px;}
+.q-text b{color:#ea580c;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;transition:border-color 0.15s;}
+.opt-btn:hover{border-color:#ea580c;background:#fff7f3;}
+.opt-btn.correct{background:#dcfce7;border-color:#16a34a;color:#15803d;}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#b91c1c;}
+.opt-btn.show-correct{background:#dcfce7;border-color:#16a34a;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.kakomon-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:4px;font-size:11px;padding:1px 6px;margin-left:6px;vertical-align:middle;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-home{background:#1a1a1a;color:#fff;}
+.progress{height:6px;background:#fde8d8;margin-top:8px;}
+.progress-bar{height:100%;background:#ea580c;transition:width 0.3s;}
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.cf{position:absolute;width:8px;height:8px;opacity:0;animation:fall 1.2s ease-in forwards;}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(100vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC09</span>
+  <h1>天然繊維｜check</h1>
+</header>
+<div class="step-nav">
+  <a href="SC09_intro.html">① intro</a>
+  <a href="SC09_drill.html">② drill</a>
+  <a href="SC09_check.html" class="active">③ check</a>
+</div>
+<div class="progress"><div class="progress-bar" id="progBar" style="width:0%"></div></div>
+<div class="container">
+
+<div class="section-label">基礎問題（1〜5問）</div>
+
+<div class="q-card">
+  <div class="q-num">問1 / 9</div>
+  <div class="q-text">綿（木綿）の原料と主成分の組み合わせとして正しいものはどれか。</div>
+  <div class="opts" id="opts1">
+    <button class="opt-btn" onclick="selOpt(1,this,false)">① 羊の毛 ─ ケラチン</button>
+    <button class="opt-btn" onclick="selOpt(1,this,true)">② 綿花 ─ セルロース</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">③ 蚕のまゆ ─ フィブロイン</button>
+    <button class="opt-btn" onclick="selOpt(1,this,false)">④ 亜麻の茎 ─ タンパク質</button>
+  </div>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問2 / 9</div>
+  <div class="q-text">羊毛の断面の特徴として正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① 三角形で光沢がある</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">② 中空（そら豆状）</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">③ 円形でキューティクルが鱗状にある</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ 均一な楕円形</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問3 / 9</div>
+  <div class="q-text">植物繊維（綿・麻）の酸・アルカリへの性質として正しいものはどれか。</div>
+  <div class="opts" id="opts3">
+    <button class="opt-btn" onclick="selOpt(3,this,false)">① 酸に強く、アルカリに弱い</button>
+    <button class="opt-btn" onclick="selOpt(3,this,true)">② 酸に弱く、アルカリに強い</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">③ 酸にもアルカリにも弱い</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">④ 酸にもアルカリにも強い</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問4 / 9</div>
+  <div class="q-text">日光に弱く、変色しやすい天然繊維はどれか。</div>
+  <div class="opts" id="opts4">
+    <button class="opt-btn" onclick="selOpt(4,this,false)">① 綿</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">② 麻</button>
+    <button class="opt-btn" onclick="selOpt(4,this,false)">③ 羊毛のみ</button>
+    <button class="opt-btn" onclick="selOpt(4,this,true)">④ 羊毛と絹の両方</button>
+  </div>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問5 / 9</div>
+  <div class="q-text">動物繊維を燃やしたときの特徴として正しいものはどれか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① すぐに燃え紙のにおいがする</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">② ゆっくり燃え毛を焼くにおいがする</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">③ 融けながら燃える</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ 燃えずに炭になる</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<div class="section-label">過去問類題（6〜9問）</div>
+
+<div class="q-card">
+  <div class="q-num">問6 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">植物繊維に関する記述として適切なものを選べ。<br><small>（R1年類題）</small></div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,false)">① 麻はアミロースでできており、保温性があるので冬物衣料に使われる。</button>
+    <button class="opt-btn" onclick="selOpt(6,this,true)">② 綿はセルロースからできており、吸湿性に富むので下着やTシャツに利用される。</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ 綿の生地はアルカリに弱いので洗濯によっていたみやすい。</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ 綿の断面を観察すると均一な円形をしているため糸状にしにくい。</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問7 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">動物繊維に関する記述として適切なものを選べ。<br><small>（R1年類題）</small></div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,true)">① 羊毛はタンパク質が主成分で、燃焼させると特有のにおいを発生しながら縮れる。</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">② 羊毛は断面が三角形で光沢があり、和服やネクタイなどに使われる。</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">③ 絹の繊維を観察すると表面がうろこ状になっている。</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ 絹の生地は酸やアルカリに対して強い。</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問8 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">絹について述べた文として適切なものを選べ。<br><small>（H28年類題）</small></div>
+  <div class="opts" id="opts8">
+    <button class="opt-btn" onclick="selOpt(8,this,true)">① 独特の光沢を持ち、肌触りがよいので、和服・スカーフなどに用いられる。</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">② 毛髪や爪と同じ成分であるケラチンでできている。</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">③ 酸やアルカリなどの薬品に強く、染色性がよい。</button>
+    <button class="opt-btn" onclick="selOpt(8,this,false)">④ 繊維の断面は丸く、側面はうろこ状になっている。</button>
+  </div>
+  <div class="feedback" id="fb8"></div>
+</div>
+
+<div class="q-card">
+  <div class="q-num">問9 / 9<span class="kakomon-badge">過去問類題</span></div>
+  <div class="q-text">次の繊維の主成分の組み合わせとして正しいものを選べ。</div>
+  <div class="opts" id="opts9">
+    <button class="opt-btn" onclick="selOpt(9,this,false)">① 綿＝フィブロイン　羊毛＝ケラチン　絹＝セルロース</button>
+    <button class="opt-btn" onclick="selOpt(9,this,true)">② 綿＝セルロース　羊毛＝ケラチン　絹＝フィブロイン</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">③ 綿＝フィブロイン　羊毛＝セルロース　絹＝ケラチン</button>
+    <button class="opt-btn" onclick="selOpt(9,this,false)">④ 綿＝ケラチン　羊毛＝セルロース　絹＝フィブロイン</button>
+  </div>
+  <div class="feedback" id="fb9"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="retryAll()">もう一度</button>
+    <a href="../gamba_kounin.html" class="btn-home">ホームへ戻る</a>
+  </div>
+</div>
+<div class="confetti-wrap" id="confettiWrap"></div>
+</div>
+
+<script>
+var TOTAL = 9;
+var answered = {};
+
+function selOpt(qn, el, isCorrect){
+  var opts = document.getElementById('opts'+qn);
+  opts.querySelectorAll('.opt-btn').forEach(function(b){b.disabled=true;});
+  var fb = document.getElementById('fb'+qn);
+  if(isCorrect){
+    el.classList.add('correct');
+    fb.className='feedback ok'; fb.textContent='✅ 正解！';
+    answered[qn]=true;
+  } else {
+    el.classList.add('wrong');
+    opts.querySelectorAll('.opt-btn').forEach(function(b){
+      if(b.onclick.toString().indexOf('true')>-1) b.classList.add('show-correct');
+    });
+    fb.className='feedback ng'; fb.textContent='❌ 不正解。';
+    answered[qn]=false;
+  }
+  document.getElementById('progBar').style.width=(Object.keys(answered).length/TOTAL*100)+'%';
+  if(Object.keys(answered).length >= TOTAL) showResult();
+}
+
+function showResult(){
+  var correct=0;
+  for(var k in answered){if(answered[k])correct++;}
+  document.getElementById('resultBox').style.display='block';
+  document.getElementById('scoreDisp').textContent=correct+' / '+TOTAL;
+  if(correct>=7){
+    document.getElementById('msgDisp').textContent='合格ライン突破！よくできました🎉';
+    markPassed('SC09');
+    if(correct===TOTAL) showConfetti();
+  } else {
+    document.getElementById('msgDisp').textContent='もう少し！drillに戻って復習しよう。';
+  }
+}
+
+function retryAll(){location.reload();}
+
+function showConfetti(){
+  var wrap=document.getElementById('confettiWrap');
+  var colors=['#ea580c','#fbbf24','#34d399','#60a5fa','#f472b6'];
+  for(var i=0;i<60;i++){
+    var d=document.createElement('div');
+    d.className='cf';
+    d.style.left=Math.random()*100+'%';
+    d.style.top='-10px';
+    d.style.background=colors[Math.floor(Math.random()*colors.length)];
+    d.style.animationDelay=(Math.random()*0.8)+'s';
+    d.style.animationDuration=(0.8+Math.random()*0.6)+'s';
+    d.style.borderRadius=Math.random()>0.5?'50%':'0';
+    wrap.appendChild(d);
+  }
+}
+</script>
+</body>
+</html>

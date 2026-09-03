@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SC09 天然繊維｜drill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'BIZ UDPGothic',sans-serif;background:#f5f5f0;color:#1a1a1a;font-size:16px;}
+header{background:#ea580c;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;}
+header .badge{background:rgba(255,255,255,0.25);border-radius:6px;padding:2px 8px;font-size:13px;}
+header h1{font-size:17px;font-weight:700;}
+.step-nav{display:flex;background:#fff;border-bottom:2px solid #ea580c;overflow:hidden;}
+.step-nav a{flex:1;text-align:center;padding:10px 4px;font-size:13px;color:#888;text-decoration:none;border-right:1px solid #eee;}
+.step-nav a:last-child{border-right:none;}
+.step-nav a.active{color:#ea580c;font-weight:700;border-bottom:3px solid #ea580c;margin-bottom:-2px;}
+.container{max-width:680px;margin:0 auto;padding:16px;}
+.q-card{background:#fff;border-radius:10px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+.q-num{font-size:12px;color:#ea580c;font-weight:700;margin-bottom:6px;}
+.q-text{font-size:15px;line-height:1.7;margin-bottom:12px;}
+.q-text b{color:#ea580c;}
+.wbank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:10px;background:#fff7f3;border-radius:8px;border:1px solid #fde8d8;}
+.wbank-label{width:100%;font-size:12px;color:#888;margin-bottom:2px;}
+.wchip{display:inline-block;background:#ea580c;color:#fff;border-radius:20px;padding:5px 14px;font-size:14px;cursor:pointer;user-select:none;transition:opacity 0.15s;}
+.wchip.used{opacity:0.3;pointer-events:none;}
+.blank-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center;}
+.blank{display:inline-block;min-width:100px;border-bottom:2px solid #ea580c;text-align:center;padding:4px 8px;font-size:15px;color:#ea580c;font-weight:700;cursor:pointer;background:#fff7f3;border-radius:4px;}
+.blank.empty{color:#ccc;}
+.opts{display:flex;flex-direction:column;gap:8px;}
+.opt-btn{background:#f8f8f8;border:2px solid #e0e0e0;border-radius:8px;padding:10px 14px;font-size:14px;cursor:pointer;text-align:left;font-family:inherit;transition:border-color 0.15s;}
+.opt-btn:hover{border-color:#ea580c;background:#fff7f3;}
+.opt-btn.correct{background:#dcfce7;border-color:#16a34a;color:#15803d;}
+.opt-btn.wrong{background:#fee2e2;border-color:#dc2626;color:#b91c1c;}
+.opt-btn.show-correct{background:#dcfce7;border-color:#16a34a;}
+.feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:14px;line-height:1.6;}
+.feedback.ok{background:#dcfce7;color:#15803d;display:block;}
+.feedback.ng{background:#fee2e2;color:#b91c1c;display:block;}
+.judge-btn{margin-top:12px;background:#ea580c;color:#fff;border:none;border-radius:8px;padding:10px 24px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;}
+.judge-btn:disabled{background:#ccc;cursor:default;}
+.result-box{display:none;background:#fff;border-radius:12px;padding:24px;margin-top:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.result-box .score{font-size:48px;font-weight:700;color:#ea580c;}
+.result-box .msg{font-size:16px;margin:8px 0 20px;}
+.nav-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.nav-btns a,.nav-btns button{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer;font-family:inherit;border:none;}
+.btn-retry{background:#ea580c;color:#fff;}
+.btn-next{background:#1a1a1a;color:#fff;}
+.progress{height:6px;background:#fde8d8;margin-top:8px;}
+.progress-bar{height:100%;background:#ea580c;transition:width 0.3s;}
+.confetti-wrap{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
+.cf{position:absolute;width:8px;height:8px;opacity:0;animation:fall 1.2s ease-in forwards;}
+@keyframes fall{0%{opacity:1;transform:translateY(0) rotate(0deg);}100%{opacity:0;transform:translateY(100vh) rotate(720deg);}}
+</style>
+</head>
+<body>
+<header>
+  <span class="badge">SC09</span>
+  <h1>天然繊維｜drill</h1>
+</header>
+<div class="step-nav">
+  <a href="SC09_intro.html">① intro</a>
+  <a href="SC09_drill.html" class="active">② drill</a>
+  <a href="SC09_check.html">③ check</a>
+</div>
+<div class="progress"><div class="progress-bar" id="progBar" style="width:0%"></div></div>
+<div class="container">
+
+<!-- Q1 語群 -->
+<div class="q-card" id="qc1">
+  <div class="q-num">問1 / 7｜語群から選んで空欄を埋めよ</div>
+  <div class="q-text">天然繊維は<b>植物繊維</b>（① ・ ②）と<b>動物繊維</b>（③ ・ ④）に分けられる。</div>
+  <div class="wbank" id="wb1">
+    <span class="wbank-label">語群（タップして選択）</span>
+    <span class="wchip" id="w1a" onclick="pickW(1,'綿',this)">綿</span>
+    <span class="wchip" id="w1b" onclick="pickW(1,'麻',this)">麻</span>
+    <span class="wchip" id="w1c" onclick="pickW(1,'羊毛',this)">羊毛</span>
+    <span class="wchip" id="w1d" onclick="pickW(1,'絹',this)">絹</span>
+  </div>
+  <div class="blank-row">
+    <span>植物①</span><span class="blank empty" id="b1_1" onclick="clearBlank(1,1)">（空欄）</span>
+    <span>②</span><span class="blank empty" id="b1_2" onclick="clearBlank(1,2)">（空欄）</span>
+    <span>動物③</span><span class="blank empty" id="b1_3" onclick="clearBlank(1,3)">（空欄）</span>
+    <span>④</span><span class="blank empty" id="b1_4" onclick="clearBlank(1,4)">（空欄）</span>
+  </div>
+  <button class="judge-btn" id="jb1" onclick="judgeW(1)" disabled>判定する</button>
+  <div class="feedback" id="fb1"></div>
+</div>
+
+<!-- Q2 4択 -->
+<div class="q-card">
+  <div class="q-num">問2 / 7｜正しいものを選べ</div>
+  <div class="q-text">羊毛の主成分として正しいものはどれか。</div>
+  <div class="opts" id="opts2">
+    <button class="opt-btn" onclick="selOpt(2,this,false)">① セルロース</button>
+    <button class="opt-btn" onclick="selOpt(2,this,true)">② ケラチン</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">③ フィブロイン</button>
+    <button class="opt-btn" onclick="selOpt(2,this,false)">④ アミノ酸のみ</button>
+  </div>
+  <div class="feedback" id="fb2"></div>
+</div>
+
+<!-- Q3 4択 -->
+<div class="q-card">
+  <div class="q-num">問3 / 7｜正しいものを選べ</div>
+  <div class="q-text">絹の断面の形として正しいものはどれか。</div>
+  <div class="opts" id="opts3">
+    <button class="opt-btn" onclick="selOpt(3,this,false)">① 中空（そら豆状）</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">② 円形でキューティクルが鱗状</button>
+    <button class="opt-btn" onclick="selOpt(3,this,true)">③ 三角形に近く光沢がある</button>
+    <button class="opt-btn" onclick="selOpt(3,this,false)">④ 楕円形で均一</button>
+  </div>
+  <div class="feedback" id="fb3"></div>
+</div>
+
+<!-- Q4 語群 -->
+<div class="q-card" id="qc4">
+  <div class="q-num">問4 / 7｜語群から選んで空欄を埋めよ</div>
+  <div class="q-text">綿は酸に（ ① ）く、アルカリに（ ② ）い。羊毛・絹は酸に（ ③ ）く、アルカリに（ ④ ）い。</div>
+  <div class="wbank" id="wb4">
+    <span class="wbank-label">語群（タップして選択）</span>
+    <span class="wchip" id="w4a" onclick="pickW(4,'弱',this)">弱</span>
+    <span class="wchip" id="w4b" onclick="pickW(4,'強',this)">強</span>
+    <span class="wchip" id="w4c" onclick="pickW(4,'強',this)">強</span>
+    <span class="wchip" id="w4d" onclick="pickW(4,'弱',this)">弱</span>
+  </div>
+  <div class="blank-row">
+    <span>綿：酸①</span><span class="blank empty" id="b4_1" onclick="clearBlank(4,1)">（空欄）</span>
+    <span>アルカリ②</span><span class="blank empty" id="b4_2" onclick="clearBlank(4,2)">（空欄）</span>
+  </div>
+  <div class="blank-row">
+    <span>羊毛・絹：酸③</span><span class="blank empty" id="b4_3" onclick="clearBlank(4,3)">（空欄）</span>
+    <span>アルカリ④</span><span class="blank empty" id="b4_4" onclick="clearBlank(4,4)">（空欄）</span>
+  </div>
+  <button class="judge-btn" id="jb4" onclick="judgeW(4)" disabled>判定する</button>
+  <div class="feedback" id="fb4"></div>
+</div>
+
+<!-- Q5 4択 -->
+<div class="q-card">
+  <div class="q-num">問5 / 7｜正しいものを選べ</div>
+  <div class="q-text">羊毛の洗濯に使うべき洗剤として正しいものはどれか。</div>
+  <div class="opts" id="opts5">
+    <button class="opt-btn" onclick="selOpt(5,this,false)">① セッケン（弱アルカリ性）</button>
+    <button class="opt-btn" onclick="selOpt(5,this,true)">② 中性の合成洗剤</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">③ 酸性洗剤</button>
+    <button class="opt-btn" onclick="selOpt(5,this,false)">④ どれでも同じ</button>
+  </div>
+  <div class="feedback" id="fb5"></div>
+</div>
+
+<!-- Q6 4択 -->
+<div class="q-card">
+  <div class="q-num">問6 / 7｜正しいものを選べ</div>
+  <div class="q-text">植物繊維の綿を燃やすとどうなるか。</div>
+  <div class="opts" id="opts6">
+    <button class="opt-btn" onclick="selOpt(6,this,true)">① すぐに燃え紙のにおいがする</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">② ゆっくり燃え毛を焼くにおいがする</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">③ 燃えずに溶ける</button>
+    <button class="opt-btn" onclick="selOpt(6,this,false)">④ 炎の外に出すとすぐ消える</button>
+  </div>
+  <div class="feedback" id="fb6"></div>
+</div>
+
+<!-- Q7 4択 -->
+<div class="q-card">
+  <div class="q-num">問7 / 7｜正しいものを選べ</div>
+  <div class="q-text">次の記述のうち<b>正しいもの</b>はどれか。</div>
+  <div class="opts" id="opts7">
+    <button class="opt-btn" onclick="selOpt(7,this,false)">① 絹の主成分はケラチンである</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">② 綿の断面は円形でキューティクルがある</button>
+    <button class="opt-btn" onclick="selOpt(7,this,true)">③ 絹は蚕のまゆの糸からつくられる</button>
+    <button class="opt-btn" onclick="selOpt(7,this,false)">④ 麻はタンパク質が主成分である</button>
+  </div>
+  <div class="feedback" id="fb7"></div>
+</div>
+
+<div class="result-box" id="resultBox">
+  <div class="score" id="scoreDisp"></div>
+  <div class="msg" id="msgDisp"></div>
+  <div class="nav-btns">
+    <button class="btn-retry" onclick="retryAll()">もう一度</button>
+    <a href="SC09_check.html" class="btn-next">check へ進む →</a>
+  </div>
+</div>
+<div class="confetti-wrap" id="confettiWrap"></div>
+</div>
+
+<script>
+var TOTAL = 7;
+var answered = {};
+var wState = {
+  1:{ans:['綿','麻','羊毛','絹'], filled:[], chips:{}, maxFill:4},
+  4:{ans:['弱','強','強','弱'], filled:[], chips:{}, maxFill:4}
+};
+
+function pickW(qn, val, el){
+  var st = wState[qn];
+  if(st.filled.length >= st.maxFill) return;
+  st.filled.push(val);
+  // chipのidはユニーク管理
+  if(!st.chips[st.filled.length]) st.chips[st.filled.length] = [];
+  st.chips[st.filled.length] = el.id;
+  el.classList.add('used');
+  var idx = st.filled.length;
+  var b = document.getElementById('b'+qn+'_'+idx);
+  b.textContent = val;
+  b.classList.remove('empty');
+  if(st.filled.length === st.maxFill){
+    document.getElementById('jb'+qn).disabled = false;
+  }
+}
+
+function clearBlank(qn, idx){
+  var st = wState[qn];
+  if(!st.filled[idx-1] && st.filled[idx-1] !== '') return;
+  var val = st.filled[idx-1];
+  var chipId = st.chips[idx];
+  if(chipId) document.getElementById(chipId).classList.remove('used');
+  var b = document.getElementById('b'+qn+'_'+idx);
+  b.textContent = '（空欄）';
+  b.classList.add('empty');
+  st.filled.splice(idx-1, 1);
+  delete st.chips[idx];
+  for(var i=idx; i<=st.maxFill; i++){
+    var bn = document.getElementById('b'+qn+'_'+i);
+    if(bn){
+      if(st.filled[i-1] !== undefined){
+        bn.textContent = st.filled[i-1];
+        bn.classList.remove('empty');
+      } else {
+        bn.textContent = '（空欄）';
+        bn.classList.add('empty');
+      }
+    }
+  }
+  document.getElementById('jb'+qn).disabled = true;
+}
+
+function judgeW(qn){
+  var st = wState[qn];
+  var fb = document.getElementById('fb'+qn);
+  var correct = true;
+  for(var i=0; i<st.ans.length; i++){
+    if(st.filled[i] !== st.ans[i]){ correct=false; break; }
+  }
+  var wb = document.getElementById('wb'+qn);
+  wb.querySelectorAll('.wchip').forEach(function(c){c.style.pointerEvents='none';});
+  document.getElementById('jb'+qn).disabled = true;
+  if(correct){
+    fb.className='feedback ok';
+    fb.textContent='✅ 正解！';
+    answered[qn]=true;
+  } else {
+    fb.className='feedback ng';
+    fb.textContent='❌ 不正解。正解は ①'+st.ans[0]+' ②'+st.ans[1]+' ③'+st.ans[2]+' ④'+st.ans[3];
+    answered[qn]=false;
+  }
+  updateProgress();
+  checkAll();
+}
+
+function selOpt(qn, el, isCorrect){
+  var opts = document.getElementById('opts'+qn);
+  opts.querySelectorAll('.opt-btn').forEach(function(b){b.disabled=true;});
+  var fb = document.getElementById('fb'+qn);
+  if(isCorrect){
+    el.classList.add('correct');
+    fb.className='feedback ok'; fb.textContent='✅ 正解！';
+    answered[qn]=true;
+  } else {
+    el.classList.add('wrong');
+    opts.querySelectorAll('.opt-btn').forEach(function(b){
+      if(b.onclick.toString().indexOf('true')>-1) b.classList.add('show-correct');
+    });
+    fb.className='feedback ng'; fb.textContent='❌ 不正解。';
+    answered[qn]=false;
+  }
+  updateProgress();
+  checkAll();
+}
+
+function updateProgress(){
+  document.getElementById('progBar').style.width=(Object.keys(answered).length/TOTAL*100)+'%';
+}
+
+function checkAll(){
+  if(Object.keys(answered).length < TOTAL) return;
+  var correct=0;
+  for(var k in answered){if(answered[k])correct++;}
+  document.getElementById('resultBox').style.display='block';
+  document.getElementById('scoreDisp').textContent=correct+' / '+TOTAL;
+  document.getElementById('msgDisp').textContent=correct===TOTAL?'全問正解！🎉':correct>=5?'よくできました！':'drillに戻って復習しよう。';
+  if(correct===TOTAL) showConfetti();
+}
+
+function retryAll(){location.reload();}
+
+function showConfetti(){
+  var wrap=document.getElementById('confettiWrap');
+  var colors=['#ea580c','#fbbf24','#34d399','#60a5fa','#f472b6'];
+  for(var i=0;i<60;i++){
+    var d=document.createElement('div');
+    d.className='cf';
+    d.style.left=Math.random()*100+'%';
+    d.style.top='-10px';
+    d.style.background=colors[Math.floor(Math.random()*colors.length)];
+    d.style.animationDelay=(Math.random()*0.8)+'s';
+    d.style.animationDuration=(0.8+Math.random()*0.6)+'s';
+    d.style.borderRadius=Math.random()>0.5?'50%':'0';
+    wrap.appendChild(d);
+  }
+}
+</script>
+</body>
+</html>

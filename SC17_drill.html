@@ -80,12 +80,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">太陽の表面（光球）の温度として最も近いものを選べ。</div>
     
     <div class="choices" id="choices_2">
-      <label class="choice-label" id="lbl_2_0"><input type="radio" name="q2" value="0" onchange="selectChoice(2,0)"> ① 約400度</label>
-      <label class="choice-label" id="lbl_2_1"><input type="radio" name="q2" value="1" onchange="selectChoice(2,1)"> ② 約6000度</label>
-      <label class="choice-label" id="lbl_2_2"><input type="radio" name="q2" value="2" onchange="selectChoice(2,2)"> ③ 約100万度</label>
-      <label class="choice-label" id="lbl_2_3"><input type="radio" name="q2" value="3" onchange="selectChoice(2,3)"> ④ 約1600万度</label>
+      <label class="choice-label" id="lbl_2_0">
+        <input type="radio" name="q2" value="0" onchange="selectChoice(2,0)"> ① 約400度
+      </label>
+      <label class="choice-label" id="lbl_2_1">
+        <input type="radio" name="q2" value="1" onchange="selectChoice(2,1)"> ② 約100万度
+      </label>
+      <label class="choice-label" id="lbl_2_2">
+        <input type="radio" name="q2" value="2" onchange="selectChoice(2,2)"> ③ 約6000度
+      </label>
+      <label class="choice-label" id="lbl_2_3">
+        <input type="radio" name="q2" value="3" onchange="selectChoice(2,3)"> ④ 約1600万度
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_2" onclick="checkAnswer(2,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_2" onclick="checkAnswer(2,2)">答えを確認する</button>
     <div class="feedback" id="fb_2" style="display:none"></div>
     <div class="hint-box" id="hint_2" style="display:none">光球（太陽の表面）の温度は約<strong>6000度</strong>です。コロナは約100万度、中心核は約1600万度です。</div>
   </div>  <div class="q-card" id="qcard_3">
@@ -97,12 +105,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
       <p class="img-cap">▲ 太陽の構造と各部の温度</p>
     </div>
     <div class="choices" id="choices_3">
-      <label class="choice-label" id="lbl_3_0"><input type="radio" name="q3" value="0" onchange="selectChoice(3,0)"> ① 彩層</label>
-      <label class="choice-label" id="lbl_3_1"><input type="radio" name="q3" value="1" onchange="selectChoice(3,1)"> ② 光球</label>
-      <label class="choice-label" id="lbl_3_2"><input type="radio" name="q3" value="2" onchange="selectChoice(3,2)"> ③ コロナ</label>
-      <label class="choice-label" id="lbl_3_3"><input type="radio" name="q3" value="3" onchange="selectChoice(3,3)"> ④ プロミネンス</label>
+      <label class="choice-label" id="lbl_3_0">
+        <input type="radio" name="q3" value="0" onchange="selectChoice(3,0)"> ① コロナ
+      </label>
+      <label class="choice-label" id="lbl_3_1">
+        <input type="radio" name="q3" value="1" onchange="selectChoice(3,1)"> ② 彩層
+      </label>
+      <label class="choice-label" id="lbl_3_2">
+        <input type="radio" name="q3" value="2" onchange="selectChoice(3,2)"> ③ 光球
+      </label>
+      <label class="choice-label" id="lbl_3_3">
+        <input type="radio" name="q3" value="3" onchange="selectChoice(3,3)"> ④ プロミネンス
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_3" onclick="checkAnswer(3,2)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_3" onclick="checkAnswer(3,0)">答えを確認する</button>
     <div class="feedback" id="fb_3" style="display:none"></div>
     <div class="hint-box" id="hint_3" style="display:none">皆既日食のとき白く輝いて見える最外層の大気が<strong>コロナ</strong>（約100万度）です。赤く見えるのは彩層です。</div>
   </div>  <div class="q-card" id="qcard_4">
@@ -111,12 +127,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">黒点が周囲より暗く（黒く）見える理由は何ですか？</div>
     
     <div class="choices" id="choices_4">
-      <label class="choice-label" id="lbl_4_0"><input type="radio" name="q4" value="0" onchange="selectChoice(4,0)"> ① 物質がなく真空になっているから</label>
-      <label class="choice-label" id="lbl_4_1"><input type="radio" name="q4" value="1" onchange="selectChoice(4,1)"> ② 磁力線が集中し対流が妨げられ温度が低いから</label>
-      <label class="choice-label" id="lbl_4_2"><input type="radio" name="q4" value="2" onchange="selectChoice(4,2)"> ③ 光球の穴から宇宙が見えているから</label>
-      <label class="choice-label" id="lbl_4_3"><input type="radio" name="q4" value="3" onchange="selectChoice(4,3)"> ④ 黒い物質（すす）が堆積しているから</label>
+      <label class="choice-label" id="lbl_4_0">
+        <input type="radio" name="q4" value="0" onchange="selectChoice(4,0)"> ① 物質がなく真空になっているから
+      </label>
+      <label class="choice-label" id="lbl_4_1">
+        <input type="radio" name="q4" value="1" onchange="selectChoice(4,1)"> ② 光球の穴から宇宙が見えているから
+      </label>
+      <label class="choice-label" id="lbl_4_2">
+        <input type="radio" name="q4" value="2" onchange="selectChoice(4,2)"> ③ 黒い物質（すす）が堆積しているから
+      </label>
+      <label class="choice-label" id="lbl_4_3">
+        <input type="radio" name="q4" value="3" onchange="selectChoice(4,3)"> ④ 磁力線が集中し対流が妨げられ温度が低いから
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_4" onclick="checkAnswer(4,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_4" onclick="checkAnswer(4,3)">答えを確認する</button>
     <div class="feedback" id="fb_4" style="display:none"></div>
     <div class="hint-box" id="hint_4" style="display:none">黒点は<strong>磁力線が集中</strong>して対流層からの熱が遮られ、周囲（約6000度）より温度が低い（約4000度）ため暗く見えます。</div>
   </div>  <div class="q-card" id="qcard_5">
@@ -128,12 +152,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
       <p class="img-cap">▲ 3月5日〜15日の黒点の移動</p>
     </div>
     <div class="choices" id="choices_5">
-      <label class="choice-label" id="lbl_5_0"><input type="radio" name="q5" value="0" onchange="selectChoice(5,0)"> ① 太陽は自転しておらず、黒点自体が太陽面を移動している</label>
-      <label class="choice-label" id="lbl_5_1"><input type="radio" name="q5" value="1" onchange="selectChoice(5,1)"> ② 黒点は東から西へ移動しており、太陽は西から東へ自転している</label>
-      <label class="choice-label" id="lbl_5_2"><input type="radio" name="q5" value="2" onchange="selectChoice(5,2)"> ③ 黒点は西から東へ移動しており、太陽は東から西へ自転している</label>
-      <label class="choice-label" id="lbl_5_3"><input type="radio" name="q5" value="3" onchange="selectChoice(5,3)"> ④ 太陽の公転を示している</label>
+      <label class="choice-label" id="lbl_5_0">
+        <input type="radio" name="q5" value="0" onchange="selectChoice(5,0)"> ① 太陽は自転しておらず、黒点自体が太陽面を移動している
+      </label>
+      <label class="choice-label" id="lbl_5_1">
+        <input type="radio" name="q5" value="1" onchange="selectChoice(5,1)"> ② 黒点は西から東へ移動しており、太陽は東から西へ自転している
+      </label>
+      <label class="choice-label" id="lbl_5_2">
+        <input type="radio" name="q5" value="2" onchange="selectChoice(5,2)"> ③ 黒点は東から西へ移動しており、太陽は西から東へ自転している
+      </label>
+      <label class="choice-label" id="lbl_5_3">
+        <input type="radio" name="q5" value="3" onchange="selectChoice(5,3)"> ④ 太陽の公転を示している
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_5" onclick="checkAnswer(5,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_5" onclick="checkAnswer(5,2)">答えを確認する</button>
     <div class="feedback" id="fb_5" style="display:none"></div>
     <div class="hint-box" id="hint_5" style="display:none">黒点は<strong>東から西へ</strong>移動して見えます。これは太陽が<strong>西から東へ自転</strong>しているためです（地球と同じ向き）。</div>
   </div>  <div class="q-card" id="qcard_6">
@@ -142,12 +174,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">黒点数が多いとき（太陽活動が活発なとき）に起こりやすい現象はどれですか？</div>
     
     <div class="choices" id="choices_6">
-      <label class="choice-label" id="lbl_6_0"><input type="radio" name="q6" value="0" onchange="selectChoice(6,0)"> ① 地球の自転が止まる</label>
-      <label class="choice-label" id="lbl_6_1"><input type="radio" name="q6" value="1" onchange="selectChoice(6,1)"> ② 月食が頻繁に起こる</label>
-      <label class="choice-label" id="lbl_6_2"><input type="radio" name="q6" value="2" onchange="selectChoice(6,2)"> ③ フレア（太陽面爆発）が増え、磁気嵐・通信障害が起こる</label>
-      <label class="choice-label" id="lbl_6_3"><input type="radio" name="q6" value="3" onchange="selectChoice(6,3)"> ④ 太陽が膨張して地球に近づく</label>
+      <label class="choice-label" id="lbl_6_0">
+        <input type="radio" name="q6" value="0" onchange="selectChoice(6,0)"> ① フレア（太陽面爆発）が増え、磁気嵐・通信障害が起こる
+      </label>
+      <label class="choice-label" id="lbl_6_1">
+        <input type="radio" name="q6" value="1" onchange="selectChoice(6,1)"> ② 地球の自転が止まる
+      </label>
+      <label class="choice-label" id="lbl_6_2">
+        <input type="radio" name="q6" value="2" onchange="selectChoice(6,2)"> ③ 月食が頻繁に起こる
+      </label>
+      <label class="choice-label" id="lbl_6_3">
+        <input type="radio" name="q6" value="3" onchange="selectChoice(6,3)"> ④ 太陽が膨張して地球に近づく
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_6" onclick="checkAnswer(6,2)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_6" onclick="checkAnswer(6,0)">答えを確認する</button>
     <div class="feedback" id="fb_6" style="display:none"></div>
     <div class="hint-box" id="hint_6" style="display:none">太陽活動が活発（黒点数が多い）なとき、<strong>フレア</strong>が多く発生し、地球では<strong>磁気嵐・オーロラ増加・通信障害</strong>などの影響が出ます。</div>
   </div>  <div class="q-card" id="qcard_7">
@@ -173,12 +213,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
       <p class="img-cap">▲ 太陽定数は大気圏外・垂直面1m²・1秒間のエネルギー</p>
     </div>
     <div class="choices" id="choices_8">
-      <label class="choice-label" id="lbl_8_0"><input type="radio" name="q8" value="0" onchange="selectChoice(8,0)"> ① 地表面1m²が1日間に受ける太陽エネルギー</label>
-      <label class="choice-label" id="lbl_8_1"><input type="radio" name="q8" value="1" onchange="selectChoice(8,1)"> ② 大気圏外で太陽放射に垂直な面1m²が1秒間に受けるエネルギー（約1.4kW）</label>
-      <label class="choice-label" id="lbl_8_2"><input type="radio" name="q8" value="2" onchange="selectChoice(8,2)"> ③ 太陽から1mの距離で受けるエネルギー</label>
-      <label class="choice-label" id="lbl_8_3"><input type="radio" name="q8" value="3" onchange="selectChoice(8,3)"> ④ 地球全体が1年間に受ける太陽エネルギーの総量</label>
+      <label class="choice-label" id="lbl_8_0">
+        <input type="radio" name="q8" value="0" onchange="selectChoice(8,0)"> ① 地表面1m²が1日間に受ける太陽エネルギー
+      </label>
+      <label class="choice-label" id="lbl_8_1">
+        <input type="radio" name="q8" value="1" onchange="selectChoice(8,1)"> ② 太陽から1mの距離で受けるエネルギー
+      </label>
+      <label class="choice-label" id="lbl_8_2">
+        <input type="radio" name="q8" value="2" onchange="selectChoice(8,2)"> ③ 地球全体が1年間に受ける太陽エネルギーの総量
+      </label>
+      <label class="choice-label" id="lbl_8_3">
+        <input type="radio" name="q8" value="3" onchange="selectChoice(8,3)"> ④ 大気圏外で太陽放射に垂直な面1m²が1秒間に受けるエネルギー（約1.4kW）
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_8" onclick="checkAnswer(8,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_8" onclick="checkAnswer(8,3)">答えを確認する</button>
     <div class="feedback" id="fb_8" style="display:none"></div>
     <div class="hint-box" id="hint_8" style="display:none">太陽定数は「<strong>大気圏外で、太陽放射に垂直な面1m²が1秒間に受けるエネルギー</strong>」で、約<strong>1.4 kW/m²</strong>です。</div>
   </div>  <div class="q-card" id="qcard_9">
@@ -232,12 +280,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">よく晴れた夜に気温が大きく下がる「放射冷却」が起こりやすい条件はどれですか？</div>
     
     <div class="choices" id="choices_12">
-      <label class="choice-label" id="lbl_12_0"><input type="radio" name="q12" value="0" onchange="selectChoice(12,0)"> ① 雲が多く湿度が高い夜</label>
-      <label class="choice-label" id="lbl_12_1"><input type="radio" name="q12" value="1" onchange="selectChoice(12,1)"> ② 雲が少なく湿度が低い夜</label>
-      <label class="choice-label" id="lbl_12_2"><input type="radio" name="q12" value="2" onchange="selectChoice(12,2)"> ③ 台風が接近している夜</label>
-      <label class="choice-label" id="lbl_12_3"><input type="radio" name="q12" value="3" onchange="selectChoice(12,3)"> ④ 満月の夜</label>
+      <label class="choice-label" id="lbl_12_0">
+        <input type="radio" name="q12" value="0" onchange="selectChoice(12,0)"> ① 雲が多く湿度が高い夜
+      </label>
+      <label class="choice-label" id="lbl_12_1">
+        <input type="radio" name="q12" value="1" onchange="selectChoice(12,1)"> ② 台風が接近している夜
+      </label>
+      <label class="choice-label" id="lbl_12_2">
+        <input type="radio" name="q12" value="2" onchange="selectChoice(12,2)"> ③ 満月の夜
+      </label>
+      <label class="choice-label" id="lbl_12_3">
+        <input type="radio" name="q12" value="3" onchange="selectChoice(12,3)"> ④ 雲が少なく湿度が低い夜
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_12" onclick="checkAnswer(12,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_12" onclick="checkAnswer(12,3)">答えを確認する</button>
     <div class="feedback" id="fb_12" style="display:none"></div>
     <div class="hint-box" id="hint_12" style="display:none"><strong>雲や水蒸気が少ない</strong>夜は温室効果が弱まり、地表の赤外放射が宇宙へ逃げやすくなって<strong>放射冷却</strong>が起こります。</div>
   </div>  <div class="q-card" id="qcard_13">
@@ -263,12 +319,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">熱の輸送が最も大きい緯度（最大輸送量の緯度）はどのあたりですか？</div>
     
     <div class="choices" id="choices_14">
-      <label class="choice-label" id="lbl_14_0"><input type="radio" name="q14" value="0" onchange="selectChoice(14,0)"> ① 赤道（0°）</label>
-      <label class="choice-label" id="lbl_14_1"><input type="radio" name="q14" value="1" onchange="selectChoice(14,1)"> ② 北緯約20°</label>
-      <label class="choice-label" id="lbl_14_2"><input type="radio" name="q14" value="2" onchange="selectChoice(14,2)"> ③ 北緯約40°</label>
-      <label class="choice-label" id="lbl_14_3"><input type="radio" name="q14" value="3" onchange="selectChoice(14,3)"> ④ 北緯約80°</label>
+      <label class="choice-label" id="lbl_14_0">
+        <input type="radio" name="q14" value="0" onchange="selectChoice(14,0)"> ① 北緯約40°
+      </label>
+      <label class="choice-label" id="lbl_14_1">
+        <input type="radio" name="q14" value="1" onchange="selectChoice(14,1)"> ② 赤道（0°）
+      </label>
+      <label class="choice-label" id="lbl_14_2">
+        <input type="radio" name="q14" value="2" onchange="selectChoice(14,2)"> ③ 北緯約20°
+      </label>
+      <label class="choice-label" id="lbl_14_3">
+        <input type="radio" name="q14" value="3" onchange="selectChoice(14,3)"> ④ 北緯約80°
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_14" onclick="checkAnswer(14,2)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_14" onclick="checkAnswer(14,0)">答えを確認する</button>
     <div class="feedback" id="fb_14" style="display:none"></div>
     <div class="hint-box" id="hint_14" style="display:none">熱の最大輸送量が現れるのは<strong>北緯約40°</strong>付近です。低緯度の余剰熱が高緯度へ運ばれる途中のピーク地点です。</div>
   </div>  <div class="q-card" id="qcard_15">
@@ -305,12 +369,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">太陽の黒点数が増減する周期として最も近いものはどれですか？</div>
     
     <div class="choices" id="choices_17">
-      <label class="choice-label" id="lbl_17_0"><input type="radio" name="q17" value="0" onchange="selectChoice(17,0)"> ① 約1年</label>
-      <label class="choice-label" id="lbl_17_1"><input type="radio" name="q17" value="1" onchange="selectChoice(17,1)"> ② 約11年</label>
-      <label class="choice-label" id="lbl_17_2"><input type="radio" name="q17" value="2" onchange="selectChoice(17,2)"> ③ 約27日</label>
-      <label class="choice-label" id="lbl_17_3"><input type="radio" name="q17" value="3" onchange="selectChoice(17,3)"> ④ 約76年</label>
+      <label class="choice-label" id="lbl_17_0">
+        <input type="radio" name="q17" value="0" onchange="selectChoice(17,0)"> ① 約11年
+      </label>
+      <label class="choice-label" id="lbl_17_1">
+        <input type="radio" name="q17" value="1" onchange="selectChoice(17,1)"> ② 約1年
+      </label>
+      <label class="choice-label" id="lbl_17_2">
+        <input type="radio" name="q17" value="2" onchange="selectChoice(17,2)"> ③ 約27日
+      </label>
+      <label class="choice-label" id="lbl_17_3">
+        <input type="radio" name="q17" value="3" onchange="selectChoice(17,3)"> ④ 約76年
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_17" onclick="checkAnswer(17,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_17" onclick="checkAnswer(17,0)">答えを確認する</button>
     <div class="feedback" id="fb_17" style="display:none"></div>
     <div class="hint-box" id="hint_17" style="display:none">黒点数は約<strong>11年周期</strong>で増減します（太陽活動の周期）。</div>
   </div>  <div class="q-card" id="qcard_18">
@@ -319,12 +391,20 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     <div class="q-text">大気がエネルギーを吸収する気体として正しいものを選べ。</div>
     
     <div class="choices" id="choices_18">
-      <label class="choice-label" id="lbl_18_0"><input type="radio" name="q18" value="0" onchange="selectChoice(18,0)"> ① 窒素・酸素・アルゴン</label>
-      <label class="choice-label" id="lbl_18_1"><input type="radio" name="q18" value="1" onchange="selectChoice(18,1)"> ② オゾン・水蒸気・二酸化炭素</label>
-      <label class="choice-label" id="lbl_18_2"><input type="radio" name="q18" value="2" onchange="selectChoice(18,2)"> ③ ヘリウム・水素・ネオン</label>
-      <label class="choice-label" id="lbl_18_3"><input type="radio" name="q18" value="3" onchange="selectChoice(18,3)"> ④ 一酸化炭素・窒素・アルゴン</label>
+      <label class="choice-label" id="lbl_18_0">
+        <input type="radio" name="q18" value="0" onchange="selectChoice(18,0)"> ① 窒素・酸素・アルゴン
+      </label>
+      <label class="choice-label" id="lbl_18_1">
+        <input type="radio" name="q18" value="1" onchange="selectChoice(18,1)"> ② ヘリウム・水素・ネオン
+      </label>
+      <label class="choice-label" id="lbl_18_2">
+        <input type="radio" name="q18" value="2" onchange="selectChoice(18,2)"> ③ 一酸化炭素・窒素・アルゴン
+      </label>
+      <label class="choice-label" id="lbl_18_3">
+        <input type="radio" name="q18" value="3" onchange="selectChoice(18,3)"> ④ オゾン・水蒸気・二酸化炭素
+      </label>
     </div>
-    <button class="ans-btn" id="ansbtn_18" onclick="checkAnswer(18,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_18" onclick="checkAnswer(18,3)">答えを確認する</button>
     <div class="feedback" id="fb_18" style="display:none"></div>
     <div class="hint-box" id="hint_18" style="display:none">太陽放射を吸収する大気中の気体は<strong>オゾン・水蒸気・二酸化炭素</strong>です。窒素や酸素は太陽放射をほとんど吸収しません。</div>
   </div>

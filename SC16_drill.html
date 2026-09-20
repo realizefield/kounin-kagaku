@@ -71,16 +71,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q1" value="0" onchange="selectChoice(1,0)"> ① 東から西
       </label>
       <label class="choice-label" id="lbl_1_1">
-        <input type="radio" name="q1" value="1" onchange="selectChoice(1,1)"> ② 西から東
+        <input type="radio" name="q1" value="1" onchange="selectChoice(1,1)"> ② 南から北
       </label>
       <label class="choice-label" id="lbl_1_2">
-        <input type="radio" name="q1" value="2" onchange="selectChoice(1,2)"> ③ 南から北
+        <input type="radio" name="q1" value="2" onchange="selectChoice(1,2)"> ③ 西から東
       </label>
       <label class="choice-label" id="lbl_1_3">
         <input type="radio" name="q1" value="3" onchange="selectChoice(1,3)"> ④ 北から南
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_1" onclick="checkAnswer(1,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_1" onclick="checkAnswer(1,2)">答えを確認する</button>
     <div class="feedback" id="fb_1" style="display:none"></div>
     <div class="hint-box" id="hint_1" style="display:none">地球は<strong>西から東</strong>へ自転しています。だから太陽は東から昇り西に沈むように見えます。</div>
   </div>
@@ -121,16 +121,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q3" value="0" onchange="selectChoice(3,0)"> ① A
       </label>
       <label class="choice-label" id="lbl_3_1">
-        <input type="radio" name="q3" value="1" onchange="selectChoice(3,1)"> ② B
+        <input type="radio" name="q3" value="1" onchange="selectChoice(3,1)"> ② C
       </label>
       <label class="choice-label" id="lbl_3_2">
-        <input type="radio" name="q3" value="2" onchange="selectChoice(3,2)"> ③ C
+        <input type="radio" name="q3" value="2" onchange="selectChoice(3,2)"> ③ D
       </label>
       <label class="choice-label" id="lbl_3_3">
-        <input type="radio" name="q3" value="3" onchange="selectChoice(3,3)"> ④ D
+        <input type="radio" name="q3" value="3" onchange="selectChoice(3,3)"> ④ B
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_3" onclick="checkAnswer(3,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_3" onclick="checkAnswer(3,3)">答えを確認する</button>
     <div class="feedback" id="fb_3" style="display:none"></div>
     <div class="hint-box" id="hint_3" style="display:none">北半球が太陽側に傾くとき（北極側が太陽を向くとき）が夏です。図の<strong>B</strong>の位置にあたります。</div>
   </div>
@@ -141,10 +141,10 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     
     <div class="choices" id="choices_4">
       <label class="choice-label" id="lbl_4_0">
-        <input type="radio" name="q4" value="0" onchange="selectChoice(4,0)"> ① 東から西（左から右）
+        <input type="radio" name="q4" value="0" onchange="selectChoice(4,0)"> ① 西から東（右から左）
       </label>
       <label class="choice-label" id="lbl_4_1">
-        <input type="radio" name="q4" value="1" onchange="selectChoice(4,1)"> ② 西から東（右から左）
+        <input type="radio" name="q4" value="1" onchange="selectChoice(4,1)"> ② 東から西（左から右）
       </label>
       <label class="choice-label" id="lbl_4_2">
         <input type="radio" name="q4" value="2" onchange="selectChoice(4,2)"> ③ 上から下
@@ -153,7 +153,7 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q4" value="3" onchange="selectChoice(4,3)"> ④ 動かない
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_4" onclick="checkAnswer(4,0)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_4" onclick="checkAnswer(4,1)">答えを確認する</button>
     <div class="feedback" id="fb_4" style="display:none"></div>
     <div class="hint-box" id="hint_4" style="display:none">南の空の星は<strong>東から西（左から右）</strong>へ動いて見えます。地球が西から東へ自転しているためです。</div>
   </div>
@@ -168,19 +168,19 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     </div>
     <div class="choices" id="choices_5">
       <label class="choice-label" id="lbl_5_0">
-        <input type="radio" name="q5" value="0" onchange="selectChoice(5,0)"> ① 右ななめ上に動く
+        <input type="radio" name="q5" value="0" onchange="selectChoice(5,0)"> ① 左ななめ上に動く
       </label>
       <label class="choice-label" id="lbl_5_1">
-        <input type="radio" name="q5" value="1" onchange="selectChoice(5,1)"> ② 左ななめ上に動く
+        <input type="radio" name="q5" value="1" onchange="selectChoice(5,1)"> ② 真横に右へ動く
       </label>
       <label class="choice-label" id="lbl_5_2">
-        <input type="radio" name="q5" value="2" onchange="selectChoice(5,2)"> ③ 真横に右へ動く
+        <input type="radio" name="q5" value="2" onchange="selectChoice(5,2)"> ③ 右ななめ上に動く
       </label>
       <label class="choice-label" id="lbl_5_3">
         <input type="radio" name="q5" value="3" onchange="selectChoice(5,3)"> ④ 真横に左へ動く
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_5" onclick="checkAnswer(5,0)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_5" onclick="checkAnswer(5,2)">答えを確認する</button>
     <div class="feedback" id="fb_5" style="display:none"></div>
     <div class="hint-box" id="hint_5" style="display:none">東の空の星は<strong>右ななめ上（南東方向）</strong>へ動いて見えます。</div>
   </div>
@@ -194,16 +194,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q6" value="0" onchange="selectChoice(6,0)"> ① 1太陽日（約24時間）
       </label>
       <label class="choice-label" id="lbl_6_1">
-        <input type="radio" name="q6" value="1" onchange="selectChoice(6,1)"> ② 1恒星日（約23時間56分）
+        <input type="radio" name="q6" value="1" onchange="selectChoice(6,1)"> ② 1朔望月（約29.5日）
       </label>
       <label class="choice-label" id="lbl_6_2">
-        <input type="radio" name="q6" value="2" onchange="selectChoice(6,2)"> ③ 1朔望月（約29.5日）
+        <input type="radio" name="q6" value="2" onchange="selectChoice(6,2)"> ③ 1太陽年（約365日）
       </label>
       <label class="choice-label" id="lbl_6_3">
-        <input type="radio" name="q6" value="3" onchange="selectChoice(6,3)"> ④ 1太陽年（約365日）
+        <input type="radio" name="q6" value="3" onchange="selectChoice(6,3)"> ④ 1恒星日（約23時間56分）
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_6" onclick="checkAnswer(6,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_6" onclick="checkAnswer(6,3)">答えを確認する</button>
     <div class="feedback" id="fb_6" style="display:none"></div>
     <div class="hint-box" id="hint_6" style="display:none"><strong>1恒星日（約23時間56分）</strong>です。1太陽日（24時間）より約4分短いのは、地球が自転しながら同時に公転しているためです。</div>
   </div>
@@ -268,10 +268,10 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     </div>
     <div class="choices" id="choices_9">
       <label class="choice-label" id="lbl_9_0">
-        <input type="radio" name="q9" value="0" onchange="selectChoice(9,0)"> ① 約1度
+        <input type="radio" name="q9" value="0" onchange="selectChoice(9,0)"> ① 約15度
       </label>
       <label class="choice-label" id="lbl_9_1">
-        <input type="radio" name="q9" value="1" onchange="selectChoice(9,1)"> ② 約15度
+        <input type="radio" name="q9" value="1" onchange="selectChoice(9,1)"> ② 約1度
       </label>
       <label class="choice-label" id="lbl_9_2">
         <input type="radio" name="q9" value="2" onchange="selectChoice(9,2)"> ③ 約30度
@@ -280,7 +280,7 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q9" value="3" onchange="selectChoice(9,3)"> ④ 約360度
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_9" onclick="checkAnswer(9,0)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_9" onclick="checkAnswer(9,1)">答えを確認する</button>
     <div class="feedback" id="fb_9" style="display:none"></div>
     <div class="hint-box" id="hint_9" style="display:none">年周運動では1日に約<strong>1度</strong>（360度÷365日）ずつ西へずれて見えます。</div>
   </div>
@@ -291,19 +291,19 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     
     <div class="choices" id="choices_10">
       <label class="choice-label" id="lbl_10_0">
-        <input type="radio" name="q10" value="0" onchange="selectChoice(10,0)"> ① 354日
+        <input type="radio" name="q10" value="0" onchange="selectChoice(10,0)"> ① 365日
       </label>
       <label class="choice-label" id="lbl_10_1">
-        <input type="radio" name="q10" value="1" onchange="selectChoice(10,1)"> ② 360日
+        <input type="radio" name="q10" value="1" onchange="selectChoice(10,1)"> ② 354日
       </label>
       <label class="choice-label" id="lbl_10_2">
-        <input type="radio" name="q10" value="2" onchange="selectChoice(10,2)"> ③ 365日
+        <input type="radio" name="q10" value="2" onchange="selectChoice(10,2)"> ③ 360日
       </label>
       <label class="choice-label" id="lbl_10_3">
         <input type="radio" name="q10" value="3" onchange="selectChoice(10,3)"> ④ 366日
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_10" onclick="checkAnswer(10,2)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_10" onclick="checkAnswer(10,0)">答えを確認する</button>
     <div class="feedback" id="fb_10" style="display:none"></div>
     <div class="hint-box" id="hint_10" style="display:none">太陽暦の1年は<strong>365日</strong>です。実際の1太陽年は約365.25日なので4年に1度うるう年（366日）を設けます。</div>
   </div>
@@ -314,19 +314,19 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     
     <div class="choices" id="choices_11">
       <label class="choice-label" id="lbl_11_0">
-        <input type="radio" name="q11" value="0" onchange="selectChoice(11,0)"> ① 約354日・約11日短い
+        <input type="radio" name="q11" value="0" onchange="selectChoice(11,0)"> ① 約360日・約5日短い
       </label>
       <label class="choice-label" id="lbl_11_1">
-        <input type="radio" name="q11" value="1" onchange="selectChoice(11,1)"> ② 約360日・約5日短い
+        <input type="radio" name="q11" value="1" onchange="selectChoice(11,1)"> ② 約370日・約5日長い
       </label>
       <label class="choice-label" id="lbl_11_2">
-        <input type="radio" name="q11" value="2" onchange="selectChoice(11,2)"> ③ 約370日・約5日長い
+        <input type="radio" name="q11" value="2" onchange="selectChoice(11,2)"> ③ 約365日・ほぼ同じ
       </label>
       <label class="choice-label" id="lbl_11_3">
-        <input type="radio" name="q11" value="3" onchange="selectChoice(11,3)"> ④ 約365日・ほぼ同じ
+        <input type="radio" name="q11" value="3" onchange="selectChoice(11,3)"> ④ 約354日・約11日短い
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_11" onclick="checkAnswer(11,0)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_11" onclick="checkAnswer(11,3)">答えを確認する</button>
     <div class="feedback" id="fb_11" style="display:none"></div>
     <div class="hint-box" id="hint_11" style="display:none">1朔望月≒29.5日×12か月≒<strong>354日</strong>。太陽暦365日より約<strong>11日短い</strong>です。</div>
   </div>
@@ -340,16 +340,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q12" value="0" onchange="selectChoice(12,0)"> ① 毎年1日ずつ追加する
       </label>
       <label class="choice-label" id="lbl_12_1">
-        <input type="radio" name="q12" value="1" onchange="selectChoice(12,1)"> ② 3年に1度うるう月（13か月）を設ける
+        <input type="radio" name="q12" value="1" onchange="selectChoice(12,1)"> ② 4年に1度うるう日を設ける
       </label>
       <label class="choice-label" id="lbl_12_2">
-        <input type="radio" name="q12" value="2" onchange="selectChoice(12,2)"> ③ 4年に1度うるう日を設ける
+        <input type="radio" name="q12" value="2" onchange="selectChoice(12,2)"> ③ 3年に1度うるう月（13か月）を設ける
       </label>
       <label class="choice-label" id="lbl_12_3">
         <input type="radio" name="q12" value="3" onchange="selectChoice(12,3)"> ④ 毎月1日ずつ差し引く
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_12" onclick="checkAnswer(12,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_12" onclick="checkAnswer(12,2)">答えを確認する</button>
     <div class="feedback" id="fb_12" style="display:none"></div>
     <div class="hint-box" id="hint_12" style="display:none">太陰太陽暦は<strong>3年に1度うるう月</strong>（13か月の年）を設けて、季節とのズレを補正します。</div>
   </div>
@@ -364,19 +364,19 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
     </div>
     <div class="choices" id="choices_13">
       <label class="choice-label" id="lbl_13_0">
-        <input type="radio" name="q13" value="0" onchange="selectChoice(13,0)"> ① A（新月から満月の間・右側が光る）
+        <input type="radio" name="q13" value="0" onchange="selectChoice(13,0)"> ① B（満月・全面が光る）
       </label>
       <label class="choice-label" id="lbl_13_1">
-        <input type="radio" name="q13" value="1" onchange="selectChoice(13,1)"> ② B（満月・全面が光る）
+        <input type="radio" name="q13" value="1" onchange="selectChoice(13,1)"> ② C（満月から新月の間・左側が光る）
       </label>
       <label class="choice-label" id="lbl_13_2">
-        <input type="radio" name="q13" value="2" onchange="selectChoice(13,2)"> ③ C（満月から新月の間・左側が光る）
+        <input type="radio" name="q13" value="2" onchange="selectChoice(13,2)"> ③ A（新月から満月の間・右側が光る）
       </label>
       <label class="choice-label" id="lbl_13_3">
         <input type="radio" name="q13" value="3" onchange="selectChoice(13,3)"> ④ D（新月・見えない）
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_13" onclick="checkAnswer(13,0)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_13" onclick="checkAnswer(13,2)">答えを確認する</button>
     <div class="feedback" id="fb_13" style="display:none"></div>
     <div class="hint-box" id="hint_13" style="display:none">上弦の月は太陽から東に90°の位置（Aの右側）。<strong>右半分が光って</strong>見え、夕方6時ごろ南中します。</div>
   </div>
@@ -413,16 +413,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q15" value="0" onchange="selectChoice(15,0)"> ① 月の公転速度が遅くなるから
       </label>
       <label class="choice-label" id="lbl_15_1">
-        <input type="radio" name="q15" value="1" onchange="selectChoice(15,1)"> ② 地球自身も太陽のまわりを公転しているため、同じ月・太陽・地球の配置に戻るまで余分に時間がかかるから
+        <input type="radio" name="q15" value="1" onchange="selectChoice(15,1)"> ② 月の自転周期が影響しているから
       </label>
       <label class="choice-label" id="lbl_15_2">
-        <input type="radio" name="q15" value="2" onchange="selectChoice(15,2)"> ③ 月の自転周期が影響しているから
+        <input type="radio" name="q15" value="2" onchange="selectChoice(15,2)"> ③ 太陽の引力で月が引き戻されるから
       </label>
       <label class="choice-label" id="lbl_15_3">
-        <input type="radio" name="q15" value="3" onchange="selectChoice(15,3)"> ④ 太陽の引力で月が引き戻されるから
+        <input type="radio" name="q15" value="3" onchange="selectChoice(15,3)"> ④ 地球自身も太陽のまわりを公転しているため、同じ月・太陽・地球の配置に戻るまで余分に時間がかかるから
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_15" onclick="checkAnswer(15,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_15" onclick="checkAnswer(15,3)">答えを確認する</button>
     <div class="feedback" id="fb_15" style="display:none"></div>
     <div class="hint-box" id="hint_15" style="display:none">地球も公転しているため、月が1周しても地球が動いた分だけ余分に動かないと<strong>同じ位置関係（新月）</strong>に戻れないからです。</div>
   </div>
@@ -463,16 +463,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q17" value="0" onchange="selectChoice(17,0)"> ① 太陽の引力が反対側を引っ張るから
       </label>
       <label class="choice-label" id="lbl_17_1">
-        <input type="radio" name="q17" value="1" onchange="selectChoice(17,1)"> ② 月の引力が地球の重心より弱い側では相対的に海水が盛り上がる（起潮力が逆向きにはたらく）から
+        <input type="radio" name="q17" value="1" onchange="selectChoice(17,1)"> ② 地球の自転による遠心力で海水が飛び出すから
       </label>
       <label class="choice-label" id="lbl_17_2">
-        <input type="radio" name="q17" value="2" onchange="selectChoice(17,2)"> ③ 地球の自転による遠心力で海水が飛び出すから
+        <input type="radio" name="q17" value="2" onchange="selectChoice(17,2)"> ③ 月の引力が地球の重心より弱い側では相対的に海水が盛り上がる（起潮力が逆向きにはたらく）から
       </label>
       <label class="choice-label" id="lbl_17_3">
         <input type="radio" name="q17" value="3" onchange="selectChoice(17,3)"> ④ 地球内部のマグマが反対側を押し上げるから
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_17" onclick="checkAnswer(17,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_17" onclick="checkAnswer(17,2)">答えを確認する</button>
     <div class="feedback" id="fb_17" style="display:none"></div>
     <div class="hint-box" id="hint_17" style="display:none">起潮力は月に近い側では<strong>月向き</strong>、遠い側では<strong>月と逆向き</strong>にはたらくため、両側で海水が盛り上がり満潮になります。</div>
   </div>
@@ -486,16 +486,16 @@ header p { font-size: 12px; margin-top: 4px; opacity: 0.9; }
         <input type="radio" name="q18" value="0" onchange="selectChoice(18,0)"> ① 1回
       </label>
       <label class="choice-label" id="lbl_18_1">
-        <input type="radio" name="q18" value="1" onchange="selectChoice(18,1)"> ② 2回
+        <input type="radio" name="q18" value="1" onchange="selectChoice(18,1)"> ② 4回
       </label>
       <label class="choice-label" id="lbl_18_2">
-        <input type="radio" name="q18" value="2" onchange="selectChoice(18,2)"> ③ 4回
+        <input type="radio" name="q18" value="2" onchange="selectChoice(18,2)"> ③ 12回
       </label>
       <label class="choice-label" id="lbl_18_3">
-        <input type="radio" name="q18" value="3" onchange="selectChoice(18,3)"> ④ 12回
+        <input type="radio" name="q18" value="3" onchange="selectChoice(18,3)"> ④ 2回
       </label>
     </div>
-    <button class="ans-btn" id="ansbtn_18" onclick="checkAnswer(18,1)">答えを確認する</button>
+    <button class="ans-btn" id="ansbtn_18" onclick="checkAnswer(18,3)">答えを確認する</button>
     <div class="feedback" id="fb_18" style="display:none"></div>
     <div class="hint-box" id="hint_18" style="display:none">地球は1日1回自転するため、<strong>月に近い側と遠い側（2か所で満潮）</strong>が1日に2回やってきます。よって満潮は1日に約<strong>2回</strong>です。</div>
   </div>
